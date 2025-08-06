@@ -3,562 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module 1: Python Fundamentals & Business Context | IAF 601</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        /* Enhanced Professional Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7fa;
-            color: #333;
-        }
-        header {
-            background: linear-gradient(to right, #0d6efd, #6610f2);
-            padding: 3rem 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .navbar {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-        .navbar-nav .nav-link {
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .navbar-nav .nav-link:hover {
-            color: #0d6efd !important;
-        }
-        .section-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        .box-icon {
-            margin-right: 0.5rem;
-            color: inherit;
-        }
-        .accordion-button {
-            font-weight: 600;
-        }
-        footer {
-            background: #212529;
-            color: #fff;
-            padding: 1.5rem 0;
-            font-size: 0.9rem;
-        }
-        pre code {
-            border-radius: 5px;
-            font-size: 0.95rem;
-        }
-    </style>
+    <title>IAF 603 - Preparing Data for Analytics</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- MathJax CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Custom MathJax Configuration -->
+    <script src="./js/mathjax.js"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <header class="text-white text-center">
-        <h1 class="display-4 fw-bold">IAF 601 - Module 1: Python Fundamentals & Business Context</h1>
-        <p class="lead">For MSIA Students at UNCG - Fall 2025</p>
-        <p class="fst-italic">Instructor: Ali Noori, Lecturer, Informatics & Analytics, UNCG</p>
-    </header>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">IAF 601</a>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">IAF 603: Preparing Data for Analytics</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="module1.html">Module 1</a></li>
-                    <!-- Add links to other modules as needed, e.g., <li class="nav-item"><a class="nav-link" href="module2.html">Module 2</a></li> -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#modules">Modules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search Module" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
 
-    <main class="container my-5">
-        <div class="row">
-            <div class="col-lg-3 order-lg-last">
-                <div class="sticky-top pt-3">
-                    <h5 class="fw-bold mb-3"><i class="fas fa-list-ul me-2"></i>Table of Contents</h5>
-                    <ul class="list-unstyled ps-3">
-                        <li><a href="#chapter1" class="text-decoration-none">Chapter 1: Comprehensive Tutorial</a></li>
-                        <li><a href="#chapter2" class="text-decoration-none">Chapter 2: Practice Exercises</a></li>
-                        <li><a href="#chapter3" class="text-decoration-none">Chapter 3: Business Applications</a></li>
-                        <li><a href="#chapter4" class="text-decoration-none">Chapter 4: Capstone Challenge Project</a></li>
-                        <li><a href="#chapter5" class="text-decoration-none">Chapter 5: Solutions</a></li>
-                        <li><a href="#glossary" class="text-decoration-none">Glossary</a></li>
-                        <li><a href="#faq" class="text-decoration-none">FAQ</a></li>
-                    </ul>
-                </div>
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Hero Section -->
+        <section class="text-center py-5 bg-white rounded shadow">
+            <h1 class="display-4 fw-bold text-dark">IAF 603 - Preparing Data for Analytics</h1>
+            <p class="lead text-muted mt-3">For MSIA Students at UNCG</p>
+            <p class="text-muted">Fall 2025</p>
+        </section>
+
+        <!-- Course Overview -->
+        <section id="overview" class="my-5">
+            <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Course Overview</h2>
+            <div class="bg-white p-4 rounded shadow">
+                <p class="text-muted lead">
+                    The IAF 603: Preparing Data for Analytics course is a cornerstone of the Master of Science in Informatics and Analytics (MSIA) program at the University of North Carolina at Greensboro (UNCG). This course equips students with the essential skills to manage, clean, and transform structured, semi-structured, and unstructured data for analytics. Through 14 modules, students will master SQL and Spark SQL, learning to handle real-world datasets with techniques like data cleaning, normalization, joins, and advanced querying. Designed for both beginners and those with some programming experience, this course prepares you for data-driven decision-making in fields like healthcare, business, and informatics.
+                </p>
             </div>
-            <div class="col-lg-9">
-                <div class="section-card recapbox">
-                    <h2><i class="fas fa-sync-alt me-2 box-icon"></i>Recap from Previous Modules</h2>
-                    <p>This initial module assumes familiarity with basic computer operations, such as using a keyboard and mouse, and launching applications. No prior programming experience is required; the content starts from fundamental concepts. For those with programming background, this serves as a review.</p>
-                </div>
+        </section>
 
-                <div id="chapter1" class="section-card">
-                    <h2><i class="fas fa-book-open me-2"></i>Chapter 1: Comprehensive Tutorial</h2>
-
-                    <h3>Business Context</h3>
-                    <div class="businesscontext">
-                        <p><i class="fas fa-briefcase me-2 box-icon"></i>Python serves as a fundamental tool in data analytics, enabling businesses to process and analyze data effectively. For instance, in sales operations, it facilitates profit calculations, while in healthcare, it supports patient record management. Its importance lies in empowering informed decision-making through data-driven insights. In informatics, Python is utilized for handling gene sequences or geospatial coordinates, transforming raw data into valuable knowledge.</p>
-                    </div>
-
-                    <h3>Section 1: Variables and Assignment</h3>
-                    <p>Variables are used to store data in Python. A variable is a named location in memory that holds a value, enhancing code reusability by allowing values to be referenced by name. Assignment is performed using the = operator, as in <code>name = value</code>. For example, in a business setting, a variable might store sales figures.</p>
-                    <div class="explainbox">
-                        <p><i class="fas fa-info-circle me-2 box-icon"></i>A variable functions as a labeled container for data, facilitating easy updates to values without modifying the underlying code. Assignment is achieved using the = operator. A common error is omitting the assignment operator; ensure it is always included. In practical applications, such as gene analysis, variables can represent sequence counts. An analogy is naming a file for convenient reference. In summary, variables provide an efficient means to store and reference data.</p>
-                    </div>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python"># Assign sales to a variable
-sales = 1000  # This is sales in dollars</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>No output, but sales now holds 1000.</p>
-                    </div>
-                    <p>In health analytics, variables can store patient ages. In cultural analytics, they can hold word counts from text.</p>
-                    <div class="businessinsight">
-                        <p><i class="fas fa-lightbulb me-2 box-icon"></i>In geospatial analytics, variables can represent latitude values, aiding in mapping locations.</p>
-                    </div>
-
-                    <h3>Section 2: Data Types</h3>
-                    <p>Data types specify the nature of stored values. Common types include integers (int) for whole numbers, floats for decimal values, strings (str) for text, and booleans (bool) for true/false conditions. Understanding data types is crucial because operations are type-dependent, and Python automatically infers types.</p>
-                    <div class="explainbox">
-                        <p><i class="fas fa-info-circle me-2 box-icon"></i>Data types indicate the category of information stored, preventing errors such as adding text to numbers. Use the type() function to verify a value's type. A common mistake is mixing incompatible types; resolve this by converting types as needed. In biological applications, integers might represent gene counts. An analogy is categorizing items in a refrigerator. In summary, data types ensure appropriate operations on values.</p>
-                    </div>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python"># Examples of data types
-age = 30  # int
-height = 5.9  # float
-name = "Alice"  # str
-is_student = True  # bool
-print(type(age))  # Check type</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>&lt;class 'int'&gt;</p>
-                    </div>
-                    <p>In computational analytics, floats are used for precise calculations. In bioinformatics, strings represent DNA sequences.</p>
-
-                    <h3>Section 3: Basic Operations</h3>
-                    <p>Basic operations allow data manipulation through arithmetic such as addition (+), subtraction (-), multiplication (*), and division (/).</p>
-                    <div class="explainbox">
-                        <p><i class="fas fa-info-circle me-2 box-icon"></i>These operations perform mathematical computations on variables. They are essential for data analysis, such as calculating profits. For example, tax can be computed as sales * 0.1. A common mistake is expecting integer division from /; use // for floor division. In patient analysis, operations can sum costs. An analogy is using calculator functions. In summary, operations enable data transformation.</p>
-                    </div>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python"># Arithmetic operations
-profit = sales - 800  # Subtract costs
-tax = profit * 0.05  # Multiply for tax
-print(profit, tax)</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>200 10.0</p>
-                    </div>
-                    <p>For strings, concatenation is performed using +. In cultural analytics, this can join words. In geography, operations can combine coordinates.</p>
-
-                    <h3>Section 4: Print and Formatting</h3>
-                    <p>The print function displays output to the console, essential for viewing results and debugging.</p>
-                    <div class="explainbox">
-                        <p><i class="fas fa-info-circle me-2 box-icon"></i>Printing outputs values to the screen for verification and reporting. Use print("Hello", name) to display multiple items. A common mistake is omitting quotes around strings; ensure strings are enclosed in quotes. In business applications, printing generates reports. An analogy is verbalizing thoughts. In summary, the print function facilitates information sharing.</p>
-                    </div>
-                    <p>For formatting, f-strings provide an efficient method: <code>f"Name: {name}"</code>.</p>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python"># Formatting output
-print(f"Patient age: {age}, Height: {height:.2f}")</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>Patient age: 30, Height: 5.90</p>
-                    </div>
-                    <p>In healthcare, formatted output can summarize patient information. In biology, it can present gene statistics.</p>
-
-                    <h3>Section 5: Type Conversion and Input</h3>
-                    <p>Type conversion changes data from one type to another using functions like int(), float(), and str(), enabling compatible operations.</p>
-                    <div class="explainbox">
-                        <p><i class="fas fa-info-circle me-2 box-icon"></i>Type conversion adjusts data types for compatibility in operations. For example, age = int("30"). A common error is attempting to convert non-numeric strings; validate input beforehand. In file processing, conversion is often required for text data. An analogy is translating between languages. In summary, conversion ensures data interoperability.</p>
-                    </div>
-                    <p>Input retrieves user data via the input function: <code>value = input("Enter:")</code>.</p>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python"># Input and conversion
-user_input = input("Enter sales: ")
-sales = float(user_input)
-print(sales + 100)</code></pre>
-                    </div>
-                    <p>In informatics projects, input can facilitate user queries.</p>
-                    <div class="keypoints">
-                        <p><i class="fas fa-check-circle me-2 box-icon"></i><strong>Key Points:</strong></p>
-                        <ul>
-                            <li>Variables provide named storage for data.</li>
-                            <li>Data types include int, float, str, and bool.</li>
-                            <li>Basic operations encompass +, -, *, and /.</li>
-                            <li>The print function displays output.</li>
-                            <li>Type conversion is essential for compatibility.</li>
-                        </ul>
-                        <p>These fundamentals form the basis for more advanced concepts.</p>
-                    </div>
-                </div>
-
-                <div id="chapter2" class="section-card">
-                    <h2><i class="fas fa-pencil-alt me-2"></i>Chapter 2: Practice Exercises</h2>
-                    <div class="accordion" id="exercisesAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingFoundation">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFoundation" aria-expanded="false" aria-controls="collapseFoundation">
-                                    Foundation Exercise: Create Variables
-                                </button>
-                            </h2>
-                            <div id="collapseFoundation" class="accordion-collapse collapse" aria-labelledby="headingFoundation">
-                                <div class="accordion-body">
-                                    <p>Description: Define variables for a patient's name and age, then print them.</p>
-                                    <div class="tipbox">
-                                        <p><i class="fas fa-lightbulb me-2 box-icon"></i>Use descriptive names such as <code>patient_name</code>.</p>
-                                    </div>
-                                    <p>Hint: <code>patient_name = "Bob"</code> and <code>print()</code>.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingBuilding">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBuilding" aria-expanded="false" aria-controls="collapseBuilding">
-                                    Building Exercise: Data Types Check
-                                </button>
-                            </h2>
-                            <div id="collapseBuilding" class="accordion-collapse collapse" aria-labelledby="headingBuilding">
-                                <div class="accordion-body">
-                                    <p>Description: Assign values of different types and use type() to verify them. In a gene analysis project, assign sequence length (int) and mutation rate (float).</p>
-                                    <div class="tipbox">
-                                        <p><i class="fas fa-lightbulb me-2 box-icon"></i>No imports are required at this stage.</p>
-                                    </div>
-                                    <p>Hint: <code>seq_len = 100; print(type(seq_len))</code>.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingIntermediate">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIntermediate" aria-expanded="false" aria-controls="collapseIntermediate">
-                                    Intermediate Exercise: Basic Calculations
-                                </button>
-                            </h2>
-                            <div id="collapseIntermediate" class="accordion-collapse collapse" aria-labelledby="headingIntermediate">
-                                <div class="accordion-body">
-                                    <p>Description: Calculate the area of a rectangle using length * width in a geospatial project.</p>
-                                    <div class="tipbox">
-                                        <p><i class="fas fa-lightbulb me-2 box-icon"></i>Employ floats for accuracy.</p>
-                                    </div>
-                                    <p>Hint: <code>area = length * width</code>.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingAdvanced">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdvanced" aria-expanded="false" aria-controls="collapseAdvanced">
-                                    Advanced Exercise: String Operations
-                                </button>
-                            </h2>
-                            <div id="collapseAdvanced" class="accordion-collapse collapse" aria-labelledby="headingAdvanced">
-                                <div class="accordion-body">
-                                    <p>Description: Concatenate strings representing cultural trends by joining words with spaces.</p>
-                                    <div class="tipbox">
-                                        <p><i class="fas fa-lightbulb me-2 box-icon"></i>Utilize + or f-strings for concatenation.</p>
-                                    </div>
-                                    <p>Hint: <code>trend = word1 + " " + word2</code>.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingMastery">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMastery" aria-expanded="false" aria-controls="collapseMastery">
-                                    Mastery Exercise: Input and Conversion
-                                </button>
-                            </h2>
-                            <div id="collapseMastery" class="accordion-collapse collapse" aria-labelledby="headingMastery">
-                                <div class="accordion-body">
-                                    <p>Description: Accept sales and cost inputs, compute profit, ensuring conversion to float. From business informatics.</p>
-                                    <div class="tipbox">
-                                        <p><i class="fas fa-lightbulb me-2 box-icon"></i>Carefully manage user input to avoid errors.</p>
-                                    </div>
-                                    <p>Hint: <code>sales = float(input("Sales:"))</code>.</p>
-                                </div>
-                            </div>
+        <!-- Modules Section -->
+        <section id="modules" class="my-5">
+            <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Course Modules</h2>
+            <div class="accordion" id="modulesAccordion">
+                <!-- Module 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading1">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                            Module 1: Introduction to Data in Informatics
+                        </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">This module introduces the diverse forms of data—structured, semi-structured, and unstructured—and their roles in informatics. You'll explore data quality dimensions and their impact on analysis, setting the foundation for SQL and Spark techniques.</p>
+                            <a href="./module1.html" class="btn btn-primary">View Module</a>
                         </div>
                     </div>
                 </div>
-
-                <div id="chapter3" class="section-card">
-                    <h2><i class="fas fa-briefcase me-2"></i>Chapter 3: Business Applications</h2>
-
-                    <div class="card mb-3">
-                        <div class="card-header bg-primary text-white">
-                            <h3 class="card-title mb-0">Application 1: Scenario - Health Record Basics</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>Scenario: Store patient information using variables for name, age, and condition.</p>
-                            <p>Steps: 1. Assign variables. 2. Print a formatted summary.</p>
-                            <div class="jupyinput">
-                                <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                                <pre><code class="language-python">patient_name = "Alice"
-patient_age = 45
-condition = "Healthy"
-print(f"Patient: {patient_name}, Age: {patient_age}, Condition: {condition}")</code></pre>
-                            </div>
-                            <div class="jupyoutput">
-                                <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                                <p>Patient: Alice, Age: 45, Condition: Healthy</p>
-                            </div>
-                            <p>Why: Organizes patient data effectively. Real-world: Health analytics.</p>
-                        </div>
-                    </div>
-
-                    <div class="card mb-3">
-                        <div class="card-header bg-primary text-white">
-                            <h3 class="card-title mb-0">Application 2: Challenge - Biology Gene Count</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>Challenge: Calculate the total number of genes using arithmetic operations on counts.</p>
-                            <p>Steps: 1. <code>genes_a = 10</code>, <code>genes_b = 15</code>. 2. <code>total = genes_a + genes_b</code>. 3. Print the result.</p>
-                            <p>Output: 25</p>
-                            <p>Interdisciplinary: Bioinformatics.</p>
-                        </div>
-                    </div>
-
-                    <div class="card mb-3">
-                        <div class="card-header bg-primary text-white">
-                            <h3 class="card-title mb-0">Application 3: Strategic - Geography Distance</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>Strategic: Compute a simple distance using float operations.</p>
-                            <p>Steps: 1. <code>point1 = 5.0</code>, <code>point2 = 10.0</code>. 2. <code>dist = abs(point1 - point2)</code>. 3. Print the formatted distance.</p>
-                            <p>Output: Distance: 5.00</p>
-                            <p>For geospatial analytics.</p>
+                <!-- Module 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                            Module 2: Database Concepts
+                        </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Learn the fundamentals of relational databases, including tables, keys, schemas, and normalization. This module covers how to design efficient database structures using Entity-Relationship Diagrams (ERDs).</p>
+                            <a href="./module2.html" class="btn btn-primary">View Module</a>
                         </div>
                     </div>
                 </div>
-
-                <div id="chapter4" class="section-card">
-                    <h2><i class="fas fa-trophy me-2"></i>Chapter 4: Capstone Challenge Project</h2>
-                    <p>Integrate variables, data types, operations, and formatting. Time: 60 minutes. Deliverable: Jupyter notebook with code and outputs.</p>
-                    <p>Project: Develop a simple sales calculator that accepts sales and costs as input, computes profit and tax (10%), and prints a formatted report.</p>
-                    <p>Rubric: Variables (20%), Operations (30%), Input/Conversion (20%), Formatting (20%), Comments (10%).</p>
-                    <div class="tipbox">
-                        <p><i class="fas fa-lightbulb me-2 box-icon"></i>Begin with input statements and use floats for calculations.</p>
-                    </div>
-                    <p>Hints: <code>profit = sales - costs</code>, employ f-strings for output.</p>
-                </div>
-
-                <div id="chapter5" class="section-card">
-                    <h2><i class="fas fa-check-double me-2"></i>Chapter 5: Solutions to Exercises and Applications</h2>
-
-                    <h3>Solution to Foundation Exercise</h3>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python">patient_name = "Bob"
-patient_age = 25
-print(patient_name, patient_age)</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>Bob 25</p>
-                    </div>
-                    <p>Explanation: Assigns values to variables and prints them. This demonstrates basic data storage.</p>
-
-                    <h3>Solution to Building Exercise</h3>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python">seq_len = 100
-mutation_rate = 0.05
-print(type(seq_len), type(mutation_rate))</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>&lt;class 'int'&gt; &lt;class 'float'&gt;</p>
-                    </div>
-                    <p>Explanation: Verifies data types, ensuring appropriate usage in computations.</p>
-
-                    <h3>Solution to Intermediate Exercise</h3>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python">length = 10.0
-width = 5.0
-area = length * width
-print(area)</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>50.0</p>
-                    </div>
-                    <p>Explanation: Computes the area using multiplication. Applicable in mapping scenarios.</p>
-
-                    <h3>Solution to Advanced Exercise</h3>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python">word1 = "culture"
-word2 = "trend"
-trend = word1 + " " + word2
-print(trend)</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>culture trend</p>
-                    </div>
-                    <p>Explanation: Concatenates strings to form a combined term.</p>
-
-                    <h3>Solution to Mastery Exercise</h3>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python">sales = float(input("Enter sales: "))
-costs = float(input("Enter costs: "))
-profit = sales - costs
-print(profit)</code></pre>
-                    </div>
-                    <p>Explanation: Processes user input and computes profit. Assuming inputs 1000 and 800, output is 200.0.</p>
-
-                    <h3>Solutions to Applications</h3>
-                    <p>Application 1: As shown.</p>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python">genes_a = 10
-genes_b = 15
-total = genes_a + genes_b
-print(total)</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>25</p>
-                    </div>
-                    <div class="jupyinput">
-                        <h4><i class="fas fa-keyboard me-2"></i>In [1]:</h4>
-                        <pre><code class="language-python">point1 = 5.0
-point2 = 10.0
-dist = abs(point1 - point2)
-print(f"Distance: {dist:.2f}")</code></pre>
-                    </div>
-                    <div class="jupyoutput">
-                        <h4><i class="fas fa-terminal me-2"></i>Out [1]:</h4>
-                        <p>Distance: 5.00</p>
+                <!-- Module 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                            Module 3: SQL Basics I: SELECT, WHERE, ORDER BY
+                        </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Master the core SQL commands—SELECT, WHERE, and ORDER BY—for retrieving, filtering, and sorting data. This module introduces querying in cloud environments like Microsoft Fabric Lakehouse.</p>
+                            <a href="./module3.html" class="btn btn-primary">View Module</a>
+                        </div>
                     </div>
                 </div>
-
-                <div id="glossary" class="section-card glossarybox">
-                    <h2><i class="fas fa-book me-2 box-icon"></i>Glossary of Terms</h2>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Variable:</strong> Named storage location for data.</li>
-                        <li class="list-group-item"><strong>Int:</strong> Integer data type for whole numbers.</li>
-                        <li class="list-group-item"><strong>Float:</strong> Data type for decimal numbers.</li>
-                        <li class="list-group-item"><strong>Str:</strong> String data type for text.</li>
-                        <li class="list-group-item"><strong>Bool:</strong> Boolean data type for true/false values.</li>
-                        <li class="list-group-item"><strong>Assignment:</strong> Operation using = to set a value.</li>
-                        <li class="list-group-item"><strong>Operation:</strong> Mathematical computation such as addition or subtraction.</li>
-                        <li class="list-group-item"><strong>Print:</strong> Function to display output.</li>
-                        <li class="list-group-item"><strong>F-string:</strong> Formatted string literal.</li>
-                        <li class="list-group-item"><strong>Type conversion:</strong> Process of changing data types.</li>
-                        <li class="list-group-item"><strong>Input:</strong> Function to obtain user data.</li>
-                        <li class="list-group-item"><strong>Concatenate:</strong> Operation to join strings.</li>
-                        <li class="list-group-item"><strong>Arithmetic:</strong> Mathematical operations.</li>
-                        <li class="list-group-item"><strong>Comment:</strong> Non-executable note prefixed by #.</li>
-                        <li class="list-group-item"><strong>Jupyter:</strong> Interactive computing environment.</li>
-                        <li class="list-group-item"><strong>Anaconda:</strong> Distribution bundling Python and libraries.</li>
-                        <li class="list-group-item"><strong>Analytics:</strong> Process of deriving insights from data.</li>
-                        <li class="list-group-item"><strong>Informatics:</strong> Application of data in specific fields.</li>
-                        <li class="list-group-item"><strong>Profit:</strong> Revenue minus costs.</li>
-                        <li class="list-group-item"><strong>Gene:</strong> Basic unit of heredity in biology.</li>
-                    </ul>
+                <!-- Module 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                            Module 4: SQL Basics II: Aggregations
+                        </button>
+                    </h2>
+                    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Explore SQL aggregate functions (COUNT, SUM, AVG, MIN, MAX) and GROUP BY for summarizing data. Learn to use HAVING to filter aggregated results.</p>
+                            <a href="./module4.html" class="btn btn-primary">View Module</a>
+                        </div>
+                    </div>
                 </div>
-
-                <div id="faq" class="section-card faqbox">
-                    <h2><i class="fas fa-question-circle me-2 box-icon"></i>Frequently Asked Questions</h2>
-                    <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq1">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFaq1" aria-expanded="false" aria-controls="collapseFaq1">
-                                    Q1: What is Python?
-                                </button>
-                            </h2>
-                            <div id="collapseFaq1" class="accordion-collapse collapse" aria-labelledby="faq1">
-                                <div class="accordion-body">
-                                    A: A programming language widely used for data analysis.
-                                </div>
-                            </div>
+                <!-- Module 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                            Module 5: SQL Logic
+                        </button>
+                    </h2>
+                    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Dive into Boolean logic, NULL handling (IS NULL, COALESCE, NULLIF), and CASE statements for advanced data filtering and transformation in SQL queries.</p>
+                            <a href="./module5.html" class="btn btn-primary">View Module</a>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFaq2" aria-expanded="false" aria-controls="collapseFaq2">
-                                    Q2: Why use variables?
-                                </button>
-                            </h2>
-                            <div id="collapseFaq2" class="accordion-collapse collapse" aria-labelledby="faq2">
-                                <div class="accordion-body">
-                                    A: To store and reuse data efficiently.
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <!-- Module 6 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                            Module 6: Joins in SQL
+                        </button>
+                    </h2>
+                    <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Understand and apply INNER, LEFT, RIGHT, FULL OUTER, SELF, and CROSS JOINs to integrate data from multiple tables for comprehensive analysis.</p>
+                            <a href="./module6.html" class="btn btn-primary">View Module</a>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFaq3" aria-expanded="false" aria-controls="collapseFaq3">
-                                    Q3: What is a common type error?
-                                </button>
-                            </h2>
-                            <div id="collapseFaq3" class="accordion-collapse collapse" aria-labelledby="faq3">
-                                <div class="accordion-body">
-                                    A: Attempting to add a string and an integer. Solution: Convert the types.
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <!-- Module 7 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                            Module 7: Subqueries
+                        </button>
+                    </h2>
+                    <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Learn to use subqueries (scalar, multi-row, correlated) in WHERE, SELECT, and FROM clauses for multi-step data retrieval and comparisons.</p>
+                            <a href="./module7.html" class="btn btn-primary">View Module</a>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq4">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFaq4" aria-expanded="false" aria-controls="collapseFaq4">
-                                    Q4: How to format output?
-                                </button>
-                            </h2>
-                            <div id="collapseFaq4" class="accordion-collapse collapse" aria-labelledby="faq4">
-                                <div class="accordion-body">
-                                    A: Use f-strings with curly braces for variables.
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <!-- Module 8 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                            Module 8: Strings and Dates
+                        </button>
+                    </h2>
+                    <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Master SQL string functions (UPPER, TRIM, CONCAT) and date functions (EXTRACT, DATE_TRUNC) for cleaning and transforming text and temporal data.</p>
+                            <a href="./module8.html" class="btn btn-primary">View Module</a>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="faq5">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFaq5" aria-expanded="false" aria-controls="collapseFaq5">
-                                    Q5: What type is input?
-                                </button>
-                            </h2>
-                            <div id="collapseFaq5" class="accordion-collapse collapse" aria-labelledby="faq5">
-                                <div class="accordion-body">
-                                    A: Always a string; convert as necessary for other types.
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <!-- Module 9 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                            Module 9: Data Cleaning in SQL
+                        </button>
+                    </h2>
+                    <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Develop strategies for removing duplicates, handling missing values, and normalizing text using SQL techniques like DISTINCT, ROW_NUMBER(), and COALESCE.</p>
+                            <a href="./module9.html" class="btn btn-primary">View Module</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Module 10 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading10">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                            Module 10: Reshaping Data
+                        </button>
+                    </h2>
+                    <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Learn to pivot (rows to columns) and unpivot (columns to rows) data using CASE statements and UNION ALL for flexible data restructuring.</p>
+                            <a href="./module10.html" class="btn btn-primary">View Module</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Module 11 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading11">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="false" aria-controls="collapse11">
+                            Module 11: Advanced SQL Features
+                        </button>
+                    </h2>
+                    <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading11" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Explore Common Table Expressions (CTEs) and window functions (ROW_NUMBER, RANK, LAG) for modular, advanced SQL queries.</p>
+                            <a href="./module11.html" class="btn btn-primary">View Module</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Module 12 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading12">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
+                            Module 12: Views and Modular Queries
+                        </button>
+                    </h2>
+                    <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading12" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Create and manage SQL Views and Materialized Views to encapsulate complex logic and improve query modularity and security.</p>
+                            <a href="./module12.html" class="btn btn-primary">View Module</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Module 13 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading13">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
+                            Module 13: Introduction to Spark SQL
+                        </button>
+                    </h2>
+                    <div id="collapse13" class="accordion-collapse collapse" aria-labelledby="heading13" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Discover Apache Spark and Spark SQL for distributed data processing, applying SQL skills to big data in Microsoft Fabric Lakehouse.</p>
+                            <a href="./module13.html" class="btn btn-primary">View Module</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Module 14 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading14">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
+                            Module 14: Final Project
+                        </button>
+                    </h2>
+                    <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading14" data-bs-parent="#modulesAccordion">
+                        <div class="accordion-body">
+                            <p class="text-muted">Apply all course skills to a real-world data preparation project, from profiling and cleaning to transformation and validation, with a professional report and presentation.</p>
+                            <a href="./module14.html" class="btn btn-primary">View Module</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Ali Noori | <a href="mailto:A_noori@uncg.edu" class="text-white">Contact Instructor</a> | <a href="https://uncg.edu" class="text-white">UNCG Website</a></p>
-        </div>
+        <!-- Contact Section -->
+        <section id="contact" class="my-5">
+            <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Contact</h2>
+            <div class="bg-white p-4 rounded shadow">
+                <p class="text-muted">Instructor: Ali Noori</p>
+                <p class="text-muted">Email: <a href="mailto:A_noori@uncg.edu" class="text-primary">A_noori@uncg.edu</a></p>
+                <p class="text-muted">Institution: University of North Carolina at Greensboro</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-3 text-center">
+        <p class="text-muted mb-0">&copy; 2025 Ali Noori, UNCG. All rights reserved.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>

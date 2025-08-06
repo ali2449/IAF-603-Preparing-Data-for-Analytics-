@@ -1,206 +1,255 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IAF 601 - Introduction to Data Analytics</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter & Source Code Pro -->
+    <title>Module 1: Introduction to Data in Informatics - IAF 603</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Highlight.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- MathJax CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Custom MathJax Configuration -->
+    <script src="./js/mathjax.js"></script>
     <!-- Custom Styles -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        
-        /* Custom box styles to match LaTeX environments */
-        .box {
-            border-left-width: 4px;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            border-radius: 0.25rem;
-        }
-        .box-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        .business-context { background-color: #e0f2fe; border-color: #38bdf8; } /* blue-100, blue-400 */
-        .jupy-input { background-color: #f3f4f6; border-color: #9ca3af; } /* gray-100, gray-400 */
-        .jupy-output { background-color: #dcfce7; border-color: #4ade80; } /* green-100, green-400 */
-        .tip-box { background-color: #cffafe; border-color: #22d3ee; } /* cyan-100, cyan-400 */
-        .mistake-box { background-color: #fee2e2; border-color: #f87171; } /* red-100, red-400 */
-        .key-points { background-color: #ffedd5; border-color: #fb923c; } /* orange-100, orange-400 */
-        .business-insight { background-color: #f3e8ff; border-color: #c084fc; } /* purple-100, purple-400 */
-        .explain-box { background-color: #f9fafb; border-color: #d1d5db; } /* gray-50, gray-300 */
-        .recap-box { background-color: #f0fdf4; border-color: #86efac; } /* green-50, green-300 */
-        .glossary-box { background-color: #fefce8; border-color: #fde047; } /* yellow-50, yellow-300 */
-        .faq-box { background-color: #fdf2f8; border-color: #f9a8d4; } /* pink-50, pink-300 */
-
-        /* Code block styling */
-        pre {
-            font-family: 'Source Code Pro', monospace;
-            background-color: #1f2937; /* gray-800 */
-            color: #d1d5db; /* gray-300 */
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow-x: auto;
-            font-size: 0.875rem;
-        }
-        code {
-            font-family: 'Source Code Pro', monospace;
-        }
-        .inline-code {
-            background-color: #e5e7eb; /* gray-200 */
-            color: #ef4444; /* red-500 */
-            padding: 0.125rem 0.25rem;
-            border-radius: 0.25rem;
-            font-size: 0.875em;
-        }
-        
-        /* Custom scrollbar for sidebar */
-        .sidebar-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar-scroll::-webkit-scrollbar-track {
-            background: #f1f5f9; /* slate-100 */
-        }
-        .sidebar-scroll::-webkit-scrollbar-thumb {
-            background: #94a3b8; /* slate-400 */
-            border-radius: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body class="bg-slate-50 text-slate-800">
-
-    <div class="flex">
-        <!-- Sidebar Navigation -->
-        <aside id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen bg-white shadow-md transition-transform -translate-x-full md:translate-x-0">
-            <div class="h-full px-3 py-4 overflow-y-auto sidebar-scroll">
-                <h2 class="text-xl font-bold text-slate-900 mb-4 px-2">IAF 601 Course</h2>
-                <ul class="space-y-2 font-medium">
-                    <li><a href="#introduction" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Introduction</a></li>
-                    <li><a href="#module1" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 1</a></li>
-                    <li><a href="#module2" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 2</a></li>
-                    <li><a href="#module3" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 3</a></li>
-                    <li><a href="#module4" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 4</a></li>
-                    <li><a href="#module5" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 5</a></li>
-                    <li><a href="#module6" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 6</a></li>
-                    <li><a href="#module7" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 7</a></li>
-                    <li><a href="#module8" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 8</a></li>
-                    <li><a href="#module9" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 9</a></li>
-                    <li><a href="#module10" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 10</a></li>
-                    <li><a href="#module11" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 11</a></li>
-                    <li><a href="#module12" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 12</a></li>
-                    <li><a href="#module13" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 13</a></li>
-                    <li><a href="#module14" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 14</a></li>
-                    <li><a href="#module15" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 15</a></li>
-                    <li><a href="#module16" class="flex items-center p-2 text-slate-700 rounded-lg hover:bg-slate-100">Module 16</a></li>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">IAF 603: Preparing Data for Analytics</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Modules
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./module1.html">Module 1</a></li>
+                            <li><a class="dropdown-item" href="./module2.html">Module 2</a></li>
+                            <li><a class="dropdown-item" href="./module3.html">Module 3</a></li>
+                            <li><a class="dropdown-item" href="./module4.html">Module 4</a></li>
+                            <li><a class="dropdown-item" href="./module5.html">Module 5</a></li>
+                            <li><a class="dropdown-item" href="./module6.html">Module 6</a></li>
+                            <li><a class="dropdown-item" href="./module7.html">Module 7</a></li>
+                            <li><a class="dropdown-item" href="./module8.html">Module 8</a></li>
+                            <li><a class="dropdown-item" href="./module9.html">Module 9</a></li>
+                            <li><a class="dropdown-item" href="./module10.html">Module 10</a></li>
+                            <li><a class="dropdown-item" href="./module11.html">Module 11</a></li>
+                            <li><a class="dropdown-item" href="./module12.html">Module 12</a></li>
+                            <li><a class="dropdown-item" href="./module13.html">Module 13</a></li>
+                            <li><a class="dropdown-item" href="./module14.html">Module 14</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#contact">Contact</a>
+                    </li>
                 </ul>
             </div>
-        </aside>
-
-        <!-- Main Content -->
-        <div class="p-4 md:ml-64 w-full">
-            <button id="menu-toggle" class="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-md shadow">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-
-            <div class="max-w-4xl mx-auto">
-                <!-- Introduction -->
-                <header id="introduction" class="mb-16 text-center">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">IAF 601 - Introduction to Data Analytics</h1>
-                    <p class="text-xl text-slate-600 mb-2">Methods & Approaches for MSIA Students at UNCG</p>
-                    <p class="text-lg text-slate-500">Fall 2025</p>
-                    <div class="mt-6 border-t pt-6">
-                        <p class="font-semibold">Ali Noori</p>
-                        <p class="text-slate-600">Lecturer, Informatics & Analytics, UNCG</p>
-                        <p class="text-slate-500"><a href="mailto:A_noori@uncg.edu" class="text-blue-600 hover:underline">A_noori@uncg.edu</a></p>
-                    </div>
-                </header>
-
-                <section class="mb-12">
-                    <h2 class="text-3xl font-bold border-b pb-2 mb-4">MSIA Program Overview</h2>
-                    <p class="text-lg leading-relaxed">The Master of Science in Informatics and Analytics (MSIA) program at the University of North Carolina at Greensboro (UNCG) is a 30-credit graduate degree designed to cultivate leaders and problem-solvers in the field of data science. The curriculum comprises six core courses that establish a solid foundation in data science principles. Students select one of six concentrations: Advanced Data Analytics, Bioinformatics, Computational Analytics, Cultural Analytics, Geospatial Analytics, or Health Analytics. Offered both in-person and online, the program equips students with essential skills in managing, manipulating, and analyzing structured and unstructured data to derive actionable insights. Key principles covered include programming for analytics, data visualization, statistical modeling, database design, and high-performance computing. The program attracts students from diverse backgrounds, including business, science, humanities, healthcare, geography, and more. While some students may possess prior experience in programming and statistics, others may require instructor approval to satisfy prerequisites.</p>
-                </section>
-
-                <section class="mb-16">
-                    <h2 class="text-3xl font-bold border-b pb-2 mb-4">Python Setup Guide</h2>
-                    <p class="mb-4">To begin working with Python, install Anaconda, which bundles Python along with essential libraries and simplifies the setup process.</p>
-                    <ol class="list-decimal list-inside space-y-2">
-                        <li>Visit <a href="https://www.anaconda.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">https://www.anaconda.com</a> and download the installer compatible with your operating system (Windows, macOS, or Linux).</li>
-                        <li>Execute the installer and follow the on-screen instructions.</li>
-                        <li>Launch Anaconda Navigator and open JupyterLab for coding and execution.</li>
-                        <li>Create a new notebook, such as <code class="inline-code">IAF601_Notebook.ipynb</code>.</li>
-                    </ol>
-                    <p class="mt-4">Anaconda includes key libraries like NumPy and Pandas for data manipulation. For troubleshooting, consult the Anaconda documentation.</p>
-                </section>
-
-                <!-- Dynamically generated content for all modules will go here -->
-                <!-- Module 1 -->
-                <div id="module1" class="pt-16 -mt-16">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-6">Module 1: Python Fundamentals & Business Context</h2>
-                    <div class="recap-box box">
-                        <p class="box-title">Recap from Previous Modules:</p>
-                        <p>This initial module assumes familiarity with basic computer operations, such as using a keyboard and mouse, and launching applications. No prior programming experience is required; the content starts from fundamental concepts. For those with programming background, this serves as a review.</p>
-                    </div>
-                    <h3 class="text-3xl font-semibold mt-8 mb-4">Chapter 1: Comprehensive Tutorial</h3>
-                    <h4 class="text-2xl font-semibold mt-6 mb-3">Business Context</h4>
-                    <div class="business-context box">
-                        <p>Python serves as a fundamental tool in data analytics, enabling businesses to process and analyze data effectively. For instance, in sales operations, it facilitates profit calculations, while in healthcare, it supports patient record management. Its importance lies in empowering informed decision-making through data-driven insights. In informatics, Python is utilized for handling gene sequences or geospatial coordinates, transforming raw data into valuable knowledge.</p>
-                    </div>
-                    <h4 class="text-2xl font-semibold mt-6 mb-3">Section 1: Variables and Assignment</h4>
-                    <p>Variables are used to store data in Python. A variable is a named location in memory that holds a value, enhancing code reusability by allowing values to be referenced by name. Assignment is performed using the <code class="inline-code">=</code> operator, as in <code class="inline-code">name = value</code>. For example, in a business setting, a variable might store sales figures.</p>
-                    <div class="explain-box box">
-                        <p class="box-title">Detailed Explanation:</p>
-                        <p>A variable functions as a labeled container for data, facilitating easy updates to values without modifying the underlying code. Assignment is achieved using the = operator. A common error is omitting the assignment operator; ensure it is always included. In practical applications, such as gene analysis, variables can represent sequence counts. An analogy is naming a file for convenient reference. In summary, variables provide an efficient means to store and reference data.</p>
-                    </div>
-                    <div class="jupy-input box">
-                        <p class="box-title">In [1]:</p>
-                        <pre><code># Assign sales to a variable
-sales = 1000  # This is sales in dollars</code></pre>
-                    </div>
-                    <div class="jupy-output box">
-                        <p class="box-title">Out [1]:</p>
-                        <p>No output, but sales now holds 1000.</p>
-                    </div>
-                    <div class="business-insight box">
-                        <p class="box-title">Business Insight:</p>
-                        <p>In geospatial analytics, variables can represent latitude values, aiding in mapping locations.</p>
-                    </div>
-                    <!-- ... And so on for the rest of Module 1 ... -->
-                </div>
-                
-                <!-- All other modules would follow the same pattern -->
-                <!-- The full content is omitted for brevity but would be generated here -->
-
-            </div>
         </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Module Title -->
+        <section class="text-center py-5 bg-white rounded shadow">
+            <h1 class="display-4 fw-bold text-dark">Module 1: Introduction to Data in Informatics</h1>
+        </section>
+
+        <!-- Module Content -->
+        <section class="my-5">
+            <div class="bg-white p-4 rounded shadow">
+                <!-- Learning Objectives -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Learning Objectives</h2>
+                <p>Upon completion of this module, participants will be able to:</p>
+                <ul>
+                    <li>Define and provide concrete examples of structured, semi-structured, and unstructured data.</li>
+                    <li>Articulate the primary characteristics, typical sources, and storage methods for each data type.</li>
+                    <li>Analyze the implications of different data types on data preparation, analysis, and tool selection.</li>
+                    <li>Understand the critical role of data quality dimensions (accuracy, completeness, consistency, timeliness, validity) in informatics.</li>
+                </ul>
+
+                <!-- Introduction to Data in Informatics -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Introduction to Data in Informatics</h2>
+                <p>Informatics, at its core, is the science of information, bridging data, technology, and human decision-making. Whether in healthcare, business, or scientific research, the ability to extract meaningful insights hinges on the quality and organization of the underlying data. This module serves as the foundational cornerstone of our course, introducing the diverse forms data can take: structured, semi-structured, and unstructured. From the rigid order of a spreadsheet to the free-flowing narrative of a clinical note, understanding these data types is the first critical step in mastering data preparation. We will explore their historical evolution, their prevalence in modern systems, and the unique challenges each presents, setting the stage for the SQL and Spark SQL techniques we will learn to tame them.</p>
+                <p>For instance, in a retail business, structured data might track sales transactions, semi-structured data could capture customer reviews in JSON format, and unstructured data might include customer service call recordings. Each type requires distinct preparation strategies to ensure it can be analyzed effectively.</p>
+
+                <!-- The Data Landscape -->
+                <h3 class="h4 fw-bold mb-3">The Data Landscape</h3>
+                <p>The digital age has led to an explosion in data volume, velocity, and variety (the "3 Vs" of Big Data). This necessitates a clear understanding of data classification to effectively manage and analyze it. The volume of data doubles approximately every two years, velocity increases with real-time streams from IoT devices, and variety spans text, images, and more. This module categorizes data to prepare you for handling these challenges.</p>
+
+                <!-- Structured Data -->
+                <h4 class="h5 fw-bold mb-2">Structured Data</h4>
+                <p>Structured data is the most traditional and organized form of data, conforming to a predefined data model, making it ideal for relational databases.</p>
+                <ul>
+                    <li><strong>Characteristics:</strong>
+                        <ul>
+                            <li><strong>Fixed Schema:</strong> Data is organized into tables with rows and columns, where each column has a specific data type (e.g., integer, string, date).</li>
+                            <li><strong>Relational:</strong> Relationships between tables are defined using keys.</li>
+                            <li><strong>Easily Queryable:</strong> Highly efficient for querying and analysis using SQL.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Typical Sources:</strong>
+                        <ul>
+                            <li>Relational Database Management Systems (RDBMS): PostgreSQL, MySQL, SQL Server, Oracle.</li>
+                            <li>Enterprise Resource Planning (ERP) systems, Customer Relationship Management (CRM) systems.</li>
+                            <li>Financial transaction systems, online forms, sensor data (when pre-processed).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Storage:</strong> Primarily in relational databases, data warehouses, or simple flat files (CSV, Excel).</li>
+                    <li><strong>Implications for Preparation:</strong> Generally requires less cleaning for structural issues but focuses on data quality within the defined schema (e.g., correct data types, valid ranges, no duplicates).</li>
+                    <li><strong>Example (Healthcare):</strong> A patient demographics table with columns for <code>patient_id</code>, <code>name</code>, <code>date_of_birth</code>, <code>gender</code>, <code>blood_type</code>. Each record fits neatly into these predefined fields.</li>
+                    <li><strong>Example (Retail):</strong> A sales transaction table with columns for <code>transaction_id</code>, <code>product_id</code>, <code>quantity</code>, <code>price</code>, and <code>sale_date</code>.</li>
+                </ul>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Example: Structured data for retail sales
+CREATE TABLE Sales (
+    transaction_id INT PRIMARY KEY,
+    product_id INT,
+    quantity INT,
+    price DECIMAL(10, 2),
+    sale_date DATE
+);
+INSERT INTO Sales VALUES (1, 101, 2, 29.99, '2025-01-15');</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> This SQL creates a structured table for sales data, ensuring each column has a specific data type and a primary key for uniqueness.</p>
+
+                <!-- Semi-Structured Data -->
+                <h4 class="h5 fw-bold mb-2">Semi-Structured Data</h4>
+                <p>Semi-structured data does not conform to a rigid, tabular schema but contains tags or markers that organize and describe the data, allowing for flexibility. It's ideal for scenarios where data evolves, such as IoT or web APIs.</p>
+                <ul>
+                    <li><strong>Characteristics:</strong>
+                        <ul>
+                            <li><strong>Flexible Schema:</strong> Schema is not fixed; fields can be added or removed easily.</li>
+                            <li><strong>Self-Describing:</strong> Data elements are accompanied by tags or attributes that define their meaning.</li>
+                            <li><strong>Hierarchical/Nested:</strong> Often organized in a tree-like or graph-like structure.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Typical Sources:</strong>
+                        <ul>
+                            <li>Web data (JSON from APIs, XML from web services).</li>
+                            <li>Log files (server logs, application logs).</li>
+                            <li>NoSQL databases (document databases like MongoDB).</li>
+                            <li>IoT sensor data streams.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Storage:</strong> NoSQL databases, file systems (HDFS, S3), specialized data formats (Parquet, ORC).</li>
+                    <li><strong>Implications for Preparation:</strong> Requires parsing and schema inference. Challenges include inconsistent naming conventions, optional fields, and deeply nested structures that need to be flattened.</li>
+                    <li><strong>Example (Healthcare):</strong> Data from a wearable health device transmitted as JSON:</li>
+                </ul>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-json">{
+  "patient_id": "P1001",
+  "timestamp": "2024-07-28T10:30:00Z",
+  "metrics": {
+    "heart_rate": 72,
+    "steps": 500,
+    "sleep_duration_hours": 7.5
+  },
+  "location": {
+    "latitude": 36.07,
+    "longitude": -79.79
+  }
+}</code></pre>
+                </div>
+                <p>Another patient's data might omit <code>sleep_duration_hours</code> or add <code>blood_oxygen</code>, requiring flexible parsing.</p>
+                <ul>
+                    <li><strong>Example (E-commerce):</strong> A customer review stored as JSON:</li>
+                </ul>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-json">{
+  "review_id": "R1234",
+  "customer_id": "C567",
+  "product_id": "P789",
+  "rating": 4,
+  "comment": "Great product, fast delivery!",
+  "review_date": "2025-02-01"
+}</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> JSON allows optional fields like <code>comment</code>, making it semi-structured. Parsing this into a relational table requires handling missing fields and nested structures.</p>
+
+                <!-- Unstructured Data -->
+                <h4 class="h5 fw-bold mb-2">Unstructured Data</h4>
+                <p>Unstructured data lacks a predefined data model and is the most challenging to process but often contains the richest insights, requiring advanced techniques like NLP or computer vision.</p>
+                <ul>
+                    <li><strong>Characteristics:</strong>
+                        <ul>
+                            <li><strong>No Schema:</strong> Lacks internal structure or organization.</li>
+                            <li><strong>Heterogeneous:</strong> Can be a mix of text, images, audio, video.</li>
+                            <li><strong>Context-Dependent:</strong> Meaning relies heavily on human interpretation.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Typical Sources:</strong>
+                        <ul>
+                            <li>Text documents: Clinical notes, emails, reports, open-ended survey responses, social media posts, articles.</li>
+                            <li>Multimedia: Images (X-rays, MRIs), audio recordings (patient interviews), video files.</li>
+                            <li>Satellite imagery, surveillance footage.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Storage:</strong> Data lakes, content management systems, specialized databases for multimedia.</li>
+                    <li><strong>Implications for Preparation:</strong> Requires advanced techniques like Natural Language Processing (NLP), computer vision, or audio analysis to extract features or convert into structured/semi-structured formats. High potential for noise, ambiguity, and bias.</li>
+                    <li><strong>Example (Healthcare):</strong> A physician's clinical note: "Patient presented with severe headache and fever. No rash observed. Prescribed Tylenol. Follow-up in 3 days. History of migraines." Extracting "headache," "fever," "Tylenol," and "migraines" requires NLP.</li>
+                    <li><strong>Example (Social Media):</strong> A tweet: "Loving the new coffee shop in Greensboro! Great vibe, but parking is tough. #LocalBusiness" Extracting sentiment and location requires text analysis.</li>
+                </ul>
+                <p>Expanded example: An email from a customer: "I ordered a laptop on Jan 10, but it arrived damaged. Please send a replacement to 123 Main St, Greensboro, NC." Extracting order details, sentiment, and address requires NLP tools.</p>
+
+                <!-- Data Quality Dimensions -->
+                <h3 class="h4 fw-bold mb-3">Data Quality Dimensions</h3>
+                <p>Regardless of data type, the ultimate goal of data preparation is to ensure data quality. Key dimensions include:</p>
+                <ul>
+                    <li><strong>Accuracy:</strong> Is the data correct? (e.g., Is the patient's age 45 or a typo like 450?)</li>
+                    <li><strong>Completeness:</strong> Is all necessary data present? (e.g., Are <code>diagnosis</code> entries missing in the <code>ADMISSIONS</code> table?)</li>
+                    <li><strong>Consistency:</strong> Is the data uniform? (e.g., Is "Influenza" sometimes recorded as "Flu"?)</li>
+                    <li><strong>Timeliness:</strong> Is the data up-to-date? (e.g., Are lab results from yesterday available today?)</li>
+                    <li><strong>Validity:</strong> Does the data conform to rules? (e.g., Is <code>age</code> positive? Is <code>gender</code> 'Male' or 'Female'?)</li>
+                </ul>
+                <p>Expanded example: In a sales database, ensuring <code>price</code> is positive (validity), all orders have a <code>customer_id</code> (completeness), and product names are standardized (consistency) is critical for accurate reporting.</p>
+
+                <!-- Assessments -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Assessments</h2>
+                <ol>
+                    <li><strong>Conceptual Question:</strong> You are analyzing patient feedback. Some feedback is from a structured rating scale (1-5), some from a free-text comment box, and some from a voice recording of a call. Classify each type of feedback and describe one specific data preparation challenge for each.</li>
+                    <li><strong>Application Scenario:</strong> For a business in Greensboro, NC, describe how structured, semi-structured, and unstructured data might be used to understand customer behavior. Provide a concrete example for each data type.</li>
+                    <li><strong>Practical Exercise:</strong> Given a CSV file with columns <code>customer_id</code>, <code>purchase_date</code>, <code>product</code>, and <code>comments</code>, classify each column’s data type (structured, semi-structured, unstructured) and propose one preparation task for each.</li>
+                </ol>
+            </div>
+        </section>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-light py-3 text-center">
+        <p class="text-muted mb-0">&copy; 2025 Ali Noori, UNCG. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Highlight.js Initialization -->
+    <script>hljs.highlightAll();</script>
+    <!-- Custom Copy Functionality -->
     <script>
-        // JavaScript for mobile menu toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-        });
-
-        // Close sidebar when a link is clicked on mobile
-        const sidebarLinks = document.querySelectorAll('#sidebar a');
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 768) { // md breakpoint
-                    sidebar.classList.add('-translate-x-full');
-                }
+        function copyCode(button) {
+            const code = button.nextElementSibling.querySelector('code');
+            navigator.clipboard.writeText(code.innerText).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
             });
-        });
+        }
     </script>
 </body>
 </html>

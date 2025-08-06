@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installing PostgreSQL - Complete Guide</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <!-- Google Fonts CDN for Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+
+ <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">IAF 603: Preparing Data for Analytics</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Modules
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./module1.html">Module 1</a></li>
+                            <li><a class="dropdown-item" href="./module2.html">Module 2</a></li>
+                            <li><a class="dropdown-item" href="./module3.html">Module 3</a></li>
+                            <li><a class="dropdown-item" href="./module4.html">Module 4</a></li>
+                            <li><a class="dropdown-item" href="./module5.html">Module 5</a></li>
+                            <li><a class="dropdown-item" href="./module6.html">Module 6</a></li>
+                            <li><a class="dropdown-item" href="./module7.html">Module 7</a></li>
+                            <li><a class="dropdown-item" href="./module8.html">Module 8</a></li>
+                            <li><a class="dropdown-item" href="./module9.html">Module 9</a></li>
+                            <li><a class="dropdown-item" href="./module10.html">Module 10</a></li>
+                            <li><a class="dropdown-item" href="./module11.html">Module 11</a></li>
+                            <li><a class="dropdown-item" href="./module12.html">Module 12</a></li>
+                            <li><a class="dropdown-item" href="./module13.html">Module 13</a></li>
+                            <li><a class="dropdown-item" href="./module14.html">Module 14</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <div class="container my-5">
+        <!-- Header with PostgreSQL Logo -->
+        <div class="text-center mb-4">
+            <img src="./img/postgre_logo.png" alt="PostgreSQL Elephant Logo" class="img-fluid mx-auto d-block" style="max-width: 200px;">
+            <h1 class="mt-3">Installing PostgreSQL</h1>
+            <p>This guide provides complete, step-by-step instructions for installing PostgreSQL on Windows, macOS, and Linux (focusing on major distributions like Ubuntu, Debian, and Red Hat-based systems such as RHEL, Fedora, and CentOS). These instructions are based on official sources and assume you're installing the latest stable version unless specified. Always check the official PostgreSQL website for the most up-to-date versions and any security advisories. After installation, a common verification step across platforms is to run <code>psql --version</code> in a terminal or command prompt to confirm the installation.</p>
+        </div>
+
+        <!-- Accordion for Sections -->
+        <div class="accordion" id="installationAccordion">
+            <!-- Windows Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="windowsHeading">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#windowsCollapse" aria-expanded="true" aria-controls="windowsCollapse">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Windows_logo_-_2012.svg/512px-Windows_logo_-_2012.svg.png" alt="Windows Logo" class="me-2" width="30"> On Windows
+                    </button>
+                </h2>
+                <div id="windowsCollapse" class="accordion-collapse collapse show" aria-labelledby="windowsHeading" data-bs-parent="#installationAccordion">
+                    <div class="accordion-body">
+                        <h3>Prerequisites</h3>
+                        <p>A supported Windows version (e.g., Windows Server 2022, 2019, 2016, or 2012 R2, depending on the PostgreSQL version).</p>
+                        
+                        <h3>Download and Installation</h3>
+                        <ol>
+                            <li>Download the interactive installer from EnterpriseDB: Visit <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">https://www.enterprisedb.com/downloads/postgres-postgresql-downloads</a> and select the appropriate version for your system.</li>
+                            <li>Run the downloaded installer (.exe file). You can choose interactive mode (follow the graphical prompts) or silent mode for automation.</li>
+                            <li>During installation, the wizard will guide you through selecting components, including:
+                                <ul>
+                                    <li>PostgreSQL server.</li>
+                                    <li>pgAdmin (a graphical management tool).</li>
+                                    <li>StackBuilder (for additional tools like drivers and extensions).</li>
+                                </ul>
+                            </li>
+                            <li>Complete the installation by following the on-screen instructions, including setting a superuser password.</li>
+                        </ol>
+                        
+                        <h3>Post-Installation Verification and Configuration</h3>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p>PostgreSQL should start automatically as a service. Open pgAdmin or use the command prompt to connect to the server.</p>
+                                <p>To verify: Open Command Prompt and run <code>psql -U postgres</code> (enter the password set during installation), then type <code>\conninfo</code> to check the connection.</p>
+                                <p>If issues arise, check the installer GitHub for bugs: <a href="https://github.com/EnterpriseDB/edb-installers/issues">https://github.com/EnterpriseDB/edb-installers/issues</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- macOS Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="macosHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#macosCollapse" aria-expanded="false" aria-controls="macosCollapse">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/833px-Apple_logo_black.svg.png" alt="macOS Apple Logo" class="me-2" width="30"> On macOS
+                    </button>
+                </h2>
+                <div id="macosCollapse" class="accordion-collapse collapse" aria-labelledby="macosHeading" data-bs-parent="#installationAccordion">
+                    <div class="accordion-body">
+                        <p>PostgreSQL can be installed via Homebrew (command-line) or Postgres.app (GUI-based). Homebrew is recommended for developers.</p>
+                        
+                        <h3>Using Homebrew</h3>
+                        <h4>Prerequisites</h4>
+                        <p>Homebrew installed (install from <a href="https://brew.sh">https://brew.sh</a> if needed).</p>
+                        
+                        <h4>Installation</h4>
+                        <ol>
+                            <li>Open Terminal and update Homebrew: <code>brew update</code>.</li>
+                            <li>Install PostgreSQL (latest version): <code>brew install postgresql</code>.
+                                <ul>
+                                    <li>For a specific version (e.g., 16): <code>brew install postgresql@16</code>.</li>
+                                </ul>
+                            </li>
+                            <li>Start the service: <code>brew services start postgresql</code> (or <code>brew services start postgresql@16</code> for a specific version).</li>
+                        </ol>
+                        
+                        <h4>Post-Installation Verification and Configuration</h4>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p>Verify: Run <code>psql --version</code>.</p>
+                                <p>Create a database: <code>createdb mydb</code> and connect with <code>psql mydb</code>.</p>
+                                <p>Stop the service if needed: <code>brew services stop postgresql</code>.</p>
+                            </div>
+                        </div>
+                        
+                        <h3>Using Postgres.app</h3>
+                        <h4>Prerequisites</h4>
+                        <p>None specific beyond macOS compatibility.</p>
+                        
+                        <h4>Installation</h4>
+                        <ol>
+                            <li>Download Postgres.app from <a href="https://postgresapp.com">https://postgresapp.com</a>.</li>
+                            <li>Open the downloaded .app file. It runs from the menu bar and starts a PostgreSQL server automatically.</li>
+                        </ol>
+                        
+                        <h4>Post-Installation Verification and Configuration</h4>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p>The server runs while the app is open. Connect using included tools or <code>psql</code>.</p>
+                                <p>Verify: Open Terminal and run <code>psql --version</code>.</p>
+                                <p>Closing the app stops the server.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Linux Section -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="linuxHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#linuxCollapse" aria-expanded="false" aria-controls="linuxCollapse">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/800px-Tux.svg.png" alt="Linux Tux Penguin Logo" class="me-2" width="30"> On Linux
+                    </button>
+                </h2>
+                <div id="linuxCollapse" class="accordion-collapse collapse" aria-labelledby="linuxHeading" data-bs-parent="#installationAccordion">
+                    <div class="accordion-body">
+                        <p>Instructions vary by distribution. Below are for Ubuntu, Debian, and Red Hat-based systems (RHEL, Fedora, CentOS/Rocky/AlmaLinux). Use sudo for commands requiring privileges.</p>
+                        
+                        <!-- Nested Accordion for Linux Distributions -->
+                        <div class="accordion" id="linuxDistAccordion">
+                            <!-- Ubuntu Sub-Section -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="ubuntuHeading">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ubuntuCollapse" aria-expanded="true" aria-controls="ubuntuCollapse">
+                                        Ubuntu
+                                    </button>
+                                </h2>
+                                <div id="ubuntuCollapse" class="accordion-collapse collapse show" aria-labelledby="ubuntuHeading" data-bs-parent="#linuxDistAccordion">
+                                    <div class="accordion-body">
+                                        <h4>Prerequisites</h4>
+                                        <p>A supported Ubuntu version (e.g., 24.04 LTS, 22.04 LTS).</p>
+                                        
+                                        <h4>Repository Setup</h4>
+                                        <ol>
+                                            <li>Install PostgreSQL common: <code>sudo apt install -y postgresql-common</code>.</li>
+                                            <li>Run the setup script: <code>sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh</code>.
+                                                <ul>
+                                                    <li>Alternatively, manually: Install curl and ca-certificates, import the key, add the repo to sources.list, and update apt.</li>
+                                                </ul>
+                                            </li>
+                                        </ol>
+                                        
+                                        <h4>Installation</h4>
+                                        <ol>
+                                            <li>Update packages: <code>sudo apt update</code>.</li>
+                                            <li>Install: <code>sudo apt install -y postgresql</code> (latest version).
+                                                <ul>
+                                                    <li>For a specific version (e.g., 16): <code>sudo apt install -y postgresql-16</code>.</li>
+                                                </ul>
+                                            </li>
+                                        </ol>
+                                        
+                                        <h4>Post-Installation Verification and Configuration</h4>
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <p>Start the service: <code>sudo systemctl start postgresql</code>.</p>
+                                                <p>Enable on boot: <code>sudo systemctl enable postgresql</code>.</p>
+                                                <p>Verify: <code>sudo -u postgres psql</code> and run <code>\conninfo</code>.</p>
+                                                <p>Set a password for the postgres user if needed: <code>sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'newpassword';"</code>.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Debian Sub-Section -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="debianHeading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#debianCollapse" aria-expanded="false" aria-controls="debianCollapse">
+                                        Debian
+                                    </button>
+                                </h2>
+                                <div id="debianCollapse" class="accordion-collapse collapse" aria-labelledby="debianHeading" data-bs-parent="#linuxDistAccordion">
+                                    <div class="accordion-body">
+                                        <h4>Prerequisites</h4>
+                                        <p>A supported Debian version (e.g., 12, 11).</p>
+                                        
+                                        <h4>Repository Setup</h4>
+                                        <ol>
+                                            <li>Install PostgreSQL common: <code>sudo apt install -y postgresql-common</code>.</li>
+                                            <li>Run the setup script: <code>sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh</code>.
+                                                <ul>
+                                                    <li>Manually: Similar to Ubuntu—install curl, import key, add repo, update apt.</li>
+                                                </ul>
+                                            </li>
+                                        </ol>
+                                        
+                                        <h4>Installation</h4>
+                                        <ol>
+                                            <li>Update packages: <code>sudo apt update</code>.</li>
+                                            <li>Install: <code>sudo apt install -y postgresql</code> (latest).
+                                                <ul>
+                                                    <li>Specific version: <code>sudo apt install -y postgresql-16</code>.</li>
+                                                </ul>
+                                            </li>
+                                        </ol>
+                                        
+                                        <h4>Post-Installation Verification and Configuration</h4>
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <p>Start the service: <code>sudo systemctl start postgresql</code>.</p>
+                                                <p>Enable on boot: <code>sudo systemctl enable postgresql</code>.</p>
+                                                <p>Verify: <code>sudo -u postgres psql</code> and check with <code>\conninfo</code>.</p>
+                                                <p>Configure as needed, e.g., edit <code>/etc/postgresql/&lt;version&gt;/main/postgresql.conf</code> for settings.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Red Hat Sub-Section -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="redhatHeading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#redhatCollapse" aria-expanded="false" aria-controls="redhatCollapse">
+                                        Red Hat Enterprise Linux (RHEL) / CentOS / Rocky / AlmaLinux / Fedora
+                                    </button>
+                                </h2>
+                                <div id="redhatCollapse" class="accordion-collapse collapse" aria-labelledby="redhatHeading" data-bs-parent="#linuxDistAccordion">
+                                    <div class="accordion-body">
+                                        <h4>Prerequisites</h4>
+                                        <p>Access to the PostgreSQL Yum Repository for full versions.</p>
+                                        
+                                        <h4>Repository Setup</h4>
+                                        <ol>
+                                            <li>Visit <a href="https://yum.postgresql.org">https://yum.postgresql.org</a>, select your version, platform, and architecture.</li>
+                                            <li>Run the provided setup script (e.g., install the PGDG RPM: <code>sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm</code> for RHEL 9).</li>
+                                        </ol>
+                                        
+                                        <h4>Installation</h4>
+                                        <ol>
+                                            <li>For distribution repos (limited versions): <code>sudo dnf install -y postgresql-server</code>.</li>
+                                            <li>From PGDG repo (recommended): After setup, <code>sudo dnf install -y postgresql16-server</code> (replace 16 with desired version).</li>
+                                        </ol>
+                                        
+                                        <h4>Post-Installation Verification and Configuration</h4>
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <p>Initialize the database: <code>sudo postgresql-setup --initdb</code> (or <code>/usr/pgsql-16/bin/postgresql-16-setup initdb</code> for specific versions).</p>
+                                                <p>Enable and start the service: <code>sudo systemctl enable postgresql.service</code> (or <code>postgresql-16.service</code>), then <code>sudo systemctl start postgresql.service</code>.</p>
+                                                <p>Verify: <code>sudo -u postgres psql</code> and run <code>\conninfo</code>.</p>
+                                                <p>For Fedora's shorter cycle, use PGDG for stability.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-3 bg-light">
+        <p>Guide based on official PostgreSQL documentation. Images sourced from public web repositories. Current as of August 06, 2025.</p>
+    </footer>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+</body>
+</html>

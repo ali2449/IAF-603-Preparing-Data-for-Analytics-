@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 12: Views and Modular Queries - IAF 603</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Highlight.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- MathJax CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Custom MathJax Configuration -->
+    <script src="./js/mathjax.js"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">IAF 603: Preparing Data for Analytics</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Modules
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./module1.html">Module 1</a></li>
+                            <li><a class="dropdown-item" href="./module2.html">Module 2</a></li>
+                            <li><a class="dropdown-item" href="./module3.html">Module 3</a></li>
+                            <li><a class="dropdown-item" href="./module4.html">Module 4</a></li>
+                            <li><a class="dropdown-item" href="./module5.html">Module 5</a></li>
+                            <li><a class="dropdown-item" href="./module6.html">Module 6</a></li>
+                            <li><a class="dropdown-item" href="./module7.html">Module 7</a></li>
+                            <li><a class="dropdown-item" href="./module8.html">Module 8</a></li>
+                            <li><a class="dropdown-item" href="./module9.html">Module 9</a></li>
+                            <li><a class="dropdown-item" href="./module10.html">Module 10</a></li>
+                            <li><a class="dropdown-item" href="./module11.html">Module 11</a></li>
+                            <li><a class="dropdown-item" href="./module12.html">Module 12</a></li>
+                            <li><a class="dropdown-item" href="./module13.html">Module 13</a></li>
+                            <li><a class="dropdown-item" href="./module14.html">Module 14</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Module Title -->
+        <section class="text-center py-5 bg-white rounded shadow">
+            <h1 class="display-4 fw-bold text-dark">Module 12: Views and Modular Queries</h1>
+        </section>
+
+        <!-- Module Content -->
+        <section class="my-5">
+            <div class="bg-white p-4 rounded shadow">
+                <!-- Learning Objectives -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Learning Objectives</h2>
+                <p>Upon completion of this module, participants will be able to:</p>
+                <ul>
+                    <li>Create and manage SQL Views to encapsulate complex query logic.</li>
+                    <li>Understand the purpose of Views for data abstraction, security, and reusability.</li>
+                    <li>Differentiate between standard Views and Materialized Views and their respective use cases.</li>
+                    <li>Develop a modular approach to query design, combining Views and CTEs for maintainable analytics.</li>
+                </ul>
+
+                <!-- Introduction to Views and Modular Queries -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Introduction to Views and Modular Queries</h2>
+                <p>As analytical needs grow, queries can become increasingly complex, involving multiple joins, subqueries, and transformations. Re-writing this logic for every new analysis is inefficient and error-prone. SQL Views provide a powerful solution by allowing you to save a <code>SELECT</code> query as a virtual table in the database. This creates a reusable, logical layer of abstraction over your base tables. This module explores how to create and use Views to simplify query development, enhance security by restricting data access, and promote modular, maintainable code. We will also cover Materialized Views, which offer a performance boost for computationally expensive queries.</p>
+                <p>Views are invaluable in large organizations, such as a Greensboro-based healthcare provider like Cone Health, where different teams need tailored data access. For instance, a View can aggregate patient data while masking sensitive fields to comply with HIPAA, ensuring analysts only see de-identified information. By centralizing logic, Views reduce code duplication, ensure consistency across reports, and simplify maintenance. This module builds on prior concepts like CTEs and window functions, showing how Views extend modularity to persistent database objects, fostering scalable and collaborative data pipelines.</p>
+
+                <!-- Creating and Using SQL Views -->
+                <h3 class="h4 fw-bold mb-3">Creating and Using SQL Views</h3>
+                <p>A View is a stored query that behaves like a table but does not physically store data (unless it's a materialized view). It executes the underlying <code>SELECT</code> statement each time it's queried, providing a dynamic, reusable interface to the data.</p>
+                <ul>
+                    <li><strong>Syntax:</strong> <code>CREATE VIEW view_name AS SELECT ...;</code></li>
+                    <li><strong>Benefits:</strong>
+                        <ul>
+                            <li><strong>Simplicity:</strong> Hides complex logic, allowing users to query <code>SELECT * FROM complex_analysis_view;</code> without writing intricate SQL.</li>
+                            <li><strong>Consistency:</strong> Centralizes business logic, ensuring all users access the same standardized dataset.</li>
+                            <li><strong>Security:</strong> Restricts access to sensitive data by exposing only selected columns or rows, e.g., excluding deceased patients' records.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Views enhance maintainability by allowing centralized updates to business logic. For example, changing a calculation in a View propagates to all dependent queries. They also support row-level security, such as limiting data to recent records, and enable collaboration by providing a single source of truth for data definitions.</p>
+                <p><strong>Sample Data (PATIENTS Table):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>subject_id</th>
+                            <th>name</th>
+                            <th>age</th>
+                            <th>gender</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1001</td>
+                            <td>Alice Smith</td>
+                            <td>45</td>
+                            <td>Female</td>
+                        </tr>
+                        <tr>
+                            <td>1002</td>
+                            <td>Bob Johnson</td>
+                            <td>32</td>
+                            <td>Male</td>
+                        </tr>
+                        <tr>
+                            <td>1003</td>
+                            <td>Carol White</td>
+                            <td>58</td>
+                            <td>Female</td>
+                        </tr>
+                        <tr>
+                            <td>1004</td>
+                            <td>David Brown</td>
+                            <td>67</td>
+                            <td>Male</td>
+                        </tr>
+                        <tr>
+                            <td>1005</td>
+                            <td>Eve Davis</td>
+                            <td>29</td>
+                            <td>Female</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>ADMISSIONS Table:</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>hadm_id</th>
+                            <th>subject_id</th>
+                            <th>admit_time</th>
+                            <th>discharge_time</th>
+                            <th>diagnosis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>1001</td>
+                            <td>2025-01-10 08:00:00</td>
+                            <td>2025-01-15 12:00:00</td>
+                            <td>Influenza</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>1002</td>
+                            <td>2025-02-01 14:00:00</td>
+                            <td>2025-02-03 09:00:00</td>
+                            <td>Fracture</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>1001</td>
+                            <td>2025-03-05 10:00:00</td>
+                            <td>2025-03-12 15:00:00</td>
+                            <td>Pneumonia</td>
+                        </tr>
+                        <tr>
+                            <td>104</td>
+                            <td>1003</td>
+                            <td>2025-04-10 07:00:00</td>
+                            <td>2025-04-11 11:00:00</td>
+                            <td>Hypertension</td>
+                        </tr>
+                        <tr>
+                            <td>105</td>
+                            <td>1001</td>
+                            <td>2025-05-15 09:00:00</td>
+                            <td>2025-05-20 14:00:00</td>
+                            <td>Influenza</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Create a view for de-identified patient admission summaries
+CREATE VIEW Vw_Patient_Admission_Summary AS
+SELECT
+    p.subject_id,
+    p.gender,
+    p.age,
+    a.hadm_id,
+    a.admit_time,
+    a.diagnosis,
+    (a.discharge_time - a.admit_time) AS length_of_stay
+FROM PATIENTS p
+JOIN ADMISSIONS a ON p.subject_id = a.subject_id
+WHERE p.age IS NOT NULL;
+
+-- Query: Find long-stay admissions
+SELECT *
+FROM Vw_Patient_Admission_Summary
+WHERE length_of_stay > INTERVAL '10 days';
+
+-- Aggregate: Average length of stay by diagnosis
+SELECT
+    diagnosis,
+    AVG(length_of_stay) AS avg_los
+FROM Vw_Patient_Admission_Summary
+GROUP BY diagnosis
+ORDER BY avg_los DESC;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> The <code>Vw_Patient_Admission_Summary</code> View joins <code>PATIENTS</code> and <code>ADMISSIONS</code>, calculates length of stay, and excludes records with missing ages. Users can query it like a table, simplifying analysis. Updating the View’s logic (e.g., changing length-of-stay calculation) ensures consistency across all dependent queries.</p>
+                <p><strong>Expanded Example (Sales Performance):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>employee_id</th>
+                            <th>name</th>
+                            <th>department_id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Jane Doe</td>
+                            <td>101</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>John Smith</td>
+                            <td>101</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Emily Jones</td>
+                            <td>102</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>department_id</th>
+                            <th>department_name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>Sales</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>Marketing</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>order_id</th>
+                            <th>employee_id</th>
+                            <th>sale_amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>5000</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>3000</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>4000</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>2000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Create a view for employee performance
+CREATE VIEW Vw_Employee_Performance AS
+SELECT
+    e.employee_id,
+    e.name,
+    d.department_name,
+    COUNT(o.order_id) AS orders_processed,
+    SUM(o.sale_amount) AS total_sales
+FROM Employees e
+JOIN Departments d ON e.department_id = d.department_id
+LEFT JOIN Orders o ON e.employee_id = o.employee_id
+GROUP BY e.employee_id, e.name, d.department_name;
+
+-- Query: Find top performers
+SELECT *
+FROM Vw_Employee_Performance
+WHERE total_sales > 5000
+ORDER BY total_sales DESC;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> This View aggregates employee sales data, joining <code>Employees</code>, <code>Departments</code>, and <code>Orders</code>. The <code>LEFT JOIN</code> includes employees with no orders. Analysts can query it for performance rankings, simplifying reporting for HR or sales teams.</p>
+
+                <!-- Materialized Views -->
+                <h3 class="h4 fw-bold mb-3">Materialized Views</h3>
+                <p>Unlike standard Views, <strong>Materialized Views</strong> store query results physically on disk, acting as pre-computed tables. They trade real-time data freshness for faster query performance.</p>
+                <ul>
+                    <li><strong>Benefit:</strong> Faster query execution, as complex computations are pre-calculated.</li>
+                    <li><strong>Drawback:</strong> Data becomes stale until refreshed with <code>REFRESH MATERIALIZED VIEW</code>.</li>
+                    <li><strong>Use Case:</strong> Ideal for dashboards or reports where slight latency is acceptable, e.g., daily sales summaries or monthly patient statistics.</li>
+                </ul>
+                <p>Materialized Views are crucial for data warehousing and OLAP systems, where read performance is prioritized. They can be indexed or partitioned for further optimization. Refresh strategies include full refreshes or incremental updates (in advanced databases), balancing performance and freshness.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Create a materialized view for admission statistics
+CREATE MATERIALIZED VIEW Mv_Diagnosis_Daily_Stats AS
+SELECT
+    diagnosis,
+    COUNT(hadm_id) AS total_admissions,
+    COUNT(DISTINCT subject_id) AS unique_patients,
+    NOW() AS last_refreshed
+FROM ADMISSIONS
+GROUP BY diagnosis;
+
+-- Query: Fast access to stats
+SELECT *
+FROM Mv_Diagnosis_Daily_Stats
+ORDER BY total_admissions DESC;
+
+-- Refresh after new data
+REFRESH MATERIALIZED VIEW Mv_Diagnosis_Daily_Stats;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> The <code>Mv_Diagnosis_Daily_Stats</code> Materialized View pre-computes admission counts, enabling instant dashboard queries. Refreshing updates data when new admissions arrive, with <code>last_refreshed</code> tracking currency.</p>
+                <p><strong>Expanded Example (Inventory Tracking):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>transaction_id</th>
+                            <th>product_id</th>
+                            <th>warehouse_id</th>
+                            <th>stock_in</th>
+                            <th>stock_out</th>
+                            <th>price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>101</td>
+                            <td>1</td>
+                            <td>100</td>
+                            <td>0</td>
+                            <td>50.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>101</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>20</td>
+                            <td>50.00</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>102</td>
+                            <td>2</td>
+                            <td>200</td>
+                            <td>0</td>
+                            <td>30.00</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>102</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>50</td>
+                            <td>30.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Create materialized view for inventory levels
+CREATE MATERIALIZED VIEW Mv_Current_Inventory AS
+SELECT
+    product_id,
+    warehouse_id,
+    SUM(stock_in) - SUM(stock_out) AS current_stock,
+    AVG(price) AS average_price,
+    NOW() AS last_refreshed
+FROM Inventory_Transactions
+GROUP BY product_id, warehouse_id;
+
+-- Query: Low-stock alerts
+SELECT
+    product_id,
+    warehouse_id,
+    current_stock
+FROM Mv_Current_Inventory
+WHERE current_stock < 50;
+
+-- Refresh after daily updates
+REFRESH MATERIALIZED VIEW Mv_Current_Inventory;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> This Materialized View tracks net stock, enabling rapid alerts for low inventory. Refreshing post-batch updates ensures efficiency for supply chain operations.</p>
+
+                <!-- Developing Modular Queries -->
+                <h3 class="h4 fw-bold mb-3">Developing Modular Queries</h3>
+                <p>Modular query design combines Views and CTEs to create clean, maintainable data pipelines. Views handle persistent, shared logic, while CTEs address temporary, query-specific transformations.</p>
+                <ul>
+                    <li><strong>Views:</strong> For stable, enterprise-wide logic, e.g., <code>Vw_Active_Customers</code>.</li>
+                    <li><strong>CTEs:</strong> For ad-hoc, query-specific computations, keeping logic separate.</li>
+                </ul>
+                <p>This approach aligns with DRY principles, enhancing scalability and collaboration. Frequently used CTEs can become Views, and chaining them mimics ETL processes entirely in SQL.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Analyze readmission rates using Vw_Patient_Admission_Summary
+WITH PatientAdmissionSequence AS (
+    SELECT
+        subject_id,
+        admit_time,
+        LAG(admit_time) OVER (PARTITION BY subject_id ORDER BY admit_time) AS previous_admit_time
+    FROM Vw_Patient_Admission_Summary
+)
+SELECT
+    COUNT(CASE WHEN admit_time - previous_admit_time <= INTERVAL '30 days' THEN 1 END) AS readmissions_within_30_days,
+    COUNT(previous_admit_time) AS total_admissions_with_previous
+FROM PatientAdmissionSequence;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> The View encapsulates join logic, while the CTE computes readmission intervals using <code>LAG</code>. This modular structure separates reusable and specific logic, enhancing readability.</p>
+                <p><strong>Expanded Example (Customer Retention):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>transaction_id</th>
+                            <th>customer_id</th>
+                            <th>transaction_date</th>
+                            <th>amount</th>
+                            <th>status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>201</td>
+                            <td>2025-01-10</td>
+                            <td>100</td>
+                            <td>completed</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>201</td>
+                            <td>2025-03-15</td>
+                            <td>150</td>
+                            <td>completed</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>202</td>
+                            <td>2025-02-01</td>
+                            <td>200</td>
+                            <td>completed</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>203</td>
+                            <td>2024-12-01</td>
+                            <td>80</td>
+                            <td>completed</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- View for recent customer activity
+CREATE VIEW Vw_Recent_Customer_Activity AS
+SELECT
+    customer_id,
+    transaction_date,
+    amount
+FROM Transactions
+WHERE status = 'completed' AND transaction_date >= CURRENT_DATE - INTERVAL '6 months';
+
+-- Query for retention analysis
+WITH LastActivity AS (
+    SELECT
+        customer_id,
+        MAX(transaction_date) AS last_transaction
+    FROM Vw_Recent_Customer_Activity
+    GROUP BY customer_id
+),
+RetentionMetrics AS (
+    SELECT
+        customer_id,
+        last_transaction,
+        CURRENT_DATE - last_transaction AS days_inactive
+    FROM LastActivity
+    WHERE last_transaction < CURRENT_DATE - INTERVAL '60 days'
+)
+SELECT
+    COUNT(*) AS at_risk_customers,
+    AVG(days_inactive) AS avg_days_inactive
+FROM RetentionMetrics;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> The View filters recent transactions, while CTEs identify and analyze inactive customers. This modularity supports iterative analysis, e.g., adjusting churn thresholds.</p>
+
+                <!-- Assessments -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Assessments</h2>
+                <ol>
+                    <li><strong>Conceptual Question:</strong> When would you choose to use a Materialized View over a standard View? What is the main trade-off?</li>
+                    <li><strong>SQL Coding Task:</strong>
+                        <ul>
+                            <li>Create a <code>VIEW</code> named <code>Vw_Employee_Department_Info</code> that joins the <code>Employees</code> and <code>Departments</code> tables to show employee name, salary, and department name.</li>
+                            <li>Using the view, find the average salary in the 'Sales' department.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Application Scenario:</strong> You are a lead data analyst for a Greensboro-based e-commerce company. The marketing team needs sales by product category, and the finance team needs sales by region. Describe how you would use Views to serve both teams efficiently and securely without duplicating code.</li>
+                </ol>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-3 text-center">
+        <p class="text-muted mb-0">&copy; 2025 Ali Noori, UNCG. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Highlight.js Initialization -->
+    <script>hljs.highlightAll();</script>
+    <!-- Custom Copy Functionality -->
+    <script>
+        function copyCode(button) {
+            const code = button.nextElementSibling.querySelector('code');
+            navigator.clipboard.writeText(code.innerText).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

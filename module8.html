@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 8: Strings and Dates - IAF 603</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Highlight.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- MathJax CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Custom MathJax Configuration -->
+    <script src="./js/mathjax.js"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">IAF 603: Preparing Data for Analytics</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Modules
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./module1.html">Module 1</a></li>
+                            <li><a class="dropdown-item" href="./module2.html">Module 2</a></li>
+                            <li><a class="dropdown-item" href="./module3.html">Module 3</a></li>
+                            <li><a class="dropdown-item" href="./module4.html">Module 4</a></li>
+                            <li><a class="dropdown-item" href="./module5.html">Module 5</a></li>
+                            <li><a class="dropdown-item" href="./module6.html">Module 6</a></li>
+                            <li><a class="dropdown-item" href="./module7.html">Module 7</a></li>
+                            <li><a class="dropdown-item" href="./module8.html">Module 8</a></li>
+                            <li><a class="dropdown-item" href="./module9.html">Module 9</a></li>
+                            <li><a class="dropdown-item" href="./module10.html">Module 10</a></li>
+                            <li><a class="dropdown-item" href="./module11.html">Module 11</a></li>
+                            <li><a class="dropdown-item" href="./module12.html">Module 12</a></li>
+                            <li><a class="dropdown-item" href="./module13.html">Module 13</a></li>
+                            <li><a class="dropdown-item" href="./module14.html">Module 14</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Module Title -->
+        <section class="text-center py-5 bg-white rounded shadow">
+            <h1 class="display-4 fw-bold text-dark">Module 8: Strings and Dates</h1>
+        </section>
+
+        <!-- Module Content -->
+        <section class="my-5">
+            <div class="bg-white p-4 rounded shadow">
+                <!-- Learning Objectives -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Learning Objectives</h2>
+                <p>Upon completion of this module, participants will be able to:</p>
+                <ul>
+                    <li>Master SQL string functions (<code>UPPER</code>, <code>LOWER</code>, <code>TRIM</code>, <code>CONCAT</code>, <code>SUBSTRING</code>, <code>REPLACE</code>) for cleaning and transforming text data.</li>
+                    <li>Utilize SQL date functions (<code>EXTRACT</code>, <code>DATE_TRUNC</code>, <code>DATEADD</code>, <code>DATEDIFF</code>) to manipulate and analyze temporal data.</li>
+                    <li>Apply string and date functions in combination with other SQL clauses for data preparation.</li>
+                    <li>Handle common data quality issues in strings and dates, such as inconsistent formats or extra spaces.</li>
+                    <li>Execute string and date operations in cloud-based environments like Microsoft Fabric Lakehouse.</li>
+                </ul>
+
+                <!-- Introduction to Strings and Dates -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Introduction to Strings and Dates</h2>
+                <p>Text and temporal data are ubiquitous in databases but often require cleaning and transformation to be analysis-ready. This module focuses on SQL string functions (<code>UPPER</code>, <code>TRIM</code>, <code>CONCAT</code>, etc.) and date functions (<code>EXTRACT</code>, <code>DATE_TRUNC</code>, etc.) to standardize and manipulate these data types. These skills are critical for preparing data in real-world scenarios, such as cleaning patient names in a Greensboro hospital database or standardizing transaction dates in a retail system. By mastering these functions, you can ensure consistency, extract meaningful components, and derive new features for analytics.</p>
+                <p>String and date manipulation is often the first step in data preparation. For example, inconsistent formats (e.g., "2025-01-01" vs. "01/01/2025") or extra spaces in names can break queries or skew results. These functions enable precise data cleaning, making datasets reliable for downstream analysis in fields like healthcare, business, and informatics.</p>
+
+                <!-- String Functions -->
+                <h3 class="h4 fw-bold mb-3">String Functions</h3>
+                <p>SQL string functions manipulate text data, addressing issues like case inconsistency, extra spaces, or formatting errors.</p>
+                <ul>
+                    <li><strong>UPPER/LOWER:</strong> Converts text to uppercase or lowercase for consistency.</li>
+                    <li><strong>TRIM/LTRIM/RTRIM:</strong> Removes leading/trailing spaces.</li>
+                    <li><strong>CONCAT:</strong> Combines strings (or use <code>||</code> in some databases).</li>
+                    <li><strong>SUBSTRING:</strong> Extracts a portion of a string.</li>
+                    <li><strong>REPLACE:</strong> Replaces occurrences of a substring.</li>
+                    <li><strong>LENGTH:</strong> Returns the length of a string.</li>
+                </ul>
+                <p><strong>Sample Data (PATIENTS Table):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>subject_id</th>
+                            <th>name</th>
+                            <th>email</th>
+                            <th>address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1001</td>
+                            <td>Alice Smith  </td>
+                            <td>alice.smith@email.com</td>
+                            <td>123 Main St, Greensboro</td>
+                        </tr>
+                        <tr>
+                            <td>1002</td>
+                            <td>Bob JOHNSON</td>
+                            <td>bob.johnson@email.com</td>
+                            <td>456 Oak Ave, greensboro</td>
+                        </tr>
+                        <tr>
+                            <td>1003</td>
+                            <td>Carol White</td>
+                            <td>carol.white@email.com</td>
+                            <td>789 Pine Rd, GSO</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Standardize names and extract domain
+SELECT
+    TRIM(UPPER(name)) AS CleanName,
+    SUBSTRING(email FROM POSITION('@' IN email) + 1) AS EmailDomain
+FROM PATIENTS;
+
+-- Combine name and address
+SELECT
+    CONCAT(name, ', ', address) AS FullContact,
+    LENGTH(address) AS AddressLength
+FROM PATIENTS;
+
+-- Replace 'GSO' with 'Greensboro' in address
+SELECT
+    name,
+    REPLACE(address, 'GSO', 'Greensboro') AS CleanAddress
+FROM PATIENTS;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> The first query standardizes names (removes spaces, converts to uppercase) and extracts email domains. The second combines name and address and measures address length. The third corrects inconsistent city abbreviations.</p>
+                <p><strong>Expanded Example (Products Table):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>product_id</th>
+                            <th>product_name</th>
+                            <th>description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Laptop   </td>
+                            <td>High-performance laptop</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>MOUSE</td>
+                            <td>Wireless Mouse</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Keyboard</td>
+                            <td>Mechanical KB</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Clean product names and extract keywords
+SELECT
+    TRIM(LOWER(product_name)) AS CleanProductName,
+    REPLACE(description, 'KB', 'Keyboard') AS CleanDescription
+FROM Products;
+
+-- Create product code
+SELECT
+    product_name,
+    CONCAT(SUBSTRING(product_name FROM 1 FOR 3), '_', product_id::TEXT) AS ProductCode
+FROM Products;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> The first query standardizes product names and descriptions, correcting abbreviations. The second creates a unique product code by combining the first three letters of the name with the ID.</p>
+
+                <!-- Date Functions -->
+                <h3 class="h4 fw-bold mb-3">Date Functions</h3>
+                <p>Date functions manipulate temporal data, extracting components or calculating differences for analysis.</p>
+                <ul>
+                    <li><strong>EXTRACT:</strong> Retrieves a specific part of a date (e.g., year, month).</li>
+                    <li><strong>DATE_TRUNC:</strong> Truncates a date to a specified precision (e.g., day, month).</li>
+                    <li><strong>DATEADD/INTERVAL:</strong> Adds time to a date.</li>
+                    <li><strong>DATEDIFF/INTERVAL:</strong> Calculates the difference between dates.</li>
+                </ul>
+                <p><strong>Sample Data (ADMISSIONS Table):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>hadm_id</th>
+                            <th>subject_id</th>
+                            <th>admit_time</th>
+                            <th>discharge_time</th>
+                            <th>diagnosis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>1001</td>
+                            <td>2025-01-10 08:15:00</td>
+                            <td>2025-01-15 12:00:00</td>
+                            <td>Pneumonia</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>1002</td>
+                            <td>2025-02-01 14:30:00</td>
+                            <td>2025-02-03 09:00:00</td>
+                            <td>Fracture</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>1001</td>
+                            <td>2025-03-05 10:45:00</td>
+                            <td>2025-03-12 15:00:00</td>
+                            <td>Pneumonia</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Extract year and month of admission
+SELECT
+    hadm_id,
+    EXTRACT(YEAR FROM admit_time) AS AdmitYear,
+    EXTRACT(MONTH FROM admit_time) AS AdmitMonth
+FROM ADMISSIONS;
+
+-- Truncate to month
+SELECT
+    hadm_id,
+    DATE_TRUNC('month', admit_time) AS AdmitMonth
+FROM ADMISSIONS;
+
+-- Calculate stay length
+SELECT
+    hadm_id,
+    (discharge_time - admit_time) AS StayLength
+FROM ADMISSIONS;
+
+-- Add 30 days to admit time
+SELECT
+    hadm_id,
+    admit_time + INTERVAL '30 days' AS FollowUpDate
+FROM ADMISSIONS;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> <code>EXTRACT</code> isolates year and month for temporal analysis. <code>DATE_TRUNC</code> groups by month. <code>INTERVAL</code> calculates stay length or follow-up dates, critical for healthcare planning.</p>
+                <p><strong>Expanded Example (Orders Table):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>order_id</th>
+                            <th>customer_id</th>
+                            <th>order_date</th>
+                            <th>total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>1</td>
+                            <td>2025-01-15 09:00:00</td>
+                            <td>150.00</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>2</td>
+                            <td>2025-02-20 14:30:00</td>
+                            <td>300.00</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>1</td>
+                            <td>2025-03-10 11:00:00</td>
+                            <td>200.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Extract quarter and calculate shipping deadline
+SELECT
+    order_id,
+    EXTRACT(QUARTER FROM order_date) AS OrderQuarter,
+    DATE_TRUNC('day', order_date) AS OrderDay,
+    order_date + INTERVAL '7 days' AS ShippingDeadline
+FROM Orders;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Extracts quarter for seasonal analysis and calculates shipping deadlines, useful for logistics.</p>
+
+                <!-- Combining String and Date Functions -->
+                <h3 class="h4 fw-bold mb-3">Combining String and Date Functions</h3>
+                <p>Combining these functions with joins and other clauses enhances data preparation.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Clean patient names and filter by 2025 admissions
+SELECT
+    TRIM(UPPER(p.name)) AS CleanName,
+    a.hadm_id,
+    DATE_TRUNC('month', a.admit_time) AS AdmitMonth,
+    (a.discharge_time - a.admit_time) AS StayLength
+FROM PATIENTS p
+JOIN ADMISSIONS a ON p.subject_id = a.subject_id
+WHERE EXTRACT(YEAR FROM a.admit_time) = 2025;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Cleans names, groups admissions by month, and calculates stay length for 2025 data.</p>
+                <p><strong>Expanded Example (Customer Orders):</strong></p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Format customer email and order details
+SELECT
+    CONCAT(LOWER(c.name), '@', SUBSTRING(c.email FROM POSITION('@' IN c.email) + 1)) AS CleanEmail,
+    o.order_id,
+    DATE_TRUNC('month', o.order_date) AS OrderMonth
+FROM Customers c
+JOIN Orders o ON c.customer_id = o.customer_id
+WHERE o.order_date >= '2025-01-01';</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Standardizes email formats and groups orders by month for recent transactions.</p>
+
+                <!-- Common Data Quality Issues -->
+                <h3 class="h4 fw-bold mb-3">Common Data Quality Issues</h3>
+                <p>Strings often have extra spaces, mixed cases, or typos. Dates may have inconsistent formats or invalid values. These functions address such issues.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Clean inconsistent addresses
+SELECT
+    subject_id,
+    REPLACE(TRIM(address), 'greensboro', 'Greensboro') AS StandardizedAddress
+FROM PATIENTS;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Ensures consistent city naming for analysis.</p>
+
+                <!-- String and Date Functions in Microsoft Fabric -->
+                <h3 class="h4 fw-bold mb-3">String and Date Functions in Microsoft Fabric Lakehouse</h3>
+                <p>Fabric supports these functions for large-scale data cleaning.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Clean survey responses in Fabric
+SELECT
+    TRIM(UPPER(respondent_name)) AS CleanName,
+    EXTRACT(YEAR FROM response_date) AS ResponseYear
+FROM survey_lakehouse.Responses
+WHERE response_date >= '2025-01-01';</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Standardizes names and extracts year for survey analysis.</p>
+
+                <!-- Assessments -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Assessments</h2>
+                <ol>
+                    <li><strong>Conceptual Question:</strong> Explain the difference between <code>TRIM</code> and <code>REPLACE</code>. When would you use each?</li>
+                    <li><strong>SQL Coding Task:</strong> Using the PATIENTS and ADMISSIONS tables, clean patient names (uppercase, no spaces) and calculate stay length for 2025 admissions.</li>
+                    <li><strong>Application Scenario:</strong> For a Greensboro retail store, clean product descriptions by replacing abbreviations and extract order month from Orders.</li>
+                    <li><strong>Expanded Task:</strong> For a university database, clean student names and calculate time since enrollment for students enrolled after 2023.</li>
+                </ol>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-3 text-center">
+        <p class="text-muted mb-0">&copy; 2025 Ali Noori, UNCG. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Highlight.js Initialization -->
+    <script>hljs.highlightAll();</script>
+    <!-- Custom Copy Functionality -->
+    <script>
+        function copyCode(button) {
+            const code = button.nextElementSibling.querySelector('code');
+            navigator.clipboard.writeText(code.innerText).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

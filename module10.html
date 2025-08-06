@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 10: Reshaping Data - IAF 603</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Highlight.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- MathJax CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Custom MathJax Configuration -->
+    <script src="./js/mathjax.js"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">IAF 603: Preparing Data for Analytics</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Modules
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./module1.html">Module 1</a></li>
+                            <li><a class="dropdown-item" href="./module2.html">Module 2</a></li>
+                            <li><a class="dropdown-item" href="./module3.html">Module 3</a></li>
+                            <li><a class="dropdown-item" href="./module4.html">Module 4</a></li>
+                            <li><a class="dropdown-item" href="./module5.html">Module 5</a></li>
+                            <li><a class="dropdown-item" href="./module6.html">Module 6</a></li>
+                            <li><a class="dropdown-item" href="./module7.html">Module 7</a></li>
+                            <li><a class="dropdown-item" href="./module8.html">Module 8</a></li>
+                            <li><a class="dropdown-item" href="./module9.html">Module 9</a></li>
+                            <li><a class="dropdown-item" href="./module10.html">Module 10</a></li>
+                            <li><a class="dropdown-item" href="./module11.html">Module 11</a></li>
+                            <li><a class="dropdown-item" href="./module12.html">Module 12</a></li>
+                            <li><a class="dropdown-item" href="./module13.html">Module 13</a></li>
+                            <li><a class="dropdown-item" href="./module14.html">Module 14</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Module Title -->
+        <section class="text-center py-5 bg-white rounded shadow">
+            <h1 class="display-4 fw-bold text-dark">Module 10: Reshaping Data</h1>
+        </section>
+
+        <!-- Module Content -->
+        <section class="my-5">
+            <div class="bg-white p-4 rounded shadow">
+                <!-- Learning Objectives -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Learning Objectives</h2>
+                <p>Upon completion of this module, participants will be able to:</p>
+                <ul>
+                    <li>Learn to pivot data (rows to columns) using <code>CASE</code> statements to transform datasets for analysis.</li>
+                    <li>Apply unpivoting techniques (columns to rows) using <code>UNION ALL</code> to normalize data structures.</li>
+                    <li>Combine pivoting and unpivoting with other SQL clauses (<code>JOIN</code>, <code>GROUP BY</code>) for flexible data restructuring.</li>
+                    <li>Address common data reshaping challenges in real-world scenarios, such as reporting and visualization preparation.</li>
+                    <li>Execute reshaping operations in cloud-based environments like Microsoft Fabric Lakehouse.</li>
+                </ul>
+
+                <!-- Introduction to Reshaping Data -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Introduction to Reshaping Data</h2>
+                <p>Reshaping data involves transforming its structure to suit analytical or reporting needs, such as converting rows to columns (pivoting) or columns to rows (unpivoting). This module focuses on using <code>CASE</code> statements for pivoting and <code>UNION ALL</code> for unpivoting, enabling flexible data restructuring. These techniques are critical in scenarios like creating summary reports in a Greensboro hospital (e.g., pivoting patient diagnoses by month) or normalizing survey responses for analysis. Reshaping ensures data is presented in a format that aligns with analytical tools or business requirements, enhancing interpretability and usability.</p>
+                <p>Pivoting is useful for creating wide-format tables for dashboards, while unpivoting converts wide data into long formats for detailed analysis. These methods are particularly valuable when dealing with messy datasets or preparing data for visualization tools like Power BI or Tableau. By combining reshaping with joins and aggregations, you can create robust data preparation pipelines.</p>
+
+                <!-- Sample Data -->
+                <h3 class="h4 fw-bold mb-3">Sample Data</h3>
+                <p><strong>ADMISSIONS Table:</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>hadm_id</th>
+                            <th>subject_id</th>
+                            <th>admit_time</th>
+                            <th>diagnosis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>1001</td>
+                            <td>2025-01-10</td>
+                            <td>Pneumonia</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>1002</td>
+                            <td>2025-01-15</td>
+                            <td>Fracture</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>1001</td>
+                            <td>2025-02-05</td>
+                            <td>Pneumonia</td>
+                        </tr>
+                        <tr>
+                            <td>104</td>
+                            <td>1003</td>
+                            <td>2025-02-10</td>
+                            <td>Flu</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Sales Table (Retail Example):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>sale_id</th>
+                            <th>product</th>
+                            <th>month</th>
+                            <th>revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Laptop</td>
+                            <td>2025-01</td>
+                            <td>1600.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Mouse</td>
+                            <td>2025-01</td>
+                            <td>100.00</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Laptop</td>
+                            <td>2025-02</td>
+                            <td>2400.00</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Mouse</td>
+                            <td>2025-02</td>
+                            <td>150.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pivoting Data (Rows to Columns) -->
+                <h3 class="h4 fw-bold mb-3">Pivoting Data (Rows to Columns)</h3>
+                <p>Pivoting transforms rows into columns, often for summary reports or visualizations. In SQL, <code>CASE</code> statements are used to create pivot tables when a dedicated <code>PIVOT</code> operator is unavailable.</p>
+                <ul>
+                    <li><strong>Purpose:</strong> Summarize data by categories as columns (e.g., diagnoses by month).</li>
+                    <li><strong>Method:</strong> Use <code>CASE</code> to create columns for each category, combined with <code>GROUP BY</code>.</li>
+                </ul>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Pivot admissions by diagnosis for each month
+SELECT
+    EXTRACT(MONTH FROM admit_time) AS Month,
+    SUM(CASE WHEN diagnosis = 'Pneumonia' THEN 1 ELSE 0 END) AS PneumoniaCount,
+    SUM(CASE WHEN diagnosis = 'Fracture' THEN 1 ELSE 0 END) AS FractureCount,
+    SUM(CASE WHEN diagnosis = 'Flu' THEN 1 ELSE 0 END) AS FluCount
+FROM ADMISSIONS
+GROUP BY EXTRACT(MONTH FROM admit_time);</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> This query creates columns for each diagnosis, counting occurrences per month. The result is a wide-format table ideal for monthly trend reports.</p>
+                <p><strong>Expected Output:</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>PneumoniaCount</th>
+                            <th>FractureCount</th>
+                            <th>FluCount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Expanded Example (Sales by Product):</strong></p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Pivot sales revenue by product for each month
+SELECT
+    month,
+    SUM(CASE WHEN product = 'Laptop' THEN revenue ELSE 0 END) AS LaptopRevenue,
+    SUM(CASE WHEN product = 'Mouse' THEN revenue ELSE 0 END) AS MouseRevenue
+FROM Sales
+GROUP BY month;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Creates a pivot table showing revenue for each product by month, useful for retail performance dashboards.</p>
+                <p><strong>Expanded Example (Survey Responses):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>respondent_id</th>
+                            <th>question</th>
+                            <th>score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Q1</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Q2</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Q1</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Q2</td>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Pivot survey scores by question
+SELECT
+    respondent_id,
+    MAX(CASE WHEN question = 'Q1' THEN score ELSE NULL END) AS Q1_Score,
+    MAX(CASE WHEN question = 'Q2' THEN score ELSE NULL END) AS Q2_Score
+FROM SurveyResponses
+GROUP BY respondent_id;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Transforms question scores into columns per respondent, ideal for comparing responses across questions.</p>
+
+                <!-- Unpivoting Data (Columns to Rows) -->
+                <h3 class="h4 fw-bold mb-3">Unpivoting Data (Columns to Rows)</h3>
+                <p>Unpivoting converts columns into rows, often for normalizing wide-format data or preparing it for detailed analysis.</p>
+                <ul>
+                    <li><strong>Purpose:</strong> Transform wide data into long format (e.g., convert monthly columns into rows).</li>
+                    <li><strong>Method:</strong> Use <code>UNION ALL</code> to stack column values as rows.</li>
+                </ul>
+                <p><strong>Sample Wide Data (MonthlySales):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>product</th>
+                            <th>Jan_Revenue</th>
+                            <th>Feb_Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Laptop</td>
+                            <td>1600.00</td>
+                            <td>2400.00</td>
+                        </tr>
+                        <tr>
+                            <td>Mouse</td>
+                            <td>100.00</td>
+                            <td>150.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Unpivot monthly sales data
+SELECT product, 'Jan' AS Month, Jan_Revenue AS Revenue
+FROM MonthlySales
+UNION ALL
+SELECT product, 'Feb' AS Month, Feb_Revenue AS Revenue
+FROM MonthlySales;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Converts monthly revenue columns into rows, creating a long-format table for time-series analysis.</p>
+                <p><strong>Expected Output:</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>product</th>
+                            <th>Month</th>
+                            <th>Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Laptop</td>
+                            <td>Jan</td>
+                            <td>1600.00</td>
+                        </tr>
+                        <tr>
+                            <td>Laptop</td>
+                            <td>Feb</td>
+                            <td>2400.00</td>
+                        </tr>
+                        <tr>
+                            <td>Mouse</td>
+                            <td>Jan</td>
+                            <td>100.00</td>
+                        </tr>
+                        <tr>
+                            <td>Mouse</td>
+                            <td>Feb</td>
+                            <td>150.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Expanded Example (Patient Metrics):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>patient_id</th>
+                            <th>HeartRate</th>
+                            <th>BloodPressure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1001</td>
+                            <td>72</td>
+                            <td>120/80</td>
+                        </tr>
+                        <tr>
+                            <td>1002</td>
+                            <td>68</td>
+                            <td>130/85</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Unpivot patient metrics
+SELECT patient_id, 'HeartRate' AS Metric, HeartRate AS Value
+FROM PatientMetrics
+UNION ALL
+SELECT patient_id, 'BloodPressure' AS Metric, BloodPressure AS Value
+FROM PatientMetrics;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Converts metrics into a long format, suitable for detailed health analysis.</p>
+
+                <!-- Combining with Other SQL Clauses -->
+                <h3 class="h4 fw-bold mb-3">Combining with Other SQL Clauses</h3>
+                <p>Reshaping often involves joins, aggregations, and filtering for complex analysis.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Pivot admissions with patient names
+SELECT
+    p.name,
+    SUM(CASE WHEN EXTRACT(MONTH FROM a.admit_time) = 1 THEN 1 ELSE 0 END) AS JanAdmissions,
+    SUM(CASE WHEN EXTRACT(MONTH FROM a.admit_time) = 2 THEN 1 ELSE 0 END) AS FebAdmissions
+FROM PATIENTS p
+LEFT JOIN ADMISSIONS a ON p.subject_id = a.subject_id
+GROUP BY p.name;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Joins patients with admissions, pivoting to show admission counts by month per patient.</p>
+                <p><strong>Expanded Example (Sales with Categories):</strong></p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Pivot sales by category and month
+SELECT
+    p.category,
+    SUM(CASE WHEN s.month = '2025-01' THEN s.revenue ELSE 0 END) AS JanRevenue,
+    SUM(CASE WHEN s.month = '2025-02' THEN s.revenue ELSE 0 END) AS FebRevenue
+FROM Products p
+JOIN Sales s ON p.product = s.product
+GROUP BY p.category;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Aggregates revenue by category and month, creating a wide-format report.</p>
+
+                <!-- Reshaping in Microsoft Fabric -->
+                <h3 class="h4 fw-bold mb-3">Reshaping in Microsoft Fabric Lakehouse</h3>
+                <p>Fabric supports reshaping for large datasets, optimized for distributed processing.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Pivot survey scores in Fabric
+SELECT
+    respondent_id,
+    MAX(CASE WHEN question = 'Q1' THEN score ELSE NULL END) AS Q1_Score,
+    MAX(CASE WHEN question = 'Q2' THEN score ELSE NULL END) AS Q2_Score
+FROM survey_lakehouse.Responses
+GROUP BY respondent_id;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Pivots survey responses for scalable analysis in Fabric.</p>
+
+                <!-- Assessments -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Assessments</h2>
+                <ol>
+                    <li><strong>Conceptual Question:</strong> Explain the difference between pivoting and unpivoting. When would you use each?</li>
+                    <li><strong>SQL Coding Task:</strong> Using the ADMISSIONS table, pivot to show counts of each diagnosis by month in 2025.</li>
+                    <li><strong>Application Scenario:</strong> For a Greensboro retailer, unpivot a table with monthly sales columns into a long format for time-series analysis.</li>
+                    <li><strong>Expanded Task:</strong> For a university database, pivot student grades by course code into columns, then join with student data to include names.</li>
+                </ol>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-3 text-center">
+        <p class="text-muted mb-0">&copy; 2025 Ali Noori, UNCG. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Highlight.js Initialization -->
+    <script>hljs.highlightAll();</script>
+    <!-- Custom Copy Functionality -->
+    <script>
+        function copyCode(button) {
+            const code = button.nextElementSibling.querySelector('code');
+            navigator.clipboard.writeText(code.innerText).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

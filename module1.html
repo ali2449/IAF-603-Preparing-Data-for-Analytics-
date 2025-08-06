@@ -84,16 +84,16 @@
 
                 <!-- Introduction to Data in Informatics -->
                 <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Introduction to Data in Informatics</h2>
-                <p>Informatics, at its core, is the science of information, bridging data, technology, and human decision-making. Whether in healthcare, business, or scientific research, the ability to extract meaningful insights hinges on the quality and organization of the underlying data. This module serves as the foundational cornerstone of our course, introducing the diverse forms data can take: structured, semi-structured, and unstructured. From the rigid order of a spreadsheet to the free-flowing narrative of a clinical note, understanding these data types is the first critical step in mastering data preparation. We will explore their historical evolution, their prevalence in modern systems, and the unique challenges each presents, setting the stage for the SQL and Spark SQL techniques we will learn to tame them.</p>
-                <p>For instance, in a retail business, structured data might track sales transactions, semi-structured data could capture customer reviews in JSON format, and unstructured data might include customer service call recordings. Each type requires distinct preparation strategies to ensure it can be analyzed effectively.</p>
+                <p>Informatics, at its core, is the science of information. Whether in healthcare, business, or scientific research, the ability to extract meaningful insights hinges entirely on the quality and organization of the underlying data. This module serves as the foundational cornerstone of our course, introducing the diverse forms data can take. From the rigid order of a spreadsheet to the free-flowing narrative of a clinical note, understanding these data types is the first critical step in mastering data preparation. We will explore their historical evolution, their prevalence in modern systems, and the unique challenges each presents, setting the stage for the SQL and Spark techniques we will learn to tame them.</p>
+                <p>Historically, structured data dominated early computing eras with punch cards and relational databases in the 1970s. The rise of the internet in the 1990s introduced semi-structured formats like XML, while the social media boom in the 2000s exploded unstructured data. Today, in fields like informatics, blending these types is common—e.g., combining patient records (structured) with doctor notes (unstructured) and wearable data (semi-structured) for holistic analysis.</p>
 
                 <!-- The Data Landscape -->
                 <h3 class="h4 fw-bold mb-3">The Data Landscape</h3>
-                <p>The digital age has led to an explosion in data volume, velocity, and variety (the "3 Vs" of Big Data). This necessitates a clear understanding of data classification to effectively manage and analyze it. The volume of data doubles approximately every two years, velocity increases with real-time streams from IoT devices, and variety spans text, images, and more. This module categorizes data to prepare you for handling these challenges.</p>
+                <p>The digital age has led to an explosion in data volume, velocity, and variety (the "3 Vs" of Big Data). This necessitates a clear understanding of data classification to effectively manage and analyze it. For instance, in a smart city project in Greensboro, NC, traffic sensors provide structured data, social media complaints offer unstructured insights, and API feeds deliver semi-structured updates.</p>
 
                 <!-- Structured Data -->
                 <h4 class="h5 fw-bold mb-2">Structured Data</h4>
-                <p>Structured data is the most traditional and organized form of data, conforming to a predefined data model, making it ideal for relational databases.</p>
+                <p>Structured data is the most traditional and organized form of data. It conforms to a predefined data model, making it highly suitable for relational databases.</p>
                 <ul>
                     <li><strong>Characteristics:</strong>
                         <ul>
@@ -110,32 +110,57 @@
                         </ul>
                     </li>
                     <li><strong>Storage:</strong> Primarily in relational databases, data warehouses, or simple flat files (CSV, Excel).</li>
-                    <li><strong>Implications for Preparation:</strong> Generally requires less cleaning for structural issues but focuses on data quality within the defined schema (e.g., correct data types, valid ranges, no duplicates).</li>
+                    <li><strong>Implications for Preparation:</strong> Generally requires less cleaning for structural issues, but focuses on data quality within the defined schema (e.g., correct data types, valid ranges, no duplicates).</li>
+                    <li><strong>How to Recognize Structured Data:</strong> Structured data often originates from sources with predefined fields, such as old paper forms (e.g., patient registration forms, survey questionnaires) that are digitized. If the data fits neatly into rows and columns with consistent types—like a spreadsheet where every row has the same number of fields and each field is of a uniform type (e.g., all ages are numbers)—it's structured. For example, a paper census form with fixed blanks for name, age, address can be scanned and converted directly into a database table.</li>
                     <li><strong>Example (Healthcare):</strong> A patient demographics table with columns for <code>patient_id</code>, <code>name</code>, <code>date_of_birth</code>, <code>gender</code>, <code>blood_type</code>. Each record fits neatly into these predefined fields.</li>
-                    <li><strong>Example (Retail):</strong> A sales transaction table with columns for <code>transaction_id</code>, <code>product_id</code>, <code>quantity</code>, <code>price</code>, and <code>sale_date</code>.</li>
+                    <li><strong>Example (Survey):</strong> A survey where respondents select answers from multiple-choice options, resulting in a table with <code>respondent_id</code>, <code>question_1_answer</code>, <code>question_2_answer</code>.</li>
+                    <li><strong>Expanded Example (E-commerce):</strong> An order table with <code>order_id</code> (INT), <code>customer_id</code> (INT), <code>order_date</code> (DATE), <code>total_amount</code> (DECIMAL). This allows easy aggregation like total sales per day.</li>
                 </ul>
-                <div class="code-block">
-                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
-                    <pre><code class="language-sql">-- Example: Structured data for retail sales
-CREATE TABLE Sales (
-    transaction_id INT PRIMARY KEY,
-    product_id INT,
-    quantity INT,
-    price DECIMAL(10, 2),
-    sale_date DATE
-);
-INSERT INTO Sales VALUES (1, 101, 2, 29.99, '2025-01-15');</code></pre>
-                </div>
-                <p><strong>Explanation:</strong> This SQL creates a structured table for sales data, ensuring each column has a specific data type and a primary key for uniqueness.</p>
+                <p><strong>Example Structured Data Table (Patient Demographics):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>patient_id</th>
+                            <th>name</th>
+                            <th>date_of_birth</th>
+                            <th>gender</th>
+                            <th>blood_type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1001</td>
+                            <td>Alice Smith</td>
+                            <td>1985-05-15</td>
+                            <td>Female</td>
+                            <td>A+</td>
+                        </tr>
+                        <tr>
+                            <td>1002</td>
+                            <td>Bob Johnson</td>
+                            <td>1990-03-22</td>
+                            <td>Male</td>
+                            <td>O-</td>
+                        </tr>
+                        <tr>
+                            <td>1003</td>
+                            <td>Carol White</td>
+                            <td>1978-11-07</td>
+                            <td>Female</td>
+                            <td>AB+</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>This table illustrates how structured data maintains a consistent format, similar to how old paper medical forms with fixed sections (e.g., "Name:", "DOB:", "Gender:") are transcribed into digital rows and columns.</p>
 
                 <!-- Semi-Structured Data -->
                 <h4 class="h5 fw-bold mb-2">Semi-Structured Data</h4>
-                <p>Semi-structured data does not conform to a rigid, tabular schema but contains tags or markers that organize and describe the data, allowing for flexibility. It's ideal for scenarios where data evolves, such as IoT or web APIs.</p>
+                <p>Semi-structured data does not conform to a rigid, tabular schema but contains tags or markers that organize and describe the data, allowing for some level of structure. It's more flexible than structured data, making it adaptable to evolving data requirements.</p>
                 <ul>
                     <li><strong>Characteristics:</strong>
                         <ul>
                             <li><strong>Flexible Schema:</strong> Schema is not fixed; fields can be added or removed easily.</li>
-                            <li><strong>Self-Describing:</strong> Data elements are accompanied by tags or attributes that define their meaning.</li>
+                            <li><strong>Self-Describing:</strong> Data elements are often accompanied by tags or attributes that define their meaning.</li>
                             <li><strong>Hierarchical/Nested:</strong> Often organized in a tree-like or graph-like structure.</li>
                         </ul>
                     </li>
@@ -167,32 +192,46 @@ INSERT INTO Sales VALUES (1, 101, 2, 29.99, '2025-01-15');</code></pre>
   }
 }</code></pre>
                 </div>
-                <p>Another patient's data might omit <code>sleep_duration_hours</code> or add <code>blood_oxygen</code>, requiring flexible parsing.</p>
+                <p>Another patient's data might omit <code>sleep_duration_hours</code> or add <code>blood_oxygen</code>.</p>
                 <ul>
-                    <li><strong>Example (E-commerce):</strong> A customer review stored as JSON:</li>
+                    <li><strong>Example (Survey):</strong> An online survey allowing optional comments or attachments, where the response is stored as XML:</li>
                 </ul>
                 <div class="code-block">
                     <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-xml">&lt;response id="R2001"&gt;
+  &lt;demographics&gt;
+    &lt;age&gt;35&lt;/age&gt;
+    &lt;gender&gt;Female&lt;/gender&gt;
+  &lt;/demographics&gt;
+  &lt;answers&gt;
+    &lt;q1&gt;Strongly Agree&lt;/q1&gt;
+    &lt;q2&gt;Neutral&lt;/q2&gt;
+    &lt;comment&gt;I found the survey questions very clear.&lt;/comment&gt;
+  &lt;/answers&gt;
+&lt;/response&gt;</code></pre>
+                </div>
+                <p><strong>Expanded Example (Weather API):</strong> A weather forecast API response in JSON:</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
                     <pre><code class="language-json">{
-  "review_id": "R1234",
-  "customer_id": "C567",
-  "product_id": "P789",
-  "rating": 4,
-  "comment": "Great product, fast delivery!",
-  "review_date": "2025-02-01"
+  "city": "Greensboro",
+  "forecast": [
+    {"date": "2025-08-06", "temp": 85, "conditions": "Sunny"},
+    {"date": "2025-08-07", "temp": 78, "conditions": "Rainy", "wind_speed": 15}
+  ]
 }</code></pre>
                 </div>
-                <p><strong>Explanation:</strong> JSON allows optional fields like <code>comment</code>, making it semi-structured. Parsing this into a relational table requires handling missing fields and nested structures.</p>
+                <p>Note how the "forecast" array allows variable fields like "wind_speed" in some entries but not others, showcasing flexibility.</p>
 
                 <!-- Unstructured Data -->
                 <h4 class="h5 fw-bold mb-2">Unstructured Data</h4>
-                <p>Unstructured data lacks a predefined data model and is the most challenging to process but often contains the richest insights, requiring advanced techniques like NLP or computer vision.</p>
+                <p>Unstructured data is information that does not have a predefined data model or is not organized in a pre-defined manner. It is the most challenging to process but often contains the richest insights.</p>
                 <ul>
                     <li><strong>Characteristics:</strong>
                         <ul>
-                            <li><strong>No Schema:</strong> Lacks internal structure or organization.</li>
+                            <li><strong>No Schema:</strong> Lacks any internal structure or organization.</li>
                             <li><strong>Heterogeneous:</strong> Can be a mix of text, images, audio, video.</li>
-                            <li><strong>Context-Dependent:</strong> Meaning relies heavily on human interpretation.</li>
+                            <li><strong>Context-Dependent:</strong> Meaning often relies heavily on human interpretation.</li>
                         </ul>
                     </li>
                     <li><strong>Typical Sources:</strong>
@@ -203,31 +242,32 @@ INSERT INTO Sales VALUES (1, 101, 2, 29.99, '2025-01-15');</code></pre>
                         </ul>
                     </li>
                     <li><strong>Storage:</strong> Data lakes, content management systems, specialized databases for multimedia.</li>
-                    <li><strong>Implications for Preparation:</strong> Requires advanced techniques like Natural Language Processing (NLP), computer vision, or audio analysis to extract features or convert into structured/semi-structured formats. High potential for noise, ambiguity, and bias.</li>
+                    <li><strong>Implications for Preparation:</strong> Requires advanced techniques like Natural Language Processing (NLP), computer vision, or audio analysis to extract features or convert it into a structured or semi-structured format. High potential for noise, ambiguity, and bias.</li>
                     <li><strong>Example (Healthcare):</strong> A physician's clinical note: "Patient presented with severe headache and fever. No rash observed. Prescribed Tylenol. Follow-up in 3 days. History of migraines." Extracting "headache," "fever," "Tylenol," and "migraines" requires NLP.</li>
-                    <li><strong>Example (Social Media):</strong> A tweet: "Loving the new coffee shop in Greensboro! Great vibe, but parking is tough. #LocalBusiness" Extracting sentiment and location requires text analysis.</li>
+                    <li><strong>Example (Survey):</strong> An open-ended comment from a public health survey: "The new clinic hours are terrible for working parents. I wish they had evening appointments in Greensboro." Extracting sentiment, location, and specific issues requires text analysis.</li>
+                    <li><strong>Expanded Example (Social Media):</strong> A tweet: "Loving the new park in Greensboro! Great for family picnics, but needs more benches. #CityLife" – Sentiment analysis could classify it as positive with suggestions, while topic modeling identifies "urban planning."</li>
+                    <li><strong>Expanded Example (Multimedia):</strong> An MRI image file or a video of a patient consultation; processing might involve AI to detect anomalies or transcribe speech.</li>
                 </ul>
-                <p>Expanded example: An email from a customer: "I ordered a laptop on Jan 10, but it arrived damaged. Please send a replacement to 123 Main St, Greensboro, NC." Extracting order details, sentiment, and address requires NLP tools.</p>
 
                 <!-- Data Quality Dimensions -->
                 <h3 class="h4 fw-bold mb-3">Data Quality Dimensions</h3>
-                <p>Regardless of data type, the ultimate goal of data preparation is to ensure data quality. Key dimensions include:</p>
+                <p>Regardless of the data type, the ultimate goal of data preparation is to ensure data quality. Key dimensions include:</p>
                 <ul>
-                    <li><strong>Accuracy:</strong> Is the data correct? (e.g., Is the patient's age 45 or a typo like 450?)</li>
-                    <li><strong>Completeness:</strong> Is all necessary data present? (e.g., Are <code>diagnosis</code> entries missing in the <code>ADMISSIONS</code> table?)</li>
-                    <li><strong>Consistency:</strong> Is the data uniform? (e.g., Is "Influenza" sometimes recorded as "Flu"?)</li>
-                    <li><strong>Timeliness:</strong> Is the data up-to-date? (e.g., Are lab results from yesterday available today?)</li>
-                    <li><strong>Validity:</strong> Does the data conform to rules? (e.g., Is <code>age</code> positive? Is <code>gender</code> 'Male' or 'Female'?)</li>
+                    <li><strong>Accuracy:</strong> Is the data correct and free from errors? (e.g., Is the patient's age actually 45, or was it a typo? In a sales dataset, does the total match the sum of items?)</li>
+                    <li><strong>Completeness:</strong> Is all necessary data present? (e.g., Are there missing `diagnosis` entries in the `ADMISSIONS` table? Or absent responses in a survey leading to biased results?)</li>
+                    <li><strong>Consistency:</strong> Is the data uniform across systems and over time? (e.g., Is "Influenza" sometimes spelled "Flu"? Or dates formatted as MM/DD vs DD/MM?)</li>
+                    <li><strong>Timeliness:</strong> Is the data available when needed and up-to-date? (e.g., Are lab results from yesterday available for today's diagnosis? Stock prices should be real-time for trading.)</li>
+                    <li><strong>Validity:</strong> Does the data conform to defined business rules or formats? (e.g., Is `age` a positive number? Is `gender` 'Male' or 'Female'? Email addresses should match regex patterns.)</li>
                 </ul>
-                <p>Expanded example: In a sales database, ensuring <code>price</code> is positive (validity), all orders have a <code>customer_id</code> (completeness), and product names are standardized (consistency) is critical for accurate reporting.</p>
+                <p>Expanded dimension: <strong>Relevance</strong> – Does the data align with the analysis goal? E.g., including outdated customer data in a current marketing campaign reduces effectiveness.</p>
 
                 <!-- Assessments -->
                 <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Assessments</h2>
                 <ol>
                     <li><strong>Conceptual Question:</strong> You are analyzing patient feedback. Some feedback is from a structured rating scale (1-5), some from a free-text comment box, and some from a voice recording of a call. Classify each type of feedback and describe one specific data preparation challenge for each.</li>
                     <li><strong>Application Scenario:</strong> For a business in Greensboro, NC, describe how structured, semi-structured, and unstructured data might be used to understand customer behavior. Provide a concrete example for each data type.</li>
-                    <li><strong>Practical Exercise:</strong> Given a CSV file with columns <code>customer_id</code>, <code>purchase_date</code>, <code>product</code>, and <code>comments</code>, classify each column’s data type (structured, semi-structured, unstructured) and propose one preparation task for each.</li>
                 </ol>
+                <p>Expanded assessment example: Classify data from a retail app: Transaction logs (structured), user session JSON (semi-structured), review texts (unstructured). Discuss preparation steps like normalizing transactions, flattening JSON, and sentiment analysis on reviews.</p>
             </div>
         </section>
     </div>

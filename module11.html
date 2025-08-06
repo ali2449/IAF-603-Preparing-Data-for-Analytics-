@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 11: Advanced SQL Features - IAF 603</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Highlight.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- MathJax CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Custom MathJax Configuration -->
+    <script src="./js/mathjax.js"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">IAF 603: Preparing Data for Analytics</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Modules
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./module1.html">Module 1</a></li>
+                            <li><a class="dropdown-item" href="./module2.html">Module 2</a></li>
+                            <li><a class="dropdown-item" href="./module3.html">Module 3</a></li>
+                            <li><a class="dropdown-item" href="./module4.html">Module 4</a></li>
+                            <li><a class="dropdown-item" href="./module5.html">Module 5</a></li>
+                            <li><a class="dropdown-item" href="./module6.html">Module 6</a></li>
+                            <li><a class="dropdown-item" href="./module7.html">Module 7</a></li>
+                            <li><a class="dropdown-item" href="./module8.html">Module 8</a></li>
+                            <li><a class="dropdown-item" href="./module9.html">Module 9</a></li>
+                            <li><a class="dropdown-item" href="./module10.html">Module 10</a></li>
+                            <li><a class="dropdown-item" href="./module11.html">Module 11</a></li>
+                            <li><a class="dropdown-item" href="./module12.html">Module 12</a></li>
+                            <li><a class="dropdown-item" href="./module13.html">Module 13</a></li>
+                            <li><a class="dropdown-item" href="./module14.html">Module 14</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Module Title -->
+        <section class="text-center py-5 bg-white rounded shadow">
+            <h1 class="display-4 fw-bold text-dark">Module 11: Advanced SQL Features</h1>
+        </section>
+
+        <!-- Module Content -->
+        <section class="my-5">
+            <div class="bg-white p-4 rounded shadow">
+                <!-- Learning Objectives -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Learning Objectives</h2>
+                <p>Upon completion of this module, participants will be able to:</p>
+                <ul>
+                    <li>Explore Common Table Expressions (CTEs) and window functions (<code>ROW_NUMBER</code>, <code>RANK</code>, <code>LAG</code>) for modular, advanced SQL queries.</li>
+                    <li>Understand the difference between <code>GROUP BY</code> and <code>PARTITION BY</code> in aggregations and window functions.</li>
+                    <li>Apply CTEs for structuring complex queries and window functions for row-level calculations without collapsing data.</li>
+                    <li>Combine CTEs and window functions with joins, subqueries, and other SQL features for sophisticated data analysis.</li>
+                    <li>Execute advanced queries in cloud-based environments like Microsoft Fabric Lakehouse.</li>
+                </ul>
+
+                <!-- Introduction to Advanced SQL Features -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Introduction to Advanced SQL Features</h2>
+                <p>Advanced SQL features like Common Table Expressions (CTEs) and window functions elevate your querying capabilities, allowing modular code and detailed calculations without losing row-level detail. This module covers CTEs for temporary result sets and window functions (<code>ROW_NUMBER</code>, <code>RANK</code>, <code>DENSE_RANK</code>, <code>LAG</code>, <code>LEAD</code>) for analytics over partitions. These tools are invaluable in real-world scenarios, such as ranking patient readmissions in a Greensboro hospital or calculating running totals for retail sales. CTEs promote readable, reusable queries, while window functions enable advanced analytics like trend analysis or ranking without self-joins.</p>
+                <p>These features are particularly useful for complex datasets where traditional aggregations collapse rows. For example, in business informatics, window functions can compute year-over-year growth without multiple queries. In healthcare, CTEs can stage data for multi-step processing, ensuring clarity and efficiency. Understanding these allows you to handle sophisticated data preparation tasks, optimizing performance in large-scale environments.</p>
+
+                <!-- Common Table Expressions (CTEs) -->
+                <h3 class="h4 fw-bold mb-3">Common Table Expressions (CTEs)</h3>
+                <p>CTEs are temporary named result sets defined using <code>WITH</code>, allowing modular query design without creating permanent views or tables.</p>
+                <ul>
+                    <li><strong>Purpose:</strong> Break down complex queries into readable parts, reuse subqueries, and improve performance in some cases.</li>
+                    <li><strong>Syntax:</strong> <code>WITH cte_name AS (SELECT ...)</code>, followed by the main query referencing the CTE.</li>
+                    <li><strong>Benefits:</strong> Enhances readability, supports recursive queries, and acts as a building block for multi-step analysis.</li>
+                </ul>
+                <p><strong>Sample Data (PATIENTS Table):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>subject_id</th>
+                            <th>name</th>
+                            <th>age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1001</td>
+                            <td>Alice Smith</td>
+                            <td>45</td>
+                        </tr>
+                        <tr>
+                            <td>1002</td>
+                            <td>Bob Johnson</td>
+                            <td>32</td>
+                        </tr>
+                        <tr>
+                            <td>1003</td>
+                            <td>Carol White</td>
+                            <td>58</td>
+                        </tr>
+                        <tr>
+                            <td>1004</td>
+                            <td>David Brown</td>
+                            <td>67</td>
+                        </tr>
+                        <tr>
+                            <td>1005</td>
+                            <td>Eve Davis</td>
+                            <td>29</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>ADMISSIONS Table:</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>hadm_id</th>
+                            <th>subject_id</th>
+                            <th>admit_time</th>
+                            <th>discharge_time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>1001</td>
+                            <td>2025-01-10 08:00:00</td>
+                            <td>2025-01-15 12:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>1002</td>
+                            <td>2025-02-01 14:00:00</td>
+                            <td>2025-02-03 09:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>1001</td>
+                            <td>2025-03-05 10:00:00</td>
+                            <td>2025-03-12 15:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>104</td>
+                            <td>1003</td>
+                            <td>2025-04-10 07:00:00</td>
+                            <td>2025-04-11 11:00:00</td>
+                        </tr>
+                        <tr>
+                            <td>105</td>
+                            <td>1001</td>
+                            <td>2025-05-15 09:00:00</td>
+                            <td>2025-05-20 14:00:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- CTE for patients over 50
+WITH OlderPatients AS (
+    SELECT subject_id, name, age
+    FROM PATIENTS
+    WHERE age > 50
+)
+SELECT op.name, COUNT(a.hadm_id) AS AdmissionCount
+FROM OlderPatients op
+LEFT JOIN ADMISSIONS a ON op.subject_id = a.subject_id
+GROUP BY op.name;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> The CTE filters older patients, then the main query counts their admissions. This modular approach improves readability for complex queries.</p>
+                <p><strong>Expanded Example (Sales Analysis):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>sale_id</th>
+                            <th>product</th>
+                            <th>quantity</th>
+                            <th>price</th>
+                            <th>department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Laptop</td>
+                            <td>2</td>
+                            <td>800.00</td>
+                            <td>Electronics</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Mouse</td>
+                            <td>5</td>
+                            <td>20.00</td>
+                            <td>Accessories</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Keyboard</td>
+                            <td>3</td>
+                            <td>50.00</td>
+                            <td>Accessories</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Monitor</td>
+                            <td>1</td>
+                            <td>300.00</td>
+                            <td>Electronics</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Laptop</td>
+                            <td>1</td>
+                            <td>800.00</td>
+                            <td>Electronics</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- CTE for high-value sales
+WITH HighValueSales AS (
+    SELECT sale_id, product, (quantity * price) AS TotalValue
+    FROM Sales
+    WHERE (quantity * price) > 500
+)
+SELECT department, SUM(TotalValue) AS DeptRevenue
+FROM HighValueSales h
+JOIN Products p ON h.product = p.product
+GROUP BY department;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> The CTE identifies high-value sales, then the main query aggregates revenue by department, useful for retail performance tracking.</p>
+
+                <!-- Window Functions -->
+                <h3 class="h4 fw-bold mb-3">Window Functions</h3>
+                <p>Window functions perform calculations across a set of rows related to the current row, using <code>OVER()</code> with optional <code>PARTITION BY</code> and <code>ORDER BY</code>.</p>
+                <ul>
+                    <li><strong>ROW_NUMBER:</strong> Assigns unique row numbers within a partition.</li>
+                    <li><strong>RANK:</strong> Ranks rows, with ties sharing the same rank (gaps after ties).</li>
+                    <li><strong>DENSE_RANK:</strong> Ranks rows with ties sharing rank, no gaps.</li>
+                    <li><strong>LAG/LEAD:</strong> Access previous/next row values.</li>
+                    <li><strong>Aggregate as Window:</strong> Use <code>SUM</code>, <code>AVG</code>, etc., over partitions for running totals.</li>
+                </ul>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Rank patients by age
+SELECT
+    name,
+    age,
+    ROW_NUMBER() OVER (ORDER BY age DESC) AS AgeRowNumber,
+    RANK() OVER (ORDER BY age DESC) AS AgeRank,
+    DENSE_RANK() OVER (ORDER BY age DESC) AS AgeDenseRank
+FROM PATIENTS;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> <code>ROW_NUMBER</code> assigns sequential numbers, <code>RANK</code> skips after ties, <code>DENSE_RANK</code> does not skip. Useful for ranking patients by age for prioritization.</p>
+                <p><strong>Expanded Example (Patient Admissions):</strong></p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Rank admissions per patient by time
+SELECT
+    subject_id,
+    admit_time,
+    ROW_NUMBER() OVER (PARTITION BY subject_id ORDER BY admit_time) AS AdmissionNumber,
+    RANK() OVER (PARTITION BY subject_id ORDER BY admit_time) AS AdmissionRank,
+    DENSE_RANK() OVER (PARTITION BY subject_id ORDER BY admit_time) AS AdmissionDenseRank
+FROM ADMISSIONS;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Partitions by patient, ranking admissions chronologically, identifying first/repeat visits.</p>
+                <p><strong>Offset Functions (LAG/LEAD):</strong></p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Time between consecutive admissions per patient
+WITH PatientAdmissions AS (
+    SELECT
+        subject_id,
+        admit_time,
+        LAG(admit_time, 1, NULL) OVER (PARTITION BY subject_id ORDER BY admit_time) AS PreviousAdmit
+    FROM ADMISSIONS
+)
+SELECT
+    subject_id,
+    admit_time,
+    PreviousAdmit,
+    admit_time - PreviousAdmit AS TimeSinceLast
+FROM PatientAdmissions
+WHERE PreviousAdmit IS NOT NULL;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> <code>LAG</code> retrieves the previous admission time, calculating intervals for readmission analysis.</p>
+                <p><strong>Expanded Example (Sales Trends):</strong></p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>sale_date</th>
+                            <th>revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2025-01-01</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td>2025-01-02</td>
+                            <td>1200</td>
+                        </tr>
+                        <tr>
+                            <td>2025-01-03</td>
+                            <td>1500</td>
+                        </tr>
+                        <tr>
+                            <td>2025-01-04</td>
+                            <td>1300</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Day-over-day revenue change
+SELECT
+    sale_date,
+    revenue,
+    LAG(revenue) OVER (ORDER BY sale_date) AS PreviousRevenue,
+    revenue - LAG(revenue) OVER (ORDER BY sale_date) AS DailyChange
+FROM DailySales;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Calculates daily revenue changes, highlighting trends for business forecasting.</p>
+                <p><strong>Window Aggregates:</strong></p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Running total revenue by department
+WITH DeptSales AS (
+    SELECT
+        department,
+        sale_date,
+        revenue
+    FROM Sales
+)
+SELECT
+    department,
+    sale_date,
+    revenue,
+    SUM(revenue) OVER (PARTITION BY department ORDER BY sale_date) AS RunningTotal
+FROM DeptSales
+ORDER BY department, sale_date;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Computes cumulative revenue per department, useful for performance tracking.</p>
+
+                <!-- Comparing GROUP BY and PARTITION BY -->
+                <h3 class="h4 fw-bold mb-3">Comparing GROUP BY and PARTITION BY</h3>
+                <p><code>GROUP BY</code> collapses rows into aggregates, while <code>PARTITION BY</code> in window functions applies calculations per group without collapsing, preserving all rows.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- GROUP BY: Collapses to per-patient average stay
+SELECT subject_id, AVG(discharge_time - admit_time) AS AvgStay
+FROM ADMISSIONS
+GROUP BY subject_id;
+
+-- PARTITION BY: Average stay per patient without collapsing
+SELECT
+    hadm_id,
+    subject_id,
+    discharge_time - admit_time AS StayLength,
+    AVG(discharge_time - admit_time) OVER (PARTITION BY subject_id) AS AvgStay
+FROM ADMISSIONS;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> <code>GROUP BY</code> produces one row per patient, while <code>PARTITION BY</code> shows average stay for each admission, retaining detail.</p>
+
+                <!-- Advanced SQL in Microsoft Fabric -->
+                <h3 class="h4 fw-bold mb-3">Advanced SQL in Microsoft Fabric Lakehouse</h3>
+                <p>Fabric supports CTEs and window functions for scalable analytics on big data.</p>
+                <div class="code-block">
+                    <button class="btn btn-sm btn-secondary copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-sql">-- Running total sales in Fabric
+WITH MonthlySales AS (
+    SELECT
+        DATE_TRUNC('month', sale_date) AS sale_month,
+        SUM(revenue) AS monthly_revenue
+    FROM sales_lakehouse.Sales
+    GROUP BY sale_month
+)
+SELECT
+    sale_month,
+    monthly_revenue,
+    SUM(monthly_revenue) OVER (ORDER BY sale_month) AS RunningTotal
+FROM MonthlySales;</code></pre>
+                </div>
+                <p><strong>Explanation:</strong> Uses a CTE for monthly aggregation, then a window for running totals, optimized for Fabric.</p>
+
+                <!-- Assessments -->
+                <h2 class="h3 fw-bold border-bottom pb-2 mb-4">Assessments</h2>
+                <ol>
+                    <li><strong>Conceptual Question:</strong> What is the key difference between <code>GROUP BY</code> and <code>PARTITION BY</code>? Describe a situation where you would use <code>PARTITION BY</code> but not <code>GROUP BY</code>.</li>
+                    <li><strong>SQL Coding Task:</strong> Using a CTE, first find all departments with more than 10 employees. Then, from that result, find the average salary for each of those departments.</li>
+                    <li><strong>Application Scenario:</strong> You are analyzing website traffic. You have a table with <code>user_id</code> and <code>visit_timestamp</code>. You want to calculate the average time between consecutive visits for each user. How would you use CTEs and the <code>LAG</code> function to solve this?</li>
+                    <li><strong>Expanded Task (Sales Ranking):</strong> For a retail database, use window functions to rank products by total revenue within each category, and use a CTE to filter top 3 per category.</li>
+                </ol>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-3 text-center">
+        <p class="text-muted mb-0">&copy; 2025 Ali Noori, UNCG. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Highlight.js Initialization -->
+    <script>hljs.highlightAll();</script>
+    <!-- Custom Copy Functionality -->
+    <script>
+        function copyCode(button) {
+            const code = button.nextElementSibling.querySelector('code');
+            navigator.clipboard.writeText(code.innerText).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

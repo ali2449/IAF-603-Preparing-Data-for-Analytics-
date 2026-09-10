@@ -63,7 +63,7 @@
     .sql-gutter{position:absolute;inset:0 auto 0 0;z-index:3;width:46px;overflow:hidden;pointer-events:none;border-right:1px solid var(--code-divider);background:var(--code-gutter);color:var(--code-gutter-text)}.sql-gutter-lines{padding-top:15px;text-align:right;font:13.5px/1.52 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-ligatures:none;will-change:transform}.sql-gutter-line{height:20.52px;padding-right:10px;user-select:none}
     .sql-token-keyword{color:var(--sql-keyword);font-weight:650}.sql-token-type{color:var(--sql-type)}.sql-token-string{color:var(--sql-string)}.sql-token-number{color:var(--sql-number)}.sql-token-comment{color:var(--sql-comment);font-style:italic}.sql-token-function{color:var(--sql-function)}.sql-token-operator{color:var(--sql-operator)}.sql-token-identifier{color:var(--sql-identifier)}
     .output{display:none;padding:13px 15px;border-top:1px solid var(--border);background:var(--surface);color:var(--text);font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-height:230px;overflow:auto;white-space:pre-wrap}.output.show{display:block}.output.error{color:var(--bad)}.output.success{color:var(--good)}.mini-result{overflow:auto;margin-top:7px}.mini-result table{min-width:420px;font-size:12px}.mini-result th,.mini-result td{padding:7px 9px}
-    .footer-left,.footer-right{display:flex;align-items:center;gap:10px}.slide-count{min-width:72px;text-align:center;color:var(--muted);font-weight:800;font-size:13px}.progress-track{flex:1;height:7px;background:var(--border);border-radius:999px;overflow:hidden;max-width:360px}.progress-bar{height:100%;width:0;background:var(--primary);transition:width .2s}.nav-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);min-height:36px;border-radius:9px;padding:7px 12px;font-weight:850}.slide-num{position:absolute;right:26px;bottom:18px;color:var(--muted);font-size:12px;font-weight:800}.status{color:var(--muted);font-size:12px;font-weight:700;white-space:nowrap}.status.ready{color:var(--good)}.status.error{color:var(--bad)}
+    .footer-left,.footer-right{display:flex;align-items:center;gap:10px}.slide-count{min-width:72px;text-align:center;color:var(--muted);font-weight:800;font-size:13px}.progress-track{flex:1;height:7px;background:var(--border);border-radius:999px;overflow:hidden;max-width:360px}.progress-bar{height:100%;width:0;background:var(--primary);transition:width .2s}.nav-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);min-height:36px;border-radius:9px;padding:7px 12px;font-weight:850}.slide-num{position:absolute;right:26px;bottom:10px;color:var(--muted);font-size:11px;font-weight:800;opacity:.75;pointer-events:none}.status{color:var(--muted);font-size:12px;font-weight:700;white-space:nowrap}.status.ready{color:var(--good)}.status.error{color:var(--bad)}
     @media(max-width:900px){.brand{min-width:auto}.brand .brand-text{display:none}select{max-width:155px}.control .long{display:none}.stage{padding:10px}.slide{padding:25px;border-radius:13px}.hero,.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.hero-visual{min-height:300px}.flow{grid-template-columns:repeat(2,1fr)}.learning-steps{grid-template-columns:repeat(2,1fr)}.process{grid-template-columns:repeat(2,1fr)}.status{display:none}}
     @media(max-width:560px){.learning-steps{grid-template-columns:1fr}.code-head{align-items:flex-start}.cell-actions{justify-content:flex-end}}
   
@@ -156,6 +156,108 @@
   .completion-status.success{color:var(--good);background:color-mix(in srgb,var(--surface) 86%,var(--good) 14%)}
   .completion-status.warn{color:var(--bad);background:color-mix(in srgb,var(--surface) 88%,var(--bad) 12%)}
   @media(max-width:800px){.assignment-summary-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style>
+  /* ===== Cleaner final completion slide ===== */
+  [data-title="Complete Module"]{padding-bottom:46px}
+  [data-title="Complete Module"] .assignment-summary{margin-bottom:24px}
+  [data-title="Complete Module"] .canvas-report{
+    max-width:900px;
+    margin:18px auto 0;
+  }
+  [data-title="Complete Module"] .canvas-report textarea{
+    min-height:150px;
+    max-height:190px;
+    overflow:auto;
+    line-height:1.45;
+  }
+  [data-title="Complete Module"] .slide-num{
+    position:static;
+    display:block;
+    text-align:right;
+    margin-top:20px;
+  }
+  .submission-locked{
+    margin-top:16px;
+    padding:13px 15px;
+    border:1px dashed var(--border);
+    border-radius:11px;
+    color:var(--muted);
+    background:var(--surface);
+    font-size:14px;
+  }
+</style>
+
+
+<style>
+  .progress-row,
+  .coding-progress-row{
+    cursor:pointer;
+    transition:transform .12s ease, border-color .12s ease, background .12s ease;
+  }
+  .progress-row:hover,
+  .coding-progress-row:hover{
+    border-color:var(--primary);
+    background:var(--primary-soft);
+    transform:translateX(2px);
+  }
+  .progress-row:focus,
+  .coding-progress-row:focus{
+    outline:3px solid color-mix(in srgb,var(--primary) 28%,transparent);
+    outline-offset:2px;
+  }
+  .progress-row::after,
+  .coding-progress-row::after{
+    content:"→";
+    color:var(--primary);
+    font-weight:900;
+    margin-left:8px;
+  }
+</style>
+
+
+<style>
+  .incomplete-list{
+    margin-top:14px;
+    display:grid;
+    gap:8px;
+  }
+  .incomplete-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface);
+    cursor:pointer;
+    transition:background .12s ease,border-color .12s ease,transform .12s ease;
+  }
+  .incomplete-item:hover{
+    background:var(--primary-soft);
+    border-color:var(--primary);
+    transform:translateX(2px);
+  }
+  .incomplete-item strong{
+    color:var(--bad);
+    font-size:13px;
+  }
+  .incomplete-item span{
+    font-size:14px;
+    color:var(--text);
+  }
+  .incomplete-empty{
+    padding:11px 12px;
+    border-radius:10px;
+    background:color-mix(in srgb,var(--surface) 88%,var(--good) 12%);
+    border:1px solid var(--border);
+    color:var(--good);
+    font-weight:800;
+    font-size:14px;
+  }
 </style>
 
 </head>
@@ -673,6 +775,10 @@ ORDER BY patient_id;</textarea>
     <button class="control primary complete-module-btn" id="completeModuleBtn" type="button">Complete Module</button>
     <div class="completion-status warn" id="moduleCompletionStatus">Finish the required activities, then select Complete Module.</div>
 
+    <div id="incompleteSlidesBox" class="incomplete-list"></div>
+
+    <div class="submission-locked" id="submissionLockedMsg">Complete all required knowledge checks and coding exercises to unlock the Canvas submission summary.</div>
+
     <div class="canvas-report" id="canvasReportBox" style="display:none">
       <h3>Assignment 3 submission</h3>
       <p class="small">Copy this summary and paste it into the Canvas Assignment 3 text-entry box.</p>
@@ -683,7 +789,7 @@ ORDER BY patient_id;</textarea>
     </div>
   </div>
 
-  <div class="callout"><strong>Note:</strong> this completion record is stored in the student's current browser. It is not sent automatically to Canvas.</div>
+  <div class="callout"><strong>Your progress is saved in this browser.</strong> When you finish the module, copy your completion summary and paste it into Canvas Assignment 3.</div>
   <div class="slide-num"></div>
 </section>
 
@@ -1056,7 +1162,7 @@ ORDER BY patient_id;</textarea>
     if(list){
       list.innerHTML = checkpoints.map(cp => {
         const done = !!state.completed[cp.id];
-        return `<div class="progress-row ${done ? 'done' : ''}">
+        return `<div class="progress-row ${done ? 'done' : ''}" data-progress-checkpoint="${cp.id}" role="button" tabindex="0" title="Go to this section">
           <span>${cp.title.replace('Check ', '')}</span>
           <strong>${done ? '✓ Completed' : 'Not completed'}</strong>
         </div>`;
@@ -1464,7 +1570,7 @@ ORDER BY patient_id;`,
       summary.innerHTML = `
         <h3>Coding exercises · ${done} / ${total} completed</h3>
         ${codeExercises.map(ex => `
-          <div class="coding-progress-row ${state.completed[ex.id] ? 'done' : ''}">
+          <div class="coding-progress-row ${state.completed[ex.id] ? 'done' : ''}" data-progress-coding="${ex.id}" role="button" tabindex="0" title="Go to this coding exercise">
             <span>${ex.title}</span>
             <strong>${state.completed[ex.id] ? '✓ Completed' : 'Not completed'}</strong>
           </div>
@@ -1624,42 +1730,456 @@ ORDER BY patient_id;`
   }
 
   document.getElementById('completeModuleBtn')?.addEventListener('click',()=>{
-    const x=updateFinal(), status=document.getElementById('moduleCompletionStatus'), box=document.getElementById('canvasReportBox'), text=document.getElementById('canvasReportText');
+    const x=updateFinal();
+    const status=document.getElementById('moduleCompletionStatus');
+    const box=document.getElementById('canvasReportBox');
+    const text=document.getElementById('canvasReportText');
+    const locked=document.getElementById('submissionLockedMsg');
     const allDone=x.done===x.total;
+
     status.className='completion-status '+(allDone?'success':'warn');
-    status.textContent=allDone
+    status.textContent = allDone
       ? '✓ Module 3 complete. Your Assignment 3 submission summary is ready.'
-      : `Module not complete yet. You finished ${x.done} of ${x.total} required activities.`;
+      : `Module not complete yet. You finished ${x.done} of ${x.total} required activities. Your current answers and SQL code are included below.`;
+
+    if(locked) locked.style.display='none';
     box.style.display='block';
+
+    const learnState = (() => {
+      try { return JSON.parse(localStorage.getItem('ian603_module3_learning_v1')) || {}; }
+      catch(e) { return {}; }
+    })();
+
+    const answerLabels = {
+      select: [
+        'It makes the result clearer and avoids returning unnecessary columns.',
+        'SELECT * does not work in PostgreSQL.',
+        'It automatically removes duplicate rows.'
+      ],
+      where: ['age > 65','age >= 65','age = 65'],
+      null: ['discharge_date = NULL','discharge_date IS NULL','discharge_date == NULL'],
+      sort: ['ORDER BY admission_date DESC','DISTINCT only','ILIKE'],
+      dml: [
+        'Run SELECT with the same WHERE condition and inspect the rows.',
+        'Remove the WHERE clause.',
+        'Run COMMIT first.'
+      ],
+      insert: [
+        'Immediately inspect the row PostgreSQL stored.',
+        'Delete the inserted row.',
+        'Rename the table.'
+      ],
+      update: ['A patient name','A unique MRN or primary key','The age column'],
+      transaction: ['COMMIT','ROLLBACK','RETURNING'],
+      jsonb: ['The JSON value as text','A new table','A transaction'],
+      pipeline: [
+        'Moving query results into another table.',
+        'Changing PostgreSQL passwords.',
+        'Sorting rows without a query.'
+      ]
+    };
+
+    const knowledgeNames = {
+      select:'SELECT',
+      where:'WHERE',
+      null:'NULL',
+      sort:'Sorting and limiting',
+      dml:'Safe changes',
+      insert:'INSERT',
+      update:'UPDATE',
+      transaction:'Transactions',
+      jsonb:'JSONB',
+      pipeline:'INSERT INTO ... SELECT'
+    };
+
+    const knowledgeOrder = ['select','where','null','sort','dml','insert','update','transaction','jsonb','pipeline'];
+    const answers = learnState.answers || {};
+    const completedChecks = learnState.completed || {};
+
+    const knowledgeText = knowledgeOrder.map(id => {
+      const selectedIndex = answers[id];
+      const selectedText = selectedIndex === undefined
+        ? 'No answer submitted'
+        : (answerLabels[id]?.[selectedIndex] ?? String(selectedIndex));
+      const stateText = completedChecks[id] ? 'Completed / Correct' : 'Incomplete';
+      return `${knowledgeNames[id]}
+Answer: ${selectedText}
+Status: ${stateText}`;
+    }).join('\n\n');
+
+    const codeNames = {
+      code_select:'Coding Exercise 1 - SELECT and ORDER BY',
+      code_where:'Coding Exercise 2 - WHERE filtering',
+      code_insert:'Coding Exercise 3 - INSERT and RETURNING',
+      code_update:'Coding Exercise 4 - UPDATE with a stable key',
+      code_transaction:'Coding Exercise 5 - Transactions and ROLLBACK',
+      code_jsonb:'Coding Exercise 6 - JSONB filtering'
+    };
+
+    const codeOrder = ['code_select','code_where','code_insert','code_update','code_transaction','code_jsonb'];
+    const savedCode = cstate.code || {};
+    const codeText = codeOrder.map(id => {
+      const sql = (savedCode[id] || '').trim() || '[No SQL submitted]';
+      const stateText = cstate.completed[id] ? 'Completed' : 'Incomplete';
+      return `${codeNames[id]}
+Status: ${stateText}
+SQL:
+${sql}`;
+    }).join('\n\n');
+
     const now=new Date();
+
     text.value =
 `IAN 603 - Assignment 3
 Module 3: PostgreSQL in Action
 
-Knowledge checks completed: ${x.knowledgeDone}/${x.knowledgeTotal}
-Coding exercises completed: ${x.codingDone}/${x.codingTotal}
+Status: ${allDone?'COMPLETE':'INCOMPLETE'}
+Knowledge checks: ${x.knowledgeDone}/${x.knowledgeTotal}
+Coding exercises: ${x.codingDone}/${x.codingTotal}
 Overall completion: ${x.pct}%
-Module status: ${allDone?'COMPLETE':'INCOMPLETE'}
 
-Completed coding topics:
-- SELECT and ORDER BY: ${cstate.completed.code_select?'Completed':'Not completed'}
-- WHERE filtering: ${cstate.completed.code_where?'Completed':'Not completed'}
-- INSERT and RETURNING: ${cstate.completed.code_insert?'Completed':'Not completed'}
-- UPDATE with a stable key: ${cstate.completed.code_update?'Completed':'Not completed'}
-- Transactions and ROLLBACK: ${cstate.completed.code_transaction?'Completed':'Not completed'}
-- JSONB filtering: ${cstate.completed.code_jsonb?'Completed':'Not completed'}
+==============================
+KNOWLEDGE CHECK ANSWERS
+==============================
+
+${knowledgeText}
+
+==============================
+CODING EXERCISES
+==============================
+
+${codeText}
+
+==============================
+SUBMISSION DETAILS
+==============================
 
 Generated: ${now.toLocaleString()}`;
+
+    setTimeout(()=>{
+      status.scrollIntoView({behavior:'smooth',block:'center'});
+    },50);
   });
 
-  document.getElementById('copyCanvasReportBtn')?.addEventListener('click',async e=>{
-    const text=document.getElementById('canvasReportText').value;
-    await navigator.clipboard.writeText(text);
-    const old=e.currentTarget.textContent;e.currentTarget.textContent='Copied for Canvas';
-    setTimeout(()=>e.currentTarget.textContent=old,1200);
+  document.getElementById('copyCanvasReportBtn')?.addEventListener('click', async e => {
+    const report = document.getElementById('canvasReportText')?.value || '';
+    const finalText = document.getElementById('finalPercent')?.textContent || '0%';
+    const isComplete = finalText.trim() === '100%';
+
+    if (!isComplete) {
+      const confirmed = window.confirm(
+        'Your module is incomplete.\n\nAre you sure you want to copy your current progress and submit Assignment 3 incomplete?'
+      );
+
+      if (!confirmed) {
+        return;
+      }
+    }
+
+    await navigator.clipboard.writeText(report);
+
+    const old = e.currentTarget.textContent;
+    e.currentTarget.textContent = isComplete ? 'Copied for Canvas' : 'Copied Incomplete Progress';
+    setTimeout(() => e.currentTarget.textContent = old, 1400);
   });
 
   updateFinal();
+})();
+</script>
+
+
+<script>
+(() => {
+  const checkpointTargets = {
+    select: 'SELECT pattern',
+    where: 'WHERE basics',
+    null: 'NULL',
+    sort: 'Sort limit distinct',
+    dml: 'DML safety',
+    insert: 'INSERT',
+    update: 'UPDATE',
+    transaction: 'Transactions',
+    jsonb: 'JSONB',
+    pipeline: 'Insert select'
+  };
+
+  const codingTargets = {
+    code_select: 'Exercise 1 SELECT',
+    code_where: 'Exercise 2 WHERE',
+    code_insert: 'Exercise 3 INSERT',
+    code_update: 'Exercise 4 UPDATE',
+    code_transaction: 'Exercise 5 Transaction',
+    code_jsonb: 'Exercise 6 JSONB'
+  };
+
+  function findSlideIndex(title){
+    return [...document.querySelectorAll('.slide')]
+      .findIndex(slide => slide.dataset.title === title);
+  }
+
+  function closeProgressModal(){
+    const modal = document.getElementById('progressModal');
+    if(modal){
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+    }
+  }
+
+  function jumpToProgressTarget(title){
+    const index = findSlideIndex(title);
+    if(index < 0) return;
+
+    closeProgressModal();
+
+    if(typeof window.goToSlide === 'function'){
+      window.goToSlide(index);
+    }
+
+    // Save the destination as the student's current position.
+    try{
+      const key='ian603_module3_learning_v1';
+      const state=JSON.parse(localStorage.getItem(key)) || {};
+      state.lastSlide=index;
+      localStorage.setItem(key,JSON.stringify(state));
+    }catch(e){}
+
+    // Put focus on the slide heading for accessibility.
+    setTimeout(() => {
+      const slide=[...document.querySelectorAll('.slide')][index];
+      const heading=slide?.querySelector('h1,h2');
+      if(heading){
+        heading.setAttribute('tabindex','-1');
+        heading.focus({preventScroll:true});
+      }
+    },80);
+  }
+
+  function activateRow(row){
+    if(row.dataset.progressCheckpoint){
+      const target=checkpointTargets[row.dataset.progressCheckpoint];
+      if(target) jumpToProgressTarget(target);
+      return;
+    }
+
+    if(row.dataset.progressCoding){
+      const target=codingTargets[row.dataset.progressCoding];
+      if(target) jumpToProgressTarget(target);
+    }
+  }
+
+  // Event delegation works even when the progress list is rebuilt.
+  document.addEventListener('click', e => {
+    const row=e.target.closest('.progress-row[data-progress-checkpoint], .coding-progress-row[data-progress-coding]');
+    if(row) activateRow(row);
+  });
+
+  document.addEventListener('keydown', e => {
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const row=e.target.closest('.progress-row[data-progress-checkpoint], .coding-progress-row[data-progress-coding]');
+    if(!row) return;
+    e.preventDefault();
+    activateRow(row);
+  });
+})();
+</script>
+
+
+<script>
+(() => {
+  const LEARN_KEY='ian603_module3_learning_v1';
+  const CODE_KEY='ian603_module3_coding_v1';
+
+  const knowledgeMap = [
+    {id:'select', title:'SELECT', target:'SELECT pattern'},
+    {id:'where', title:'WHERE', target:'WHERE basics'},
+    {id:'null', title:'NULL', target:'NULL'},
+    {id:'sort', title:'Sorting and limiting', target:'Sort limit distinct'},
+    {id:'dml', title:'Safe changes', target:'DML safety'},
+    {id:'insert', title:'INSERT', target:'INSERT'},
+    {id:'update', title:'UPDATE', target:'UPDATE'},
+    {id:'transaction', title:'Transactions', target:'Transactions'},
+    {id:'jsonb', title:'JSONB', target:'JSONB'},
+    {id:'pipeline', title:'INSERT INTO ... SELECT', target:'Insert select'}
+  ];
+
+  const codingMap = [
+    {id:'code_select', title:'Coding Exercise 1 · SELECT', target:'Exercise 1 SELECT'},
+    {id:'code_where', title:'Coding Exercise 2 · WHERE', target:'Exercise 2 WHERE'},
+    {id:'code_insert', title:'Coding Exercise 3 · INSERT', target:'Exercise 3 INSERT'},
+    {id:'code_update', title:'Coding Exercise 4 · UPDATE', target:'Exercise 4 UPDATE'},
+    {id:'code_transaction', title:'Coding Exercise 5 · Transaction', target:'Exercise 5 Transaction'},
+    {id:'code_jsonb', title:'Coding Exercise 6 · JSONB', target:'Exercise 6 JSONB'}
+  ];
+
+  function load(key){
+    try{return JSON.parse(localStorage.getItem(key))||{};}
+    catch(e){return {};}
+  }
+
+  function slideIndexByTitle(title){
+    return [...document.querySelectorAll('.slide')]
+      .findIndex(s=>s.dataset.title===title);
+  }
+
+  function go(title){
+    const i=slideIndexByTitle(title);
+    if(i<0) return;
+    if(typeof window.goToSlide==='function') window.goToSlide(i);
+  }
+
+  function renderIncomplete(){
+    const box=document.getElementById('incompleteSlidesBox');
+    if(!box) return;
+
+    const learn=load(LEARN_KEY);
+    const code=load(CODE_KEY);
+    const lc=learn.completed||{};
+    const cc=code.completed||{};
+
+    const missing=[];
+
+    knowledgeMap.forEach(item=>{
+      if(!lc[item.id]){
+        const idx=slideIndexByTitle(item.target);
+        missing.push({
+          label:`Slide ${idx+1} · ${item.title}`,
+          target:item.target
+        });
+      }
+    });
+
+    codingMap.forEach(item=>{
+      if(!cc[item.id]){
+        const idx=slideIndexByTitle(item.target);
+        missing.push({
+          label:`Slide ${idx+1} · ${item.title}`,
+          target:item.target
+        });
+      }
+    });
+
+    if(!missing.length){
+      box.innerHTML='<div class="incomplete-empty">✓ No incomplete slides. All required activities are finished.</div>';
+      return;
+    }
+
+    box.innerHTML=
+      '<div class="small" style="font-weight:800;margin-bottom:2px">Still incomplete:</div>'+
+      missing.map(item=>`
+        <div class="incomplete-item" role="button" tabindex="0" data-incomplete-target="${item.target}">
+          <span>${item.label}</span>
+          <strong>Go to slide →</strong>
+        </div>
+      `).join('');
+  }
+
+  document.addEventListener('click',e=>{
+    const item=e.target.closest('.incomplete-item[data-incomplete-target]');
+    if(!item) return;
+    go(item.dataset.incompleteTarget);
+  });
+
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Enter' && e.key!==' ') return;
+    const item=e.target.closest('.incomplete-item[data-incomplete-target]');
+    if(!item) return;
+    e.preventDefault();
+    go(item.dataset.incompleteTarget);
+  });
+
+  // Refresh the list whenever the final button is used.
+  document.getElementById('completeModuleBtn')?.addEventListener('click',()=>{
+    setTimeout(renderIncomplete,0);
+  });
+
+  // Also refresh when opening the progress window or after exercise/check actions.
+  document.getElementById('learningProgressBtn')?.addEventListener('click',()=>{
+    setTimeout(renderIncomplete,0);
+  });
+
+  document.addEventListener('click',e=>{
+    if(e.target.closest('.check-answer,.assignment-run,.coding-check')){
+      setTimeout(renderIncomplete,150);
+    }
+  });
+
+  renderIncomplete();
+})();
+</script>
+
+
+<script>
+(() => {
+  const LEARN_KEY = 'ian603_module3_learning_v1';
+  const CODE_KEY = 'ian603_module3_coding_v1';
+  const knowledgeIds = ['select','where','null','sort','dml','insert','update','transaction','jsonb','pipeline'];
+  const codingIds = ['code_select','code_where','code_insert','code_update','code_transaction','code_jsonb'];
+  const codingNames = {
+    code_select:'Coding Exercise 1 · SELECT',
+    code_where:'Coding Exercise 2 · WHERE',
+    code_insert:'Coding Exercise 3 · INSERT',
+    code_update:'Coding Exercise 4 · UPDATE',
+    code_transaction:'Coding Exercise 5 · Transaction',
+    code_jsonb:'Coding Exercise 6 · JSONB'
+  };
+
+  function load(key){
+    try { return JSON.parse(localStorage.getItem(key)) || {}; }
+    catch(e){ return {}; }
+  }
+
+  function stats(){
+    const learn = load(LEARN_KEY);
+    const code = load(CODE_KEY);
+    const lc = learn.completed || {};
+    const cc = code.completed || {};
+    const kDone = knowledgeIds.filter(id => lc[id]).length;
+    const cDone = codingIds.filter(id => cc[id]).length;
+    return { kDone, cDone, done:kDone+cDone, total:16, cc };
+  }
+
+  function syncAllProgress(){
+    const s = stats();
+    const pct = Math.round((s.done / s.total) * 100);
+
+    const topPct = document.getElementById('learningProgressPct');
+    if(topPct) topPct.textContent = pct + '%';
+
+    const meter = document.getElementById('learningMeterBar');
+    if(meter) meter.style.width = pct + '%';
+
+    const meterText = document.getElementById('learningMeterText');
+    if(meterText){
+      meterText.textContent = `${s.done} of 16 required activities completed · ${s.kDone}/10 knowledge checks · ${s.cDone}/6 coding exercises`;
+    }
+
+    const summary = document.getElementById('codingSummary');
+    if(summary){
+      summary.innerHTML = `
+        <h3>Coding exercises · ${s.cDone} / 6 completed</h3>
+        ${codingIds.map(id => `
+          <div class="coding-progress-row ${s.cc[id] ? 'done' : ''}" data-progress-coding="${id}" role="button" tabindex="0" title="Go to this coding exercise">
+            <span>${codingNames[id]}</span>
+            <strong>${s.cc[id] ? '✓ Completed' : 'Not completed'}</strong>
+          </div>
+        `).join('')}
+      `;
+    }
+
+    const codingBadge = document.getElementById('codingProgressBadge');
+    if(codingBadge) codingBadge.textContent = `SQL ${s.cDone}/6`;
+  }
+
+  // Keep combined progress synchronized after checks and coding exercises.
+  document.addEventListener('click', e => {
+    if(e.target.closest('.check-answer,.assignment-run,.coding-check,#learningProgressBtn,#completeModuleBtn')){
+      setTimeout(syncAllProgress, 250);
+    }
+  });
+
+  window.addEventListener('storage', syncAllProgress);
+  setTimeout(syncAllProgress, 100);
+  setTimeout(syncAllProgress, 800);
 })();
 </script>
 

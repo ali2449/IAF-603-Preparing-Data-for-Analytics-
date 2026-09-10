@@ -66,7 +66,98 @@
     .footer-left,.footer-right{display:flex;align-items:center;gap:10px}.slide-count{min-width:72px;text-align:center;color:var(--muted);font-weight:800;font-size:13px}.progress-track{flex:1;height:7px;background:var(--border);border-radius:999px;overflow:hidden;max-width:360px}.progress-bar{height:100%;width:0;background:var(--primary);transition:width .2s}.nav-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);min-height:36px;border-radius:9px;padding:7px 12px;font-weight:850}.slide-num{position:absolute;right:26px;bottom:18px;color:var(--muted);font-size:12px;font-weight:800}.status{color:var(--muted);font-size:12px;font-weight:700;white-space:nowrap}.status.ready{color:var(--good)}.status.error{color:var(--bad)}
     @media(max-width:900px){.brand{min-width:auto}.brand .brand-text{display:none}select{max-width:155px}.control .long{display:none}.stage{padding:10px}.slide{padding:25px;border-radius:13px}.hero,.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.hero-visual{min-height:300px}.flow{grid-template-columns:repeat(2,1fr)}.learning-steps{grid-template-columns:repeat(2,1fr)}.process{grid-template-columns:repeat(2,1fr)}.status{display:none}}
     @media(max-width:560px){.learning-steps{grid-template-columns:1fr}.code-head{align-items:flex-start}.cell-actions{justify-content:flex-end}}
+  
+    /* ===== Persistent learning progress ===== */
+    .learning-progress-btn{display:inline-flex;align-items:center;gap:7px}
+    .learning-progress-btn .pct{min-width:38px;text-align:right}
+    .checkpoint{margin-top:22px;border:1px solid var(--border);border-left:5px solid var(--primary);background:var(--surface-2);border-radius:14px;padding:16px 17px}
+    .checkpoint.completed{border-left-color:var(--good);background:color-mix(in srgb,var(--surface-2) 88%,var(--good) 12%)}
+    .checkpoint-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+    .checkpoint-head h3{margin:0;font-size:18px}.checkpoint-state{font-size:12px;font-weight:900;color:var(--muted)}
+    .checkpoint.completed .checkpoint-state{color:var(--good)}
+    .checkpoint p{font-size:15px;margin-bottom:10px}.checkpoint-options{display:grid;gap:8px;margin:10px 0}
+    .checkpoint-option{display:flex;align-items:flex-start;gap:8px;padding:9px 10px;border:1px solid var(--border);border-radius:9px;background:var(--surface)}
+    .checkpoint-option input{margin-top:4px}
+    .checkpoint-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:10px}
+    .checkpoint-feedback{font-size:13px;font-weight:800}.checkpoint-feedback.ok{color:var(--good)}.checkpoint-feedback.bad{color:var(--bad)}
+    .progress-modal-backdrop{position:fixed;inset:0;background:rgba(10,18,28,.58);display:none;place-items:center;z-index:100;padding:20px}
+    .progress-modal-backdrop.show{display:grid}
+    .progress-modal{width:min(680px,96vw);max-height:82vh;overflow:auto;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:22px}
+    .progress-modal-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+    .progress-modal-head h2{font-size:26px;margin:0}.progress-close{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:9px;padding:6px 10px}
+    .learning-meter{height:12px;background:var(--border);border-radius:999px;overflow:hidden;margin:10px 0 6px}.learning-meter > div{height:100%;background:var(--good);width:0;transition:width .25s}
+    .progress-list{display:grid;gap:8px;margin-top:14px}.progress-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);font-size:14px}
+    .progress-row.done strong{color:var(--good)}.progress-row strong{font-size:13px}
+    .progress-note{font-size:13px;color:var(--muted);margin-top:12px}
+
   </style>
+
+<style>
+  /* ===== Persistent coding exercises ===== */
+  .coding-exercise{
+    margin-top:22px;border:1px solid var(--border);border-left:5px solid var(--accent);
+    background:var(--surface-2);border-radius:14px;padding:16px 17px
+  }
+  .coding-exercise.completed{
+    border-left-color:var(--good);
+    background:color-mix(in srgb,var(--surface-2) 88%,var(--good) 12%)
+  }
+  .coding-exercise .exercise-top{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px
+  }
+  .coding-exercise .exercise-top h3{margin:0;font-size:18px}
+  .coding-state{font-size:12px;font-weight:900;color:var(--muted)}
+  .coding-exercise.completed .coding-state{color:var(--good)}
+  .coding-task{font-size:15px;color:var(--text);margin:7px 0 12px}
+  .coding-hint{font-size:13px;color:var(--muted);margin-top:8px}
+  .coding-feedback{font-size:13px;font-weight:800}
+  .coding-feedback.ok{color:var(--good)}
+  .coding-feedback.bad{color:var(--bad)}
+  .coding-summary{
+    margin-top:16px;padding-top:14px;border-top:1px solid var(--border)
+  }
+  .coding-summary h3{font-size:17px;margin:0 0 8px}
+  .coding-progress-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:9px 11px;border:1px solid var(--border);border-radius:9px;
+    background:var(--surface-2);margin-top:7px;font-size:13px
+  }
+  .coding-progress-row.done strong{color:var(--good)}
+</style>
+
+
+<style>
+  .exercise-slide-intro{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px
+  }
+  .exercise-slide-intro .exercise-kind{
+    display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;
+    background:var(--primary-soft);color:var(--primary);font-size:11px;font-weight:900;
+    text-transform:uppercase;letter-spacing:.05em
+  }
+  .assignment-summary{
+    margin-top:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface-2);padding:18px
+  }
+  .assignment-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .assignment-stat{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:14px}
+  .assignment-stat b{display:block;font-size:28px;color:var(--primary);line-height:1.1}
+  .assignment-stat span{font-size:12px;color:var(--muted);font-weight:800}
+  .complete-module-btn{margin-top:14px;min-height:44px;padding:10px 16px}
+  .canvas-report{
+    margin-top:16px;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:14px
+  }
+  .canvas-report textarea{
+    width:100%;min-height:240px;resize:vertical;border:1px solid var(--border);border-radius:10px;
+    background:var(--surface-2);color:var(--text);padding:12px;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
+  }
+  .completion-status{
+    margin-top:10px;padding:11px 12px;border-radius:10px;border:1px solid var(--border);font-size:14px;font-weight:800
+  }
+  .completion-status.success{color:var(--good);background:color-mix(in srgb,var(--surface) 86%,var(--good) 14%)}
+  .completion-status.warn{color:var(--bad);background:color-mix(in srgb,var(--surface) 88%,var(--bad) 12%)}
+  @media(max-width:800px){.assignment-summary-grid{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -78,6 +169,7 @@
     <select id="slideSelect" aria-label="Select slide"></select>
     <div class="top-actions">
       <span id="dbStatus" class="status">PostgreSQL loading…</span>
+      <button class="control learning-progress-btn" id="learningProgressBtn" type="button">Progress <span class="pct" id="learningProgressPct">0%</span></button>
       <button class="control" id="themeBtn" type="button">Dark mode</button>
       <button class="control" id="fullBtn" type="button">Fullscreen</button>
       <button class="control primary" id="runSlideBtn" type="button"><span class="long">Run slide</span><span aria-hidden="true"> ▶</span></button>
@@ -457,7 +549,145 @@ ORDER BY mrn;</textarea><div class="output">Run this optional example if your Po
       <details><summary>Show sample answers</summary><ol><li>It makes the output clear and avoids retrieving unused columns.</li><li>Use <code>IS NULL</code> because NULL is not tested with ordinary equality.</li><li>Without ordering, the limited rows do not reliably represent latest, oldest, or top.</li><li>Run a <code>SELECT</code> with the same predicate and inspect the target rows.</li><li><code>COMMIT</code> keeps transaction changes; <code>ROLLBACK</code> discards them.</li></ol></details><div class="slide-num"></div>
     </section>
 
-    <section class="slide" data-title="Final activity">
+    
+<section class="slide" data-title="Exercise 1 SELECT">
+  <div class="slide-kicker">Assignment 3 · Coding Exercise 1</div>
+  <div class="exercise-slide-intro"><h2>SELECT and sorting</h2><span class="exercise-kind">Coding exercise</span></div>
+  <p class="lead">Write a query that returns <code>mrn</code>, <code>full_name</code>, and <code>age</code> from <code>patients</code>. Sort from oldest to youngest.</p>
+  <div class="code-cell assignment-code" data-assignment-code="code_select">
+    <div class="code-head"><div class="code-title"><b>Your SQL</b><small>Saved automatically in this browser</small></div><div class="cell-actions"><button class="cell-btn run assignment-run">▶ Run & Check</button><button class="cell-btn assignment-reset">Reset</button><button class="cell-btn assignment-copy">Copy</button></div></div>
+    <textarea class="sql-editor">SELECT
+    -- add the three columns here
+FROM patients
+-- add the sorting clause here;</textarea>
+    <div class="output">Write your SQL, then select Run & Check.</div>
+  </div>
+  <details><summary>Hint</summary><p>Use <code>SELECT mrn, full_name, age</code> and <code>ORDER BY age DESC</code>.</p></details>
+  <div class="completion-status warn assignment-code-status">Not completed yet.</div>
+  <div class="slide-num"></div>
+</section>
+
+<section class="slide" data-title="Exercise 2 WHERE">
+  <div class="slide-kicker">Assignment 3 · Coding Exercise 2</div>
+  <div class="exercise-slide-intro"><h2>Filter active patients</h2><span class="exercise-kind">Coding exercise</span></div>
+  <p class="lead">Return active patients who are age 50 or older. Show <code>mrn</code>, <code>full_name</code>, and <code>age</code>. Sort age descending.</p>
+  <div class="code-cell assignment-code" data-assignment-code="code_where">
+    <div class="code-head"><div class="code-title"><b>Your SQL</b><small>Saved automatically in this browser</small></div><div class="cell-actions"><button class="cell-btn run assignment-run">▶ Run & Check</button><button class="cell-btn assignment-reset">Reset</button><button class="cell-btn assignment-copy">Copy</button></div></div>
+    <textarea class="sql-editor">SELECT mrn, full_name, age
+FROM patients
+WHERE
+ORDER BY age DESC;</textarea>
+    <div class="output">Write your SQL, then select Run & Check.</div>
+  </div>
+  <details><summary>Hint</summary><p>Use <code>is_active = TRUE</code> and <code>age &gt;= 50</code>.</p></details>
+  <div class="completion-status warn assignment-code-status">Not completed yet.</div>
+  <div class="slide-num"></div>
+</section>
+
+<section class="slide" data-title="Exercise 3 INSERT">
+  <div class="slide-kicker">Assignment 3 · Coding Exercise 3</div>
+  <div class="exercise-slide-intro"><h2>Insert and verify a row</h2><span class="exercise-kind">Coding exercise</span></div>
+  <p class="lead">Insert <strong>Maya Brooks</strong> with MRN <code>MRN1012</code>, age 31, gender Female. Use <code>RETURNING</code>.</p>
+  <div class="code-cell assignment-code" data-assignment-code="code_insert">
+    <div class="code-head"><div class="code-title"><b>Your SQL</b><small>Saved automatically in this browser</small></div><div class="cell-actions"><button class="cell-btn run assignment-run">▶ Run & Check</button><button class="cell-btn assignment-reset">Reset</button><button class="cell-btn assignment-copy">Copy</button></div></div>
+    <textarea class="sql-editor">INSERT INTO patients (mrn, full_name, age, gender)
+VALUES
+RETURNING mrn, full_name, age, gender;</textarea>
+    <div class="output">Write your SQL, then select Run & Check.</div>
+  </div>
+  <details><summary>Hint</summary><p>Use <code>VALUES ('MRN1012', 'Maya Brooks', 31, 'Female')</code>.</p></details>
+  <div class="completion-status warn assignment-code-status">Not completed yet.</div>
+  <div class="slide-num"></div>
+</section>
+
+<section class="slide" data-title="Exercise 4 UPDATE">
+  <div class="slide-kicker">Assignment 3 · Coding Exercise 4</div>
+  <div class="exercise-slide-intro"><h2>Update by a stable key</h2><span class="exercise-kind">Coding exercise</span></div>
+  <p class="lead">Update <code>MRN1006</code> to age 28. Use <code>RETURNING</code> to show MRN, name, and age.</p>
+  <div class="code-cell assignment-code" data-assignment-code="code_update">
+    <div class="code-head"><div class="code-title"><b>Your SQL</b><small>Saved automatically in this browser</small></div><div class="cell-actions"><button class="cell-btn run assignment-run">▶ Run & Check</button><button class="cell-btn assignment-reset">Reset</button><button class="cell-btn assignment-copy">Copy</button></div></div>
+    <textarea class="sql-editor">UPDATE patients
+SET
+WHERE
+RETURNING mrn, full_name, age;</textarea>
+    <div class="output">Write your SQL, then select Run & Check.</div>
+  </div>
+  <details><summary>Hint</summary><p>Use <code>SET age = 28 WHERE mrn = 'MRN1006'</code>.</p></details>
+  <div class="completion-status warn assignment-code-status">Not completed yet.</div>
+  <div class="slide-num"></div>
+</section>
+
+<section class="slide" data-title="Exercise 5 Transaction">
+  <div class="slide-kicker">Assignment 3 · Coding Exercise 5</div>
+  <div class="exercise-slide-intro"><h2>Practice a safe transaction</h2><span class="exercise-kind">Coding exercise</span></div>
+  <p class="lead">Change <code>MRN1005</code> to age 60 inside a transaction, use <code>RETURNING</code>, roll it back, then verify the original age.</p>
+  <div class="code-cell assignment-code" data-assignment-code="code_transaction">
+    <div class="code-head"><div class="code-title"><b>Your SQL</b><small>Saved automatically in this browser</small></div><div class="cell-actions"><button class="cell-btn run assignment-run">▶ Run & Check</button><button class="cell-btn assignment-reset">Reset</button><button class="cell-btn assignment-copy">Copy</button></div></div>
+    <textarea class="sql-editor">BEGIN;
+
+-- UPDATE MRN1005 here
+
+-- ROLLBACK here
+
+SELECT mrn, full_name, age
+FROM patients
+WHERE mrn = 'MRN1005';</textarea>
+    <div class="output">Write your SQL, then select Run & Check.</div>
+  </div>
+  <details><summary>Hint</summary><p>Use <code>UPDATE ... SET age = 60 ... RETURNING ...;</code> followed by <code>ROLLBACK;</code>.</p></details>
+  <div class="completion-status warn assignment-code-status">Not completed yet.</div>
+  <div class="slide-num"></div>
+</section>
+
+<section class="slide" data-title="Exercise 6 JSONB">
+  <div class="slide-kicker">Assignment 3 · Coding Exercise 6</div>
+  <div class="exercise-slide-intro"><h2>Filter JSONB values</h2><span class="exercise-kind">Coding exercise</span></div>
+  <p class="lead">Return patient ID, symptom, and severity for notes where <code>follow_up</code> is TRUE. Sort by patient ID.</p>
+  <div class="code-cell assignment-code" data-assignment-code="code_jsonb">
+    <div class="code-head"><div class="code-title"><b>Your SQL</b><small>Saved automatically in this browser</small></div><div class="cell-actions"><button class="cell-btn run assignment-run">▶ Run & Check</button><button class="cell-btn assignment-reset">Reset</button><button class="cell-btn assignment-copy">Copy</button></div></div>
+    <textarea class="sql-editor">SELECT patient_id,
+       note->>'symptom' AS symptom,
+       note->>'severity' AS severity
+FROM clinical_notes
+WHERE
+ORDER BY patient_id;</textarea>
+    <div class="output">Write your SQL, then select Run & Check.</div>
+  </div>
+  <details><summary>Hint</summary><p>Use <code>(note-&gt;&gt;'follow_up')::boolean = TRUE</code>.</p></details>
+  <div class="completion-status warn assignment-code-status">Not completed yet.</div>
+  <div class="slide-num"></div>
+</section>
+
+<section class="slide" data-title="Complete Module">
+  <div class="slide-kicker">Assignment 3 · Final step</div>
+  <h2>Complete Module 3</h2>
+  <p class="lead">When you are finished, use this page to check whether you completed the required Module 3 activities.</p>
+
+  <div class="assignment-summary">
+    <div class="assignment-summary-grid">
+      <div class="assignment-stat"><b id="finalChecks">0/10</b><span>Knowledge checks</span></div>
+      <div class="assignment-stat"><b id="finalCoding">0/6</b><span>Coding exercises</span></div>
+      <div class="assignment-stat"><b id="finalPercent">0%</b><span>Overall completion</span></div>
+    </div>
+
+    <button class="control primary complete-module-btn" id="completeModuleBtn" type="button">Complete Module</button>
+    <div class="completion-status warn" id="moduleCompletionStatus">Finish the required activities, then select Complete Module.</div>
+
+    <div class="canvas-report" id="canvasReportBox" style="display:none">
+      <h3>Assignment 3 submission</h3>
+      <p class="small">Copy this summary and paste it into the Canvas Assignment 3 text-entry box.</p>
+      <textarea id="canvasReportText" readonly></textarea>
+      <div class="checkpoint-actions">
+        <button class="control primary" id="copyCanvasReportBtn" type="button">Copy for Canvas</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout"><strong>Note:</strong> this completion record is stored in the student's current browser. It is not sent automatically to Canvas.</div>
+  <div class="slide-num"></div>
+</section>
+
+<section class="slide" data-title="Final activity">
       <div class="slide-kicker">Put it together · Beginner pathway</div><h2>Complete one small PostgreSQL workflow</h2>
       <div class="grid-2"><div class="card primary-card"><div class="label">Required</div><h3>Read and change</h3><ol><li>Write one <code>SELECT</code> with chosen columns.</li><li>Add one <code>WHERE</code> condition.</li><li>Sort the result.</li><li>Insert one test row with <code>RETURNING</code>.</li><li>Verify the row with a key-based <code>SELECT</code>.</li><li>Update the row safely.</li></ol></div><div class="card accent-card"><div class="label">Optional challenge</div><h3>Extend when ready</h3><ol><li>Use a transaction and <code>ROLLBACK</code>.</li><li>Query one JSONB field.</li><li>Create a small derived table with <code>INSERT INTO ... SELECT</code>.</li><li>Explain one constraint error you intentionally triggered.</li></ol></div></div>
       <div class="question"><strong>Working method:</strong> start from a pattern, change one part, run it, read the result, and only then add the next part.</div><div class="slide-num"></div>
@@ -575,5 +805,863 @@ ORDER BY mrn;</textarea><div class="output">Run this optional example if your Po
   document.addEventListener('keydown',e=>{const tag=document.activeElement?.tagName?.toLowerCase();if(tag==='textarea'||tag==='input'||tag==='select'||document.activeElement?.isContentEditable)return;if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();showSlide(current+1);}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();showSlide(current-1);}if(e.key==='Home'){e.preventDefault();showSlide(0);}if(e.key==='End'){e.preventDefault();showSlide(slides.length-1);}});
   const hashMatch=location.hash.match(/slide-(\d+)/);showSlide(hashMatch?Number(hashMatch[1])-1:0);initDb().catch(()=>{});
 </script>
+
+<div class="progress-modal-backdrop" id="progressModal" aria-hidden="true">
+  <div class="progress-modal" role="dialog" aria-modal="true" aria-labelledby="progressModalTitle">
+    <div class="progress-modal-head">
+      <h2 id="progressModalTitle">Module 3 Learning Progress</h2>
+      <button class="progress-close" id="progressCloseBtn" type="button">Close</button>
+    </div>
+    <p class="small">Progress is saved only in this browser on this device.</p>
+    <div class="learning-meter" aria-hidden="true"><div id="learningMeterBar"></div></div>
+    <div class="small" id="learningMeterText">0 of 0 checkpoints completed</div>
+    <div class="progress-list" id="progressList"></div>
+    <div class="checkpoint-actions">
+      <button class="control" id="continueBtn" type="button">Continue where I left off</button>
+      <button class="control" id="resetLearningBtn" type="button">Reset saved progress</button>
+    </div>
+    <p class="progress-note">Clearing browser storage, using private/incognito mode, or switching to another browser/device will not carry this progress over.</p>
+  </div>
+</div>
+
+
+<script>
+(() => {
+  const STORAGE_KEY = 'ian603_module3_learning_v1';
+
+  const checkpoints = [
+    {
+      id:'select',
+      after:'SELECT pattern',
+      title:'Check 1 · SELECT',
+      question:'Why is it usually better to list the columns you need instead of always using SELECT *?',
+      options:[
+        'It makes the result clearer and avoids returning unnecessary columns.',
+        'SELECT * does not work in PostgreSQL.',
+        'It automatically removes duplicate rows.'
+      ],
+      answer:0
+    },
+    {
+      id:'where',
+      after:'WHERE basics',
+      title:'Check 2 · WHERE',
+      question:'Which condition correctly returns patients who are age 65 or older?',
+      options:['age > 65','age >= 65','age = 65'],
+      answer:1
+    },
+    {
+      id:'null',
+      after:'NULL',
+      title:'Check 3 · NULL',
+      question:'Which predicate correctly finds rows where discharge_date is missing?',
+      options:['discharge_date = NULL','discharge_date IS NULL','discharge_date == NULL'],
+      answer:1
+    },
+    {
+      id:'sort',
+      after:'Sort limit distinct',
+      title:'Check 4 · Sorting and limiting',
+      question:'If you want the three most recent admissions, what should you normally use with LIMIT 3?',
+      options:['ORDER BY admission_date DESC','DISTINCT only','ILIKE'],
+      answer:0
+    },
+    {
+      id:'dml',
+      after:'DML safety',
+      title:'Check 5 · Safe changes',
+      question:'Before a new UPDATE or DELETE, what is the safest first step?',
+      options:[
+        'Run SELECT with the same WHERE condition and inspect the rows.',
+        'Remove the WHERE clause.',
+        'Run COMMIT first.'
+      ],
+      answer:0
+    },
+    {
+      id:'insert',
+      after:'INSERT',
+      title:'Check 6 · INSERT',
+      question:'What does PostgreSQL RETURNING help you do after INSERT?',
+      options:[
+        'Immediately inspect the row PostgreSQL stored.',
+        'Delete the inserted row.',
+        'Rename the table.'
+      ],
+      answer:0
+    },
+    {
+      id:'update',
+      after:'UPDATE',
+      title:'Check 7 · UPDATE',
+      question:'Which value is generally safer for identifying the row to update?',
+      options:['A patient name','A unique MRN or primary key','The age column'],
+      answer:1
+    },
+    {
+      id:'transaction',
+      after:'Transactions',
+      title:'Check 8 · Transactions',
+      question:'Which command discards changes made in the current transaction?',
+      options:['COMMIT','ROLLBACK','RETURNING'],
+      answer:1
+    },
+    {
+      id:'jsonb',
+      after:'JSONB',
+      title:'Check 9 · JSONB',
+      question:'In note->>\'severity\', what does ->> return?',
+      options:['The JSON value as text','A new table','A transaction'],
+      answer:0
+    },
+    {
+      id:'pipeline',
+      after:'Insert select',
+      title:'Check 10 · INSERT INTO ... SELECT',
+      question:'What is INSERT INTO ... SELECT useful for?',
+      options:[
+        'Moving query results into another table.',
+        'Changing PostgreSQL passwords.',
+        'Sorting rows without a query.'
+      ],
+      answer:0
+    }
+  ];
+
+  function loadState(){
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch(e) {
+      return {};
+    }
+  }
+
+  let state = loadState();
+  state.completed = state.completed || {};
+  state.answers = state.answers || {};
+  state.sql = state.sql || {};
+
+  function saveState(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateProgressUI();
+  }
+
+  function addCheckpoints(){
+    const slideNodes = [...document.querySelectorAll('.slide')];
+
+    checkpoints.forEach(cp => {
+      const slide = slideNodes.find(s => s.dataset.title === cp.after);
+      if(!slide) return;
+
+      const box = document.createElement('div');
+      box.className = 'checkpoint';
+      box.dataset.checkpointId = cp.id;
+
+      const options = cp.options.map((option, i) => `
+        <label class="checkpoint-option">
+          <input type="radio" name="checkpoint-${cp.id}" value="${i}">
+          <span>${option}</span>
+        </label>
+      `).join('');
+
+      box.innerHTML = `
+        <div class="checkpoint-head">
+          <h3>${cp.title}</h3>
+          <span class="checkpoint-state">Not completed</span>
+        </div>
+        <p><strong>Quick exercise:</strong> ${cp.question}</p>
+        <div class="checkpoint-options">${options}</div>
+        <div class="checkpoint-actions">
+          <button class="cell-btn run check-answer" type="button">Check answer</button>
+          <span class="checkpoint-feedback" aria-live="polite"></span>
+        </div>
+      `;
+
+      const slideNum = slide.querySelector('.slide-num');
+      if(slideNum) slide.insertBefore(box, slideNum);
+      else slide.appendChild(box);
+
+      const savedAnswer = state.answers[cp.id];
+      if(savedAnswer !== undefined){
+        const input = box.querySelector(`input[value="${savedAnswer}"]`);
+        if(input) input.checked = true;
+      }
+
+      applyCheckpointState(box, cp);
+
+      box.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', () => {
+          state.answers[cp.id] = Number(input.value);
+          saveState();
+        });
+      });
+
+      box.querySelector('.check-answer').addEventListener('click', () => {
+        const selected = box.querySelector('input:checked');
+        const feedback = box.querySelector('.checkpoint-feedback');
+
+        if(!selected){
+          feedback.textContent = 'Choose an answer first.';
+          feedback.className = 'checkpoint-feedback bad';
+          return;
+        }
+
+        state.answers[cp.id] = Number(selected.value);
+
+        if(Number(selected.value) === cp.answer){
+          state.completed[cp.id] = true;
+          feedback.textContent = 'Correct. Section completed.';
+          feedback.className = 'checkpoint-feedback ok';
+        } else {
+          state.completed[cp.id] = false;
+          feedback.textContent = 'Not quite. Review the section and try again.';
+          feedback.className = 'checkpoint-feedback bad';
+        }
+
+        saveState();
+        applyCheckpointState(box, cp);
+      });
+    });
+  }
+
+  function applyCheckpointState(box, cp){
+    const done = !!state.completed[cp.id];
+    box.classList.toggle('completed', done);
+    const status = box.querySelector('.checkpoint-state');
+    const feedback = box.querySelector('.checkpoint-feedback');
+    if(status) status.textContent = done ? '✓ Completed' : 'Not completed';
+    if(done && feedback && !feedback.textContent){
+      feedback.textContent = 'Completed earlier — your progress was restored.';
+      feedback.className = 'checkpoint-feedback ok';
+    }
+  }
+
+  function completedCount(){
+    return checkpoints.filter(cp => state.completed[cp.id]).length;
+  }
+
+  function updateProgressUI(){
+    const done = completedCount();
+    const total = checkpoints.length;
+    const pct = total ? Math.round(done / total * 100) : 0;
+
+    const pctNode = document.getElementById('learningProgressPct');
+    const meter = document.getElementById('learningMeterBar');
+    const text = document.getElementById('learningMeterText');
+    if(pctNode) pctNode.textContent = pct + '%';
+    if(meter) meter.style.width = pct + '%';
+    if(text) text.textContent = `${done} of ${total} checkpoints completed`;
+
+    const list = document.getElementById('progressList');
+    if(list){
+      list.innerHTML = checkpoints.map(cp => {
+        const done = !!state.completed[cp.id];
+        return `<div class="progress-row ${done ? 'done' : ''}">
+          <span>${cp.title.replace('Check ', '')}</span>
+          <strong>${done ? '✓ Completed' : 'Not completed'}</strong>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  function saveActiveSlide(){
+    const allSlides = [...document.querySelectorAll('.slide')];
+    const active = allSlides.findIndex(s => s.classList.contains('active'));
+    if(active >= 0){
+      state.lastSlide = active;
+      saveState();
+    }
+  }
+
+  function restoreLastSlide(){
+    if(Number.isInteger(state.lastSlide) && window.goToSlide){
+      window.goToSlide(state.lastSlide);
+    }
+  }
+
+  function persistEditors(){
+    document.querySelectorAll('.sql-editor').forEach((editor, i) => {
+      const key = 'editor_' + i;
+      if(Object.prototype.hasOwnProperty.call(state.sql, key)){
+        editor.value = state.sql[key];
+        if(typeof refreshPostgresEditor === 'function') refreshPostgresEditor(editor);
+      }
+      editor.addEventListener('input', () => {
+        state.sql[key] = editor.value;
+        saveState();
+      });
+    });
+  }
+
+  function persistTheme(){
+    if(state.darkMode === true && !document.body.classList.contains('dark')){
+      document.body.classList.add('dark');
+      const btn = document.getElementById('themeBtn');
+      if(btn) btn.textContent = 'Light mode';
+    }
+    const btn = document.getElementById('themeBtn');
+    if(btn){
+      btn.addEventListener('click', () => {
+        setTimeout(() => {
+          state.darkMode = document.body.classList.contains('dark');
+          saveState();
+        }, 0);
+      });
+    }
+  }
+
+  function installNavigationSaving(){
+    ['prevBtn','nextBtn'].forEach(id => {
+      document.getElementById(id)?.addEventListener('click', () => setTimeout(saveActiveSlide, 0));
+    });
+    document.getElementById('slideSelect')?.addEventListener('change', () => setTimeout(saveActiveSlide, 0));
+    document.addEventListener('keydown', e => {
+      if(['ArrowRight','ArrowLeft','PageDown','PageUp','Home','End'].includes(e.key)){
+        setTimeout(saveActiveSlide, 0);
+      }
+    });
+    document.querySelectorAll('[onclick^="goToSlide"]').forEach(btn => {
+      btn.addEventListener('click', () => setTimeout(saveActiveSlide, 0));
+    });
+  }
+
+  function installProgressModal(){
+    const modal = document.getElementById('progressModal');
+    const openBtn = document.getElementById('learningProgressBtn');
+    const closeBtn = document.getElementById('progressCloseBtn');
+    const continueBtn = document.getElementById('continueBtn');
+    const resetBtn = document.getElementById('resetLearningBtn');
+
+    function open(){
+      updateProgressUI();
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden','false');
+    }
+    function close(){
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    openBtn?.addEventListener('click', open);
+    closeBtn?.addEventListener('click', close);
+    modal?.addEventListener('click', e => { if(e.target === modal) close(); });
+
+    continueBtn?.addEventListener('click', () => {
+      close();
+      restoreLastSlide();
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      const ok = confirm('Reset all saved Module 3 progress and saved exercise answers on this browser?');
+      if(!ok) return;
+      localStorage.removeItem(STORAGE_KEY);
+      state = {completed:{},answers:{},sql:{},lastSlide:0,darkMode:false};
+      location.reload();
+    });
+  }
+
+  addCheckpoints();
+  persistEditors();
+  persistTheme();
+  installNavigationSaving();
+  installProgressModal();
+  updateProgressUI();
+
+  // Restore the most recently viewed slide after the page has initialized.
+  setTimeout(restoreLastSlide, 50);
+})();
+</script>
+
+
+<script>
+(() => {
+  const CODE_KEY = 'ian603_module3_coding_v1';
+  const codeExercises = [
+    {
+      id:'code_select',
+      after:'Run SELECT',
+      title:'Coding Exercise 1 · SELECT',
+      task:'Write a query that returns mrn, full_name, and age from patients, sorted by age from oldest to youngest.',
+      starter:`SELECT
+    -- add the three columns here
+FROM patients
+-- add the sorting clause here;`,
+      hint:'Use SELECT mrn, full_name, age ... ORDER BY age DESC.',
+      validate: async (db, sql) => {
+        const r = await db.exec(sql);
+        const q = [...r].reverse().find(x => Array.isArray(x?.rows));
+        const rows = q?.rows || [];
+        return rows.length >= 6 &&
+          Object.keys(rows[0] || {}).includes('mrn') &&
+          Object.keys(rows[0] || {}).includes('full_name') &&
+          Object.keys(rows[0] || {}).includes('age') &&
+          Number(rows[0].age) === 72;
+      }
+    },
+    {
+      id:'code_where',
+      after:'Change a filter',
+      title:'Coding Exercise 2 · WHERE',
+      task:'Return active patients who are age 50 or older. Show mrn, full_name, and age. Sort age descending.',
+      starter:`SELECT mrn, full_name, age
+FROM patients
+WHERE
+ORDER BY age DESC;`,
+      hint:'Your WHERE condition needs is_active = TRUE and age >= 50.',
+      validate: async (db, sql) => {
+        const r = await db.exec(sql);
+        const q = [...r].reverse().find(x => Array.isArray(x?.rows));
+        const rows = q?.rows || [];
+        const names = rows.map(x => x.mrn);
+        return rows.length === 3 &&
+          names.includes('MRN1002') &&
+          names.includes('MRN1004') &&
+          names.includes('MRN1005') &&
+          rows.every(x => Number(x.age) >= 50);
+      }
+    },
+    {
+      id:'code_insert',
+      after:'Complete INSERT',
+      title:'Coding Exercise 3 · INSERT',
+      task:'Insert one new patient with MRN1012, name Maya Brooks, age 31, gender Female. Use RETURNING to show the inserted row.',
+      starter:`INSERT INTO patients (mrn, full_name, age, gender)
+VALUES
+RETURNING mrn, full_name, age, gender;`,
+      hint:"VALUES ('MRN1012', 'Maya Brooks', 31, 'Female')",
+      validate: async (db, sql) => {
+        const r = await db.exec(sql);
+        const q = [...r].reverse().find(x => Array.isArray(x?.rows));
+        const rows = q?.rows || [];
+        const row = rows[0];
+        return rows.length === 1 &&
+          row.mrn === 'MRN1012' &&
+          row.full_name === 'Maya Brooks' &&
+          Number(row.age) === 31 &&
+          row.gender === 'Female';
+      }
+    },
+    {
+      id:'code_update',
+      after:'UPDATE',
+      title:'Coding Exercise 4 · UPDATE',
+      task:'Update MRN1006 to age 28. Use RETURNING to show mrn, full_name, and age.',
+      starter:`UPDATE patients
+SET
+WHERE
+RETURNING mrn, full_name, age;`,
+      hint:"SET age = 28 WHERE mrn = 'MRN1006'",
+      validate: async (db, sql) => {
+        const r = await db.exec(sql);
+        const q = [...r].reverse().find(x => Array.isArray(x?.rows));
+        const rows = q?.rows || [];
+        const row = rows[0];
+        return rows.length === 1 &&
+          row.mrn === 'MRN1006' &&
+          Number(row.age) === 28;
+      }
+    },
+    {
+      id:'code_transaction',
+      after:'Write transaction',
+      title:'Coding Exercise 5 · Transaction',
+      task:'Start a transaction, change MRN1005 to age 60, use RETURNING, roll back, then SELECT MRN1005 again. The final age should return to 58.',
+      starter:`BEGIN;
+
+-- UPDATE MRN1005 here
+
+-- ROLLBACK here
+
+SELECT mrn, full_name, age
+FROM patients
+WHERE mrn = 'MRN1005';`,
+      hint:'Use UPDATE ... SET age = 60 ... RETURNING ...; then ROLLBACK;',
+      validate: async (db, sql) => {
+        const r = await db.exec(sql);
+        const qs = r.filter(x => Array.isArray(x?.rows) && x.rows.length);
+        const last = qs[qs.length - 1]?.rows?.[0];
+        return last?.mrn === 'MRN1005' && Number(last?.age) === 58;
+      }
+    },
+    {
+      id:'code_jsonb',
+      after:'Complete JSONB',
+      title:'Coding Exercise 6 · JSONB',
+      task:'Return patient_id, symptom, and severity for notes where follow_up is TRUE. Sort by patient_id.',
+      starter:`SELECT patient_id,
+       note->>'symptom' AS symptom,
+       note->>'severity' AS severity
+FROM clinical_notes
+WHERE
+ORDER BY patient_id;`,
+      hint:"Use (note->>'follow_up')::boolean = TRUE",
+      validate: async (db, sql) => {
+        const r = await db.exec(sql);
+        const q = [...r].reverse().find(x => Array.isArray(x?.rows));
+        const rows = q?.rows || [];
+        return rows.length === 3 &&
+          rows.map(x => Number(x.patient_id)).join(',') === '1,2,3';
+      }
+    }
+  ];
+
+  let state;
+  try { state = JSON.parse(localStorage.getItem(CODE_KEY)) || {}; }
+  catch(e) { state = {}; }
+  state.completed = state.completed || {};
+  state.code = state.code || {};
+
+  function save(){
+    localStorage.setItem(CODE_KEY, JSON.stringify(state));
+    updateCodingSummary();
+  }
+
+  function escapeText(s){
+    return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+  }
+
+  function setCompleted(box, ex, done, message){
+    state.completed[ex.id] = done;
+    box.classList.toggle('completed', done);
+    box.querySelector('.coding-state').textContent = done ? '✓ Completed' : 'Not completed';
+    const fb = box.querySelector('.coding-feedback');
+    fb.textContent = message || '';
+    fb.className = 'coding-feedback ' + (done ? 'ok' : 'bad');
+    save();
+  }
+
+  function installExercise(ex){
+    const slide = [...document.querySelectorAll('.slide')].find(s => s.dataset.title === ex.after);
+    if(!slide) return;
+
+    const box = document.createElement('div');
+    box.className = 'coding-exercise';
+    box.dataset.codingId = ex.id;
+
+    const saved = Object.prototype.hasOwnProperty.call(state.code, ex.id) ? state.code[ex.id] : ex.starter;
+
+    box.innerHTML = `
+      <div class="exercise-top">
+        <h3>${ex.title}</h3>
+        <span class="coding-state">Not completed</span>
+      </div>
+      <div class="coding-task"><strong>Your task:</strong> ${ex.task}</div>
+
+      <div class="code-cell">
+        <div class="code-head">
+          <div class="code-title">
+            <b>Practice editor</b>
+            <small>Your code is saved automatically in this browser</small>
+          </div>
+          <div class="cell-actions">
+            <button class="cell-btn run coding-check" type="button">▶ Run & Check</button>
+            <button class="cell-btn coding-reset" type="button">Reset</button>
+            <button class="cell-btn coding-copy" type="button">Copy</button>
+          </div>
+        </div>
+        <textarea class="sql-editor">${escapeText(saved)}</textarea>
+        <div class="output">Write your SQL, then select Run & Check.</div>
+      </div>
+
+      <details>
+        <summary>Need a hint?</summary>
+        <p class="coding-hint">${ex.hint}</p>
+      </details>
+
+      <div class="checkpoint-actions">
+        <span class="coding-feedback" aria-live="polite"></span>
+      </div>
+    `;
+
+    const slideNum = slide.querySelector('.slide-num');
+    if(slideNum) slide.insertBefore(box, slideNum);
+    else slide.appendChild(box);
+
+    const editor = box.querySelector('.sql-editor');
+    const output = box.querySelector('.output');
+
+    if(typeof installPostgresEditor === 'function'){
+      installPostgresEditor(editor);
+    }
+
+    if(state.completed[ex.id]){
+      box.classList.add('completed');
+      box.querySelector('.coding-state').textContent = '✓ Completed';
+      const fb = box.querySelector('.coding-feedback');
+      fb.textContent = 'Completed earlier — your code and progress were restored.';
+      fb.className = 'coding-feedback ok';
+    }
+
+    editor.addEventListener('input', () => {
+      state.code[ex.id] = editor.value;
+      save();
+    });
+
+    box.querySelector('.coding-copy').addEventListener('click', async e => {
+      await navigator.clipboard.writeText(editor.value);
+      const old = e.currentTarget.textContent;
+      e.currentTarget.textContent = 'Copied';
+      setTimeout(() => e.currentTarget.textContent = old, 900);
+    });
+
+    box.querySelector('.coding-reset').addEventListener('click', () => {
+      editor.value = ex.starter;
+      state.code[ex.id] = ex.starter;
+      state.completed[ex.id] = false;
+      if(typeof refreshPostgresEditor === 'function') refreshPostgresEditor(editor);
+      output.className = 'output';
+      output.textContent = 'Write your SQL, then select Run & Check.';
+      box.classList.remove('completed');
+      box.querySelector('.coding-state').textContent = 'Not completed';
+      box.querySelector('.coding-feedback').textContent = '';
+      save();
+    });
+
+    box.querySelector('.coding-check').addEventListener('click', async e => {
+      const btn = e.currentTarget;
+      btn.disabled = true;
+      output.className = 'output show';
+      output.textContent = 'Running your SQL…';
+
+      try{
+        const db = await prepareSample();
+        const result = await db.exec(editor.value);
+        output.className = 'output show success';
+        output.innerHTML = renderResult(result);
+
+        const passed = await ex.validate(await prepareSample(), editor.value);
+
+        if(passed){
+          setCompleted(box, ex, true, 'Correct. Coding exercise completed.');
+        } else {
+          setCompleted(box, ex, false, 'The SQL ran, but the result does not match the task yet. Review the task and try again.');
+        }
+      }catch(err){
+        output.className = 'output show error';
+        output.textContent = 'PostgreSQL error:\n' + (err?.message || String(err));
+        setCompleted(box, ex, false, 'Your SQL has an error or is incomplete. Fix it and run again.');
+      }finally{
+        btn.disabled = false;
+      }
+    });
+  }
+
+  function updateCodingSummary(){
+    const done = codeExercises.filter(ex => state.completed[ex.id]).length;
+    const total = codeExercises.length;
+
+    let summary = document.getElementById('codingSummary');
+    const progressList = document.getElementById('progressList');
+
+    if(progressList && !summary){
+      summary = document.createElement('div');
+      summary.id = 'codingSummary';
+      summary.className = 'coding-summary';
+      progressList.parentNode.insertBefore(summary, progressList.nextSibling);
+    }
+
+    if(summary){
+      summary.innerHTML = `
+        <h3>Coding exercises · ${done} / ${total} completed</h3>
+        ${codeExercises.map(ex => `
+          <div class="coding-progress-row ${state.completed[ex.id] ? 'done' : ''}">
+            <span>${ex.title}</span>
+            <strong>${state.completed[ex.id] ? '✓ Completed' : 'Not completed'}</strong>
+          </div>
+        `).join('')}
+      `;
+    }
+
+    const btn = document.getElementById('learningProgressBtn');
+    if(btn){
+      const codingBadge = document.getElementById('codingProgressBadge') || document.createElement('span');
+      codingBadge.id = 'codingProgressBadge';
+      codingBadge.style.marginLeft = '5px';
+      codingBadge.style.fontSize = '11px';
+      codingBadge.style.opacity = '.78';
+      codingBadge.textContent = `SQL ${done}/${total}`;
+      if(!codingBadge.parentNode) btn.appendChild(codingBadge);
+    }
+  }
+
+  // exercises moved to dedicated slides
+  updateCodingSummary();
+
+  const resetBtn = document.getElementById('resetLearningBtn');
+  if(resetBtn){
+    resetBtn.addEventListener('click', () => {
+      localStorage.removeItem(CODE_KEY);
+    });
+  }
+})();
+</script>
+
+
+<script>
+(() => {
+  const CODE_KEY='ian603_module3_coding_v1';
+  const LEARN_KEY='ian603_module3_learning_v1';
+
+  const validators = {
+    code_select: async(db,sql)=>{
+      const r=await db.exec(sql); const q=[...r].reverse().find(x=>Array.isArray(x?.rows)); const rows=q?.rows||[];
+      return rows.length>=6 && ['mrn','full_name','age'].every(k=>Object.keys(rows[0]||{}).includes(k)) && Number(rows[0].age)===72;
+    },
+    code_where: async(db,sql)=>{
+      const r=await db.exec(sql); const q=[...r].reverse().find(x=>Array.isArray(x?.rows)); const rows=q?.rows||[];
+      const ids=rows.map(x=>x.mrn); return rows.length===3 && ['MRN1002','MRN1004','MRN1005'].every(x=>ids.includes(x)) && rows.every(x=>Number(x.age)>=50);
+    },
+    code_insert: async(db,sql)=>{
+      const r=await db.exec(sql); const q=[...r].reverse().find(x=>Array.isArray(x?.rows)); const row=q?.rows?.[0];
+      return !!row && row.mrn==='MRN1012' && row.full_name==='Maya Brooks' && Number(row.age)===31 && row.gender==='Female';
+    },
+    code_update: async(db,sql)=>{
+      const r=await db.exec(sql); const q=[...r].reverse().find(x=>Array.isArray(x?.rows)); const row=q?.rows?.[0];
+      return !!row && row.mrn==='MRN1006' && Number(row.age)===28;
+    },
+    code_transaction: async(db,sql)=>{
+      const r=await db.exec(sql); const qs=r.filter(x=>Array.isArray(x?.rows)&&x.rows.length); const row=qs[qs.length-1]?.rows?.[0];
+      return row?.mrn==='MRN1005' && Number(row?.age)===58;
+    },
+    code_jsonb: async(db,sql)=>{
+      const r=await db.exec(sql); const q=[...r].reverse().find(x=>Array.isArray(x?.rows)); const rows=q?.rows||[];
+      return rows.length===3 && rows.map(x=>Number(x.patient_id)).join(',')==='1,2,3';
+    }
+  };
+
+  const starters={
+    code_select:`SELECT
+    -- add the three columns here
+FROM patients
+-- add the sorting clause here;`,
+    code_where:`SELECT mrn, full_name, age
+FROM patients
+WHERE
+ORDER BY age DESC;`,
+    code_insert:`INSERT INTO patients (mrn, full_name, age, gender)
+VALUES
+RETURNING mrn, full_name, age, gender;`,
+    code_update:`UPDATE patients
+SET
+WHERE
+RETURNING mrn, full_name, age;`,
+    code_transaction:`BEGIN;
+
+-- UPDATE MRN1005 here
+
+-- ROLLBACK here
+
+SELECT mrn, full_name, age
+FROM patients
+WHERE mrn = 'MRN1005';`,
+    code_jsonb:`SELECT patient_id,
+       note->>'symptom' AS symptom,
+       note->>'severity' AS severity
+FROM clinical_notes
+WHERE
+ORDER BY patient_id;`
+  };
+
+  function load(key){try{return JSON.parse(localStorage.getItem(key))||{};}catch(e){return {};}}
+  let cstate=load(CODE_KEY); cstate.completed=cstate.completed||{}; cstate.code=cstate.code||{};
+  function save(){localStorage.setItem(CODE_KEY,JSON.stringify(cstate));updateFinal();}
+
+  document.querySelectorAll('.assignment-code').forEach(box=>{
+    const id=box.dataset.assignmentCode;
+    const editor=box.querySelector('.sql-editor');
+    const output=box.querySelector('.output');
+    const status=box.closest('.slide').querySelector('.assignment-code-status');
+
+    if(Object.prototype.hasOwnProperty.call(cstate.code,id)) editor.value=cstate.code[id];
+    if(typeof installPostgresEditor==='function') installPostgresEditor(editor);
+
+    function paint(){
+      const done=!!cstate.completed[id];
+      status.className='completion-status '+(done?'success':'warn')+' assignment-code-status';
+      status.textContent=done?'✓ Completed':'Not completed yet.';
+    }
+    paint();
+
+    editor.addEventListener('input',()=>{cstate.code[id]=editor.value;save();});
+
+    box.querySelector('.assignment-copy').addEventListener('click',async e=>{
+      await navigator.clipboard.writeText(editor.value);
+      const old=e.currentTarget.textContent;e.currentTarget.textContent='Copied';
+      setTimeout(()=>e.currentTarget.textContent=old,900);
+    });
+
+    box.querySelector('.assignment-reset').addEventListener('click',()=>{
+      editor.value=starters[id];cstate.code[id]=starters[id];cstate.completed[id]=false;
+      if(typeof refreshPostgresEditor==='function')refreshPostgresEditor(editor);
+      output.className='output';output.textContent='Write your SQL, then select Run & Check.';paint();save();
+    });
+
+    box.querySelector('.assignment-run').addEventListener('click',async e=>{
+      e.currentTarget.disabled=true;output.className='output show';output.textContent='Running your SQL…';
+      try{
+        let db=await prepareSample();
+        const result=await db.exec(editor.value);
+        output.className='output show success';output.innerHTML=renderResult(result);
+        db=await prepareSample();
+        const ok=await validators[id](db,editor.value);
+        cstate.completed[id]=!!ok;
+        if(!ok){output.insertAdjacentHTML('beforeend','<div class="small" style="margin-top:8px">The SQL ran, but the result does not match the task yet.</div>');}
+      }catch(err){
+        cstate.completed[id]=false;output.className='output show error';output.textContent='PostgreSQL error:\n'+(err?.message||String(err));
+      }finally{paint();save();e.currentTarget.disabled=false;}
+    });
+  });
+
+  function updateFinal(){
+    const lstate=load(LEARN_KEY); const completed=lstate.completed||{};
+    const knowledgeTotal=10, knowledgeDone=Object.values(completed).filter(Boolean).length;
+    const codeIds=Object.keys(validators), codingDone=codeIds.filter(id=>cstate.completed[id]).length;
+    const total=knowledgeTotal+codeIds.length, done=knowledgeDone+codingDone, pct=Math.round(done/total*100);
+    document.getElementById('finalChecks') && (document.getElementById('finalChecks').textContent=`${knowledgeDone}/${knowledgeTotal}`);
+    document.getElementById('finalCoding') && (document.getElementById('finalCoding').textContent=`${codingDone}/${codeIds.length}`);
+    document.getElementById('finalPercent') && (document.getElementById('finalPercent').textContent=`${pct}%`);
+    return {knowledgeDone,knowledgeTotal,codingDone,codingTotal:codeIds.length,done,total,pct};
+  }
+
+  document.getElementById('completeModuleBtn')?.addEventListener('click',()=>{
+    const x=updateFinal(), status=document.getElementById('moduleCompletionStatus'), box=document.getElementById('canvasReportBox'), text=document.getElementById('canvasReportText');
+    const allDone=x.done===x.total;
+    status.className='completion-status '+(allDone?'success':'warn');
+    status.textContent=allDone
+      ? '✓ Module 3 complete. Your Assignment 3 submission summary is ready.'
+      : `Module not complete yet. You finished ${x.done} of ${x.total} required activities.`;
+    box.style.display='block';
+    const now=new Date();
+    text.value =
+`IAN 603 - Assignment 3
+Module 3: PostgreSQL in Action
+
+Knowledge checks completed: ${x.knowledgeDone}/${x.knowledgeTotal}
+Coding exercises completed: ${x.codingDone}/${x.codingTotal}
+Overall completion: ${x.pct}%
+Module status: ${allDone?'COMPLETE':'INCOMPLETE'}
+
+Completed coding topics:
+- SELECT and ORDER BY: ${cstate.completed.code_select?'Completed':'Not completed'}
+- WHERE filtering: ${cstate.completed.code_where?'Completed':'Not completed'}
+- INSERT and RETURNING: ${cstate.completed.code_insert?'Completed':'Not completed'}
+- UPDATE with a stable key: ${cstate.completed.code_update?'Completed':'Not completed'}
+- Transactions and ROLLBACK: ${cstate.completed.code_transaction?'Completed':'Not completed'}
+- JSONB filtering: ${cstate.completed.code_jsonb?'Completed':'Not completed'}
+
+Generated: ${now.toLocaleString()}`;
+  });
+
+  document.getElementById('copyCanvasReportBtn')?.addEventListener('click',async e=>{
+    const text=document.getElementById('canvasReportText').value;
+    await navigator.clipboard.writeText(text);
+    const old=e.currentTarget.textContent;e.currentTarget.textContent='Copied for Canvas';
+    setTimeout(()=>e.currentTarget.textContent=old,1200);
+  });
+
+  updateFinal();
+})();
+</script>
+
 </body>
 </html>
